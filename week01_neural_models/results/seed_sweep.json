@@ -1,0 +1,43 @@
+{
+  "sigmoid": {
+    "seeds_tested": [
+      42,
+      123,
+      456,
+      789,
+      999
+    ],
+    "num_seeds_reaching_4_correct": 2,
+    "seeds_reaching_4_correct": [
+      42,
+      456
+    ]
+  },
+  "tanh": {
+    "seeds_tested": [
+      42,
+      123,
+      456,
+      789,
+      999
+    ],
+    "num_seeds_reaching_4_correct": 2,
+    "seeds_reaching_4_correct": [
+      42,
+      456
+    ]
+  },
+  "relu": {
+    "seeds_tested": [
+      42,
+      123,
+      456,
+      789,
+      999
+    ],
+    "num_seeds_reaching_4_correct": 1,
+    "seeds_reaching_4_correct": [
+      456
+    ]
+  }
+}

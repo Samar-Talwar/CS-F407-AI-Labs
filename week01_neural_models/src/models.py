@@ -20,6 +20,17 @@ class XORBinaryNet(nn.Module):
         return self.output(self.activation(self.hidden(x)))
 
 
+class XORLinearNet(nn.Module):
+    """Single affine layer + sigmoid output (linear baseline for Task 1)."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.linear = nn.Linear(2, 1)
+
+    def forward(self, x: Tensor) -> Tensor:
+        return self.linear(x)
+
+
 class XORMulticlassNet(nn.Module):
     """2-2-3 network for 3-class sensor task."""
 

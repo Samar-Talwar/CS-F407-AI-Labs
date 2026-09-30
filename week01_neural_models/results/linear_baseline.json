@@ -1,0 +1,17 @@
+{
+  "initial_loss": 0.7317379713058472,
+  "final_loss": 0.6931471824645996,
+  "probabilities": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+  ],
+  "predictions": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "num_correct": 2
+}

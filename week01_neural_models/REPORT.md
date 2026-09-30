@@ -21,26 +21,43 @@ x2
   +----------------→ x1
     0            1
 ```
-The two classes are interleaved; no single line y = w₁x₁ + w₂x₂ + b can put (0,1) and (1,0) on one side while (0,0) and (1,1) are on the other. This is the linear inseparability of XOR.
+The two classes are interleaved diagonally; no single linear decision boundary $w_1 x_1 + w_2 x_2 + b = 0$ can separate class 1 points {(0,1), (1,0)} from class 0 points {(0,0), (1,1)}. This is the classic linear inseparability of the XOR function.
 
-**Prediction for affine + sigmoid**  
-A single affine map followed by sigmoid can only produce decision boundaries that are straight lines in input space. Therefore the network will converge to random guessing (loss ≈ ln 2 ≈ 0.693) and predict ~0.5 for all four inputs.
+**Linear baseline results (`results/linear_baseline.json`)**  
+A single affine map followed by sigmoid output was trained with SGD (lr=1.0, 5000 steps, seed 42):
+- Initial BCE loss: 0.731738
+- Final BCE loss: 0.693147 ($\approx \ln 2$, matching random guessing)
+- Output probabilities: [0.5000, 0.5000, 0.5000, 0.5000]
+- Thresholded predictions: [0, 0, 0, 0]
+- Accuracy: 2/4 correct (fails to solve XOR)
+
+**Think About It 1**  
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* XOR tests the representational limit of single-layer perceptrons without hidden representation transformations. A linear layer cannot warp the geometric space to linearly separate diagonal clusters; learning a non-linear mapping is mandatory.
+
+---
 
 ## 2. Model design and validation criteria (Task 2)
 
 **Model specification**  
 - Architecture: 2 inputs → 2 hidden units → 1 output  
-- Hidden activation: sigmoid (baseline; later tanh, ReLU)  
+- Hidden activation: sigmoid (baseline; comparisons with tanh, ReLU)  
 - Output: single logit with sigmoid implicit in BCEWithLogitsLoss  
-- Loss: binary cross‑entropy (via `torch.nn.BCEWithLogitsLoss`)  
+- Loss: binary cross‑entropy (`torch.nn.BCEWithLogitsLoss`)  
 - Optimiser: stochastic gradient descent (learning rate 1.0)  
-- Initialisation: random (PyTorch default) with manual seed for reproducibility  
-- Training: full‑batch, 5000 steps  
+- Initialisation: random (PyTorch default) with explicit manual seeds for reproducibility  
+- Training: full‑batch gradient descent, 5000 steps  
 
 **Validation criteria for successful learning**  
-1. Final binary cross‑entropy loss < 0.1 (close to 0)  
-2. All four thresholded predictions match targets [0,1,1,0]  
-3. At least one gradient component (e.g. ∂L/∂W₁₁₁) is significantly non‑zero after backward()  
+1. Final binary cross‑entropy loss < 0.1 (converging towards 0)  
+2. All four thresholded predictions match targets [0, 1, 1, 0] (4/4 correct)  
+3. First-layer weight gradient norm $\| \nabla_{W^{(1)}} L \| > 0$ at step 0 and step 10  
+
+**Think About It 2**  
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* The network does not have hand-crafted features; gradient descent automatically configures the two hidden units to act as intermediate geometric features (such as OR and NAND hyperplanes) to map inputs into a linearly separable space for the output unit.
+
+---
 
 ## 3. Exact LLM prompt(s) and corrections
 
@@ -48,81 +65,125 @@ A single affine map followed by sigmoid can only produce decision boundaries tha
 > "Generate minimal PyTorch code for a 2-2-1 neural network trained on the four XOR examples (0,0→0, 0,1→1, 1,0→1, 1,1→0) with sigmoid hidden units, sigmoid output via BCEWithLogitsLoss, random weight initialisation, full-batch training for 5000 steps. After training, report: final loss, the four probabilities (after sigmoid), thresholded predictions, and the gradient tensor of the first-layer weight matrix. Set random seed 42 for reproducibility. Explain each test in one sentence."
 
 **Corrections made to generated code**  
-None. The first generated snippet already satisfied all constraints; I only wrapped it into a reusable `train_binary_xor()` function and added the CLI/test harness.
+The raw generated code was refactored into modular components (`models.py`, `train.py`, `cli.py`, `test_week01.py`). For ReLU, hyperparameter adjustment (seed=5, lr=0.5, steps=20000) was introduced to prevent dying ReLU units on this small discrete dataset.
+
+**Think About It 3**  
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* Structural properties like layer dimensions, activation types, and syntax can be verified statically; convergence, gradient dynamics, dead units, and empirical loss require dynamic runtime execution.
+
+---
 
 ## 4. Final code used for binary XOR and three-class extension
 
-See `src/models.py` (network definitions), `src/train.py` (training loops), and `src/cli.py` (entry point that regenerates every result).
+- Network architectures: `week01_neural_models/src/models.py` (`XORBinaryNet`, `XORLinearNet`, `XORMulticlassNet`)  
+- Training & diagnostic routines: `week01_neural_models/src/train.py` (`train_binary_xor`, `train_linear_baseline`, `train_symmetry_experiment`, `train_multiclass`, `seed_sweep`)  
+- CLI reproduction entry point: `week01_neural_models/src/cli.py`  
+- Pytest test suite: `week01_neural_models/tests/test_week01.py`  
 
-## 5. Requested loss, prediction, gradient, symmetry, and activation results
+---
 
-All numbers below come from the JSON files in `results/`, produced by `python -m week01_neural_models.src.cli`.
+## 5. Empirical results from results/*.json
 
-**5A – Binary XOR (sigmoid hidden)**  
+All figures below are extracted directly from machine-generated JSON files in `results/`.
+
+### 5A – Binary XOR (Sigmoid hidden, `results/binary_xor.json`)
 - Initial loss: 0.748230  
 - Final loss: 0.002630  
-- Four probabilities: [0.0033, 0.9976, 0.9976, 0.0024]  
-- Thresholded predictions: [0, 1, 1, 0] ✓  
-- ‖∇W(1)‖ at step 10: 0.004387  
-- First-layer weight gradient matrix (example):  
-  [[ 0.003267,  0.002862],  
-   [-0.000588,  0.000191]]  
+- Four probabilities: [0.003326, 0.997637, 0.997637, 0.002450]  
+- Thresholded predictions: [0, 1, 1, 0] (4/4 correct)  
+- First-layer weight gradient norm $\| \nabla_{W^{(1)}} L \|$:  
+  - At step 0: 0.011894  
+  - At step 10: 0.004387  
+- Mean-loss gradient vs average of per-example gradients max difference: 0.00e+00 ($< 10^{-6}$)
 
-**5B – Symmetry experiment (zero initial weights)**  
-- Hidden weight rows remained identical throughout training (see `results/symmetry.json`)  
-- Final loss: 0.693147 (≈ ln 2, random guessing)  
+### 5B – Symmetry experiment (`results/symmetry.json`)
+- Zero initialisation of all weights and biases.  
+- Recorded hidden weight row equality at steps `[0, 1, 5, 10, 100]`: `[True, True, True, True, True]` (both rows remained identical throughout training).  
+- Final loss: 0.693147 ($\approx \ln 2$, failing to break symmetry or solve XOR).  
 
-**5C – Activation comparison**  
+### 5C – Activation comparison & Seed Sweep (`results/activation_comparison.json`, `results/seed_sweep.json`)
 
-| Hidden activation | Final loss | 4/4 correct? | Early ‖∇W(1)‖ | Notes |
-|-------------------|------------|--------------|----------------|-------|
-| Sigmoid           | 0.002630   | Yes          | 0.004387       | Baseline |
-| Tanh              | 0.000637   | Yes          | 0.016810       | Faster, larger gradients |
-| ReLU              | 0.000145   | Yes          | 0.029017       | Required seed=5, lr=0.5, steps=20000 to avoid dead‑unit problem |
+| Hidden activation | Seed | LR | Steps | Final loss | 4/4 correct? | Early $\| \nabla_{W^{(1)}} L \|$ (@ step 10) |
+|---|---|---|---|---|---|---|
+| Sigmoid | 42 | 1.0 | 5000 | 0.002630 | Yes | 0.004387 |
+| Tanh | 42 | 1.0 | 5000 | 0.000637 | Yes | 0.016810 |
+| ReLU | 5 | 0.5 | 20000 | 0.000145 | Yes | 0.029017 |
 
-**5D – Three-class extension**  
-- Final loss: 0.001505  
+**5-Seed Sweep Results (seeds: 42, 123, 456, 789, 999):**
+- Sigmoid: 2/5 seeds reached 4/4 (seeds: 42, 456)
+- Tanh: 2/5 seeds reached 4/4 (seeds: 42, 456)
+- ReLU: 1/5 seeds reached 4/4 (seeds: 456)
+
+**Think About It 4**  
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* In sigmoid saturation, pre-activations are large in magnitude ($|z| \gg 0$) yielding small but non-zero gradients $\sigma'(z) \approx 0$; in dead ReLU, pre-activations remain strictly negative ($z < 0$), resulting in exact zero gradient and complete stagnation.
+
+### 5D – Three-class extension (`results/multiclass.json`)
+- Architecture: 2 inputs → 2 hidden units → 3 output logits  
+- Output weight matrix shape: `[3, 2]`  
+- Logits per example: 3  
+- Hidden dimension: 2  
+- Final Cross-Entropy Loss: 0.001505  
 - Predicted class probabilities:  
-  (0,0) → [0.9984, 0.0016, 5.3e-10]  
-  (0,1) → [0.0006, 0.9987, 0.0007]  
-  (1,0) → [0.0006, 0.9987, 0.0007]  
-  (1,1) → [3.1e-8, 0.0018, 0.9982]  
-- Predicted class labels: [0, 1, 1, 2] ✓  
-- Softmax probability sums: [1.000000, 1.000000, 0.999999, 1.000000] (each ≈ 1)  
-- Shift-invariance verified: adding 100 to all logits leaves probabilities unchanged (within 1e-5).
+  - (0,0) → [0.998432, 0.001568, 5.28e-10] (Pred: 0, Target: 0)  
+  - (0,1) → [0.000584, 0.998669, 0.000747] (Pred: 1, Target: 1)  
+  - (1,0) → [0.000585, 0.998668, 0.000747] (Pred: 1, Target: 1)  
+  - (1,1) → [3.13e-08, 0.001783, 0.998217] (Pred: 2, Target: 2)  
+- Predictions: [0, 1, 1, 2] (4/4 correct)  
+- Softmax probability sums: [1.000000, 1.000000, 1.000000, 1.000000] (each $\approx 1.0$)  
+- Shift-invariance constant: 100.0  
+- Max absolute difference between unshifted and shifted probabilities: 5.24e-09 ($< 10^{-5}$)  
+- Naive softmax overflow: Naive softmax without max subtraction overflows on large logits (`logits + 100`), whereas stable max-subtracted softmax preserves numerical fidelity.
+
+**Think About It 5**  
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* The mathematical formulation $\text{softmax}(z)_i = \frac{e^{z_i - \max(z)}}{\sum_j e^{z_j - \max(z)}}$ and logit gradient $\nabla_{z} L = p - y$ remain identical regardless of vocabulary size; the difference is computational overhead in computing the normalizing denominator over large vocabulary dimensions.
+
+---
 
 ## 6. Reflection question answers
 
 **1. What did the XOR experiment demonstrate about the difference between depth and non‑linearity?**  
-Depth without non‑linearity (affine → affine → … → affine) collapses to a single affine map, which cannot represent XOR. Adding a non‑linear hidden activation breaks linearity and allows the network to learn the XOR function with only one hidden layer. Thus, non‑linearity—not depth—is the key ingredient.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* Depth without non-linearity collapses into a single affine transformation $W_2(W_1 x + b_1) + b_2 = W_{eff} x + b_{eff}$, which is provably incapable of separating non-linearly separable functions like XOR. Adding a non-linear activation in the hidden layer creates a warped feature representation, enabling linear separation at the output stage.
 
 **2. In your successful run, what evidence showed that backpropagation supplied a useful learning signal rather than merely a non‑zero gradient?**  
-The loss decreased monotonically from 0.748 to 0.0026, and the network achieved perfect classification ([0,1,1,0]). A useless gradient would leave loss near ln 2 and predictions near 0.5. The observed gradient direction consistently reduced loss, proving it pointed toward useful parameter updates.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* The loss monotonically decreased from 0.7482 to 0.0026, and the predictions moved from ambiguous intermediate values to definitive target classifications [0, 1, 1, 0]. A useless non-zero gradient (such as noise) would cause random walk without systematic loss minimization.
 
 **3. Why did identical/zero weight initialisation prevent the two hidden units from learning distinct features?**  
-With identical weights and biases, both hidden units compute exactly the same activation for any input. During backprop, they receive identical gradients (∂L/∂W₁₍ᵢ₎ identical for i=1,2), so their weights remain locked together. Symmetry breaking requires asymmetric initialisation so that hidden units specialise on different features.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* With zero initialization, all hidden units compute identical pre-activations and activations for any given input. By the chain rule, incoming gradients from the output layer are identical for both units. Since $\Delta W_0 = \Delta W_1$, the weights remain identical at every step (verified in `symmetry.json`), preventing the units from specializing into distinct detectors.
 
 **4. How did changing the hidden activation affect the gradient you observed? Distinguish the scientific explanation from the engineering observation.**  
-*Scientific*: Sigmoid and tanh have non‑zero derivatives in their operating regimes, propagating meaningful error signals. ReLU’s derivative is either 0 (dead unit) or 1 (active), which can yield larger gradients when active but risks vanishing if pre‑activations go negative.  
-*Engineering*: For the same seed/lr/steps, ‖∇W(1)‖ was smallest with sigmoid (~0.004), larger with tanh (~0.017), and largest with ReLU (~0.029) *once we tuned hyperparameters to avoid dead units*. The larger ReLU gradient reflects its unit slope in the active regime.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):*  
+> - *Scientific:* Sigmoid compresses gradients through its derivative $\sigma'(z) = \sigma(z)(1-\sigma(z)) \le 0.25$, leading to smaller early gradient norms. Tanh has a maximum derivative of 1.0 at zero. ReLU has derivative 1 for $z>0$ and 0 for $z<0$.  
+> - *Engineering:* Early gradient norms followed $\| \nabla_{W^{(1)}} L \|_{\text{sigmoid}} (0.0044) < \| \nabla_{W^{(1)}} L \|_{\text{tanh}} (0.0168) < \| \nabla_{W^{(1)}} L \|_{\text{relu}} (0.0290)$. ReLU required tuning initial seeds and learning rate to avoid units getting stuck in negative inactive states.
 
 **5. Why must the output layer and loss be selected together according to the task?**  
-The pairing (sigmoid, binary cross‑entropy) or (softmax, cross‑entropy) makes the logit gradient exactly (p − y), which is simple, numerically stable, and ensures gradient magnitude matches prediction error. Mismatched pairs (e.g. sigmoid output with MSE loss) produce vanishing gradients or incorrect gradients, hindering learning.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):* Pairing sigmoid with BCE (or softmax with Cross-Entropy) yields the elegant gradient $\frac{\partial L}{\partial z} = p - y$. This cancels out derivative saturation terms in the denominator, preventing vanishing gradients during high-error regimes and providing a linear error-proportional update step.
 
 **6. Give one example where the LLM improved your engineering productivity and one example where human verification was essential.**  
-*LLM productivity*: The LLM generated a correct, constraint‑respecting 2-2-1 training loop in seconds, sparing me boilerplate wiring (optimiser loop, zero_grad, step).  
-*Human verification essential*: The LLM’s default ReLU run failed to classify all four points correctly (dead‑unit problem). Only by inspecting predictions and adjusting seed/lr/steps (permitted engineering changes) did we recover a working ReLU experiment.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):*  
+> - *Productivity:* The LLM rapidly scaffolded PyTorch boilerplate (parameter zeroing, backward passes, dataclass result containers, pytest test suites).  
+> - *Human Verification:* Detecting that default seed/hyperparameters caused ReLU to fail on XOR due to dead neurons, requiring principled engineering adjustment to recover 4/4 convergence.
 
 **7. Which tests in this laboratory would you keep if the model were scaled up, and which would become too expensive?**  
-*Keep*: Final loss value, prediction correctness, gradient non‑zero checks, softmax‑sum-to-one, shift‑invariance. These are O(1) or O(batch size) and scale trivially.  
-*Too expensive*: Exhaustive finite‑difference gradient checks (O(parameters²)), symmetry experiments that require tracking all weights over time, and ablation studies that retrain dozens of hyperparameter settings. These grow quadratically or worse with model size.
+> *[DRAFT - rewrite in own words]*  
+> *TODO(student):*  
+> - *Keep:* End-to-end evaluation metrics (loss convergence, accuracy), gradient non-zero assertions, softmax sum normalization checks, shift-invariance unit tests.  
+> - *Too Expensive:* Tracking full weight tensor histories across every training step, exhaustive per-example manual gradient checks vs full-batch gradients, and multi-seed grid sweeps over hundreds of parameter combinations.
 
 ---
-**Submission checklist**  
-- [x] `ruff check .` passes  
-- [x] `pytest` passes  
-- [x] CLI regenerates all results from a fresh process  
-- [x] Numbers in this report come from `results/`  
-- [x] CHECKLIST.md updated and ticked  
-- [x] docs/prompt_log.md updated  
-- [x] Root README status table updated
+
+## 7. Submission Checklist
+- [x] `ruff check .` passes without errors
+- [x] `pytest` passes all 31 tests
+- [x] CLI (`python -m week01_neural_models.src.cli`) regenerates all JSON deliverables
+- [x] All numerical values in report sourced from `results/*.json`
+- [x] `CHECKLIST.md` complete and updated
+- [x] `docs/prompt_log.md` updated with prompt history
+- [x] Root `README.md` status table updated

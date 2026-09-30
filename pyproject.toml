@@ -5,6 +5,7 @@ requires-python = ">=3.10"
 dependencies = ["numpy", "matplotlib", "torch"]
 
 [tool.pytest.ini_options]
+pythonpath = ["."]
 testpaths = ["week01_neural_models", "week02_agents", "week03_search", "week04_logic",
              "week05_transformers_ar", "week06_bayesian_networks_llm",
              "week07_ar_models_handson", "week08_bayesian_networks"]
