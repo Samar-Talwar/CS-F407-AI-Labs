@@ -48,3 +48,23 @@ Run the generated program on the warehouse problem.
 - Generated results/ (counts_*.json, cpt_*.json, normalisation_checks.json, chain_rule_probabilities.json, generation.json, comparison.json) at full precision
 - Wrote README.md (architecture, quickstart, key results) and REPORT.md (Questions 1-14 with real numbers from results/, reflection stubs)
 - Updated root README.md status table; confirmed ruff check . and pytest -q pass; validated via fresh clone in $env:TEMP\fresh_w8
+
+---
+
+# CS F407 Lab, Week 5 | Author: Samar Talwar | Not licensed for reuse or submission by others.
+**Date**: 2026-10-01
+**Week**: 05
+**Prompt**: Implement complete Week 5 Transformer lab from scratch (TinyGPT): causal self-attention in NumPy and PyTorch, single/multi-head projection, custom MHA with non-standard H=6/d_head=2/d_model=8, Pre-LN Transformer blocks, 4x ReLU FFN, 180-step AdamW training, temperature-controlled generation, 5 JSON result artifacts, 15-test pytest with real mutation tests, README/REPORT/checklist, fresh-clone gate, push.
+**What was changed after review**:
+- Created CHECKLIST.md mapping all notebook sections and requirements to files/tests/keys
+- Added attention.py (NumPy attention oracle + PyTorch Head/MHA/CustomMHA with non-standard projection)
+- Added model.py (TinyOneTokenLM baseline, FeedForward with 4x ReLU, Pre-LN TransformerBlock, TinyGPT)
+- Added dataset.py (CharTokenizer, BigramModel with Laplace smoothing, repeated canonical corpus, get_batch)
+- Added train.py (AdamW optimization loop, 180 steps, cross-entropy evaluation)
+- Added generate.py (autoregressive token generation loop, temperature scaling softmax(z/tau))
+- Added metrics.py (analytical parameter breakdown 60,313, variance scaling check)
+- Added cli.py (standalone reproducibility generating all 5 unrounded JSON result artifacts)
+- Added tests/test_transformers.py (15 tests: NumPy vs PyTorch oracle, analytical parameter oracle, causal invariance, variance scaling, temperature invariants, training convergence, 3 monkeypatch mutations)
+- Generated results/*.json (unrounded machine outputs)
+- Wrote README.md and REPORT.md (comprehensive mathematical derivations, tables, TODO(student) stubs)
+- Updated root README.md; confirmed ruff check . and pytest -q pass; validated via fresh clone in $env:TEMP\fresh_w5

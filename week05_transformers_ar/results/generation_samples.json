@@ -1,0 +1,96 @@
+{
+  "temperatures_evaluated": [
+    0.3,
+    0.7,
+    0.8,
+    1.0,
+    2.0
+  ],
+  "prompts_evaluated": [
+    "baana ",
+    "attention ",
+    ""
+  ],
+  "transformer_generations": [
+    {
+      "prompt": "baana ",
+      "temperature": 0.3,
+      "output": "baana rediction by reducing predictiongerror.\ngeneration repeats n"
+    },
+    {
+      "prompt": "baana ",
+      "temperature": 0.7,
+      "output": "baana rediction by reducing predictiongerror.\ngeneration repeats n"
+    },
+    {
+      "prompt": "baana ",
+      "temperature": 0.8,
+      "output": "baana rediction by reducing predictiongerrn rredior.\ngeneration re"
+    },
+    {
+      "prompt": "baana ",
+      "temperature": 1.0,
+      "output": "baana reducis ton cha by reducing prexatrmnerrmiodexton raiorepeli"
+    },
+    {
+      "prompt": "baana ",
+      "temperature": 2.0,
+      "output": "baana redus the.\nwe m nedune.\nw t treokerantrekiedin.\nwe tikernfra"
+    },
+    {
+      "prompt": "attention ",
+      "temperature": 0.3,
+      "output": "attention lets tok a entrer prediction rerrepediomer.\ngeration rerepea"
+    },
+    {
+      "prompt": "attention ",
+      "temperature": 0.7,
+      "output": "attention lets tok a learlier token cha na is trmokede.\nain preduction"
+    },
+    {
+      "prompt": "attention ",
+      "temperature": 0.8,
+      "output": "attention lets tok a learliernsf te tok ana erom chain preductre redin"
+    },
+    {
+      "prompt": "attention ",
+      "temperature": 1.0,
+      "output": "attention lets tok a lear fodichamo e.\narns mpromexatrexts.\nwe tion le"
+    },
+    {
+      "prompt": "attention ",
+      "temperature": 2.0,
+      "output": "attention erres ts to cym fpredicat nexteoken lmodexearnrleoierkernssi"
+    },
+    {
+      "prompt": "",
+      "temperature": 0.3,
+      "output": "\ngeneration repeats next token prediction.\n\n\nto learn is to c"
+    },
+    {
+      "prompt": "",
+      "temperature": 0.7,
+      "output": "\ngenextion lets a token a loook at arlier teans.\na trans to n"
+    },
+    {
+      "prompt": "",
+      "temperature": 0.8,
+      "output": "\ngenextion lets a token a loook at arlier teans.\na trans thex"
+    },
+    {
+      "prompt": "",
+      "temperature": 1.0,
+      "output": "\ng model learns from edict tokenns rer prediction.\n\ngeration "
+    },
+    {
+      "prompt": "",
+      "temperature": 2.0,
+      "output": "\ng moswe ptrwe mpreduner p by pexxts tictkieng\ntioonfokernfri"
+    }
+  ],
+  "bigram_generations": {
+    "start_char": "b",
+    "greedy": "by token token token token token token token token token toke",
+    "sampled": "by tsfokens ere.\na t to trm prn by tr.\narmprexa linsfok era t"
+  }
+}

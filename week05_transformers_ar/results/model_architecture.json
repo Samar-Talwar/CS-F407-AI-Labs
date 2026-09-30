@@ -1,0 +1,432 @@
+{
+  "model_name": "TinyGPT",
+  "vocab_size": 25,
+  "n_embd": 48,
+  "block_size": 32,
+  "n_heads": 4,
+  "n_layers": 2,
+  "total_parameters_empirical": 60313,
+  "total_parameters_analytical": 60313,
+  "analytical_breakdown": {
+    "vocab_size": 25,
+    "n_embd": 48,
+    "block_size": 32,
+    "n_heads": 4,
+    "n_layers": 2,
+    "head_size": 12,
+    "token_embedding": 1200,
+    "position_embedding": 1536,
+    "per_block": 28128,
+    "attention_qkv": 6912,
+    "attention_wo": 2352,
+    "layernorm_1": 96,
+    "ffn_1": 9408,
+    "ffn_2": 9264,
+    "layernorm_2": 96,
+    "final_layernorm": 96,
+    "lm_head": 1225,
+    "total_analytical": 60313
+  },
+  "parameter_table": {
+    "token_embedding_table.weight": {
+      "shape": [
+        25,
+        48
+      ],
+      "numel": 1200,
+      "requires_grad": true
+    },
+    "position_embedding_table.weight": {
+      "shape": [
+        32,
+        48
+      ],
+      "numel": 1536,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.0.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.0.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.0.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.1.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.1.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.1.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.2.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.2.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.2.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.3.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.3.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.heads.3.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.0.sa.proj.weight": {
+      "shape": [
+        48,
+        48
+      ],
+      "numel": 2304,
+      "requires_grad": true
+    },
+    "blocks.0.sa.proj.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.0.ffwd.net.0.weight": {
+      "shape": [
+        192,
+        48
+      ],
+      "numel": 9216,
+      "requires_grad": true
+    },
+    "blocks.0.ffwd.net.0.bias": {
+      "shape": [
+        192
+      ],
+      "numel": 192,
+      "requires_grad": true
+    },
+    "blocks.0.ffwd.net.2.weight": {
+      "shape": [
+        48,
+        192
+      ],
+      "numel": 9216,
+      "requires_grad": true
+    },
+    "blocks.0.ffwd.net.2.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.0.ln1.weight": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.0.ln1.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.0.ln2.weight": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.0.ln2.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.0.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.0.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.0.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.1.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.1.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.1.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.2.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.2.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.2.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.3.key.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.3.query.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.heads.3.value.weight": {
+      "shape": [
+        12,
+        48
+      ],
+      "numel": 576,
+      "requires_grad": true
+    },
+    "blocks.1.sa.proj.weight": {
+      "shape": [
+        48,
+        48
+      ],
+      "numel": 2304,
+      "requires_grad": true
+    },
+    "blocks.1.sa.proj.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.1.ffwd.net.0.weight": {
+      "shape": [
+        192,
+        48
+      ],
+      "numel": 9216,
+      "requires_grad": true
+    },
+    "blocks.1.ffwd.net.0.bias": {
+      "shape": [
+        192
+      ],
+      "numel": 192,
+      "requires_grad": true
+    },
+    "blocks.1.ffwd.net.2.weight": {
+      "shape": [
+        48,
+        192
+      ],
+      "numel": 9216,
+      "requires_grad": true
+    },
+    "blocks.1.ffwd.net.2.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.1.ln1.weight": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.1.ln1.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.1.ln2.weight": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "blocks.1.ln2.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "ln_f.weight": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "ln_f.bias": {
+      "shape": [
+        48
+      ],
+      "numel": 48,
+      "requires_grad": true
+    },
+    "lm_head.weight": {
+      "shape": [
+        25,
+        48
+      ],
+      "numel": 1200,
+      "requires_grad": true
+    },
+    "lm_head.bias": {
+      "shape": [
+        25
+      ],
+      "numel": 25,
+      "requires_grad": true
+    }
+  },
+  "custom_mha_demo": {
+    "description": "Non-standard MHA with H=6, d_head=2, d_model=8, W_O: 12x8",
+    "input_shape": [
+      2,
+      5,
+      8
+    ],
+    "output_shape": [
+      2,
+      5,
+      8
+    ],
+    "output_proj_weight_shape": [
+      8,
+      12
+    ]
+  }
+}

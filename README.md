@@ -8,7 +8,7 @@ Course repo: https://github.com/tirtharajdash/CS-F407-AI-AY2026-27-S1
 | 2 | Agents | ✅ DONE |
 | 3 | Search (A*) | ✅ DONE |
 | 4 | Logic / Planning | ✅ DONE |
-| 5 | Learning AR Models: Transformers (notebook) | TODO |
+| 5 | Learning AR Models: Transformers (notebook) | ✅ DONE |
 | 6 | Bayesian Networks with LLM (notebook) | TODO |
 | 7 | Learning AR Models (hands-on) | TODO |
 | 8 | Bayesian Networks (hands-on) | ✅ DONE |

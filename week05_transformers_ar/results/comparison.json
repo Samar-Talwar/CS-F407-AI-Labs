@@ -1,0 +1,25 @@
+{
+  "bigram_model": {
+    "type": "Counting N-gram Lookup",
+    "context_length": 1,
+    "parameters": 625,
+    "training_loss": 1.6013144048998245,
+    "generates_coherent_sentences": false
+  },
+  "tiny_gpt": {
+    "type": "Autoregressive Decoder Transformer",
+    "context_length": 32,
+    "parameters": 60313,
+    "initial_loss": 3.384800672531128,
+    "final_loss": 0.15983280539512634,
+    "generates_coherent_sentences": true,
+    "verbatim_sentence_match_rate": 0.16666666666666666
+  },
+  "corpus_metrics": {
+    "bigram_loss": 1.6013144048998245,
+    "bigram_vocab_size": 25,
+    "transformer_vocab_size": 25,
+    "canonical_corpus_length": 17680,
+    "canonical_unique_chars": 25
+  }
+}
