@@ -54,3 +54,23 @@ weekNN_name/  src/  tests/  results/  README.md  REPORT.md  CHECKLIST.md
 ## Authorship
 - Every source file starts with: # CS F407 Lab, Week N | Author: Samar Talwar | Not licensed for reuse or submission by others.
 - Never add an open-source license for original code. NOTICE.md governs it.
+
+## Quality gates (mandatory, learned from the Week 1 audit)
+1. Fresh-clone gate: after committing, run `git clone . $env:TEMP\fresh_check` (delete any old copy first),
+   then in that clone run ruff check ., pytest -q and the week's CLI using the existing venv python,
+   WITHOUT pip install -e. All must pass before pushing.
+2. Record-everything: every value the sheet says to record, report, predict, print, verify or compare
+   (losses, shapes, counts, paths, expanded nodes, probabilities, etc.) is written to a JSON/CSV in results/
+   at full precision, with a clear key. CHECKLIST.md rows must name the exact file and key.
+3. Negative and baseline cases the sheet asks for (impossible inputs, trivial cases, baseline models) each get
+   their own experiment, their own result file and their own test.
+4. Real mutation tests: for each core algorithm add a test that breaks the REAL module
+   (monkeypatch the actual function) and asserts that the outcome fails. Do not re-implement the model inside the test.
+5. No self-comparison: an equality check must compare two independently computed quantities.
+   Use an independent oracle where possible (e.g. Dijkstra vs BFS vs A* on the same input).
+6. Honest reporting: report stochastic outcomes as actual counts over seeds. Never claim more than measured.
+   Do not write "100% coverage" or similar unless measured by a tool.
+7. Do not round in results files. Rounding is for the report only.
+8. Finish by pasting real command output (pytest summary line, ruff result), the pushed commit hash,
+   and confirming `git status` is clean and HEAD equals origin/main.
+9. One audit pass only. Do not rewrite code that already passes.
