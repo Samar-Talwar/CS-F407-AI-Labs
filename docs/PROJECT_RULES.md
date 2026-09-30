@@ -51,3 +51,6 @@ weekNN_name/  src/  tests/  results/  README.md  REPORT.md  CHECKLIST.md
 - Commit per logical unit with Conventional Commits (feat:, test:, docs:, chore:).
   Never commit .venv or large binaries.
 - After a week: tick CHECKLIST.md, update the root README status table, list any gaps.
+## Authorship
+- Every source file starts with: # CS F407 Lab, Week N | Author: Samar Talwar | Not licensed for reuse or submission by others.
+- Never add an open-source license for original code. NOTICE.md governs it.
