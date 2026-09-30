@@ -34,3 +34,17 @@ Run the generated program on the warehouse problem.
 - Added Prolog integration via subprocess calls to swipl for independent verification
 - Added cross-check: every Move step in Python plan must be accepted by Prolog valid_move/2
 - Added proper handling of swipl absence (visible skip reason, not silent pass)
+
+---
+# CS F407 Lab, Week 8 | Author: Samar Talwar | Not licensed for reuse or submission by others.
+**Date**: 2026-10-01
+**Week**: 08
+**Prompt**: Implement Bayesian Networks / autoregressive Markov language models per BN_lab.pdf. Build first-order and second-order Markov models on the 6-sentence canonical dataset with <START>/<END> tokens. Use only stdlib (collections, random, math, fractions, json). Implement greedy decoding (documented alphabetical tie-break), stochastic inverse-CDF sampling with seed control, cycle detection in greedy, unseen-context handling, chain-rule joint/log-probability evaluation, and a CLI. Write CHECKLIST.md mapping every requirement. Add pytest suite with independent fractions.Fraction oracles, normalization verification, 5+ hand-checked probabilities, N=20000 sampling convergence, mutation tests (monkeypatch actual src functions), and n-gram validity. Generate 8 unrounded JSON result files.
+
+**What was changed after review**:
+- Created CHECKLIST.md mapping all 14 questions to files/tests/keys
+- Implemented dataset.py (padding tokens), markov_model.py (separate .counts/.cpt, predict_next, generate with cycle detection), metrics.py (model statistics), cli.py (pipeline)
+- Added tests/test_markov_models.py (15 tests: exact Fraction oracle, normalization, hand-checked values, sampling convergence, greedy determinism, n-gram validity, 3 mutation tests)
+- Generated results/ (counts_*.json, cpt_*.json, normalisation_checks.json, chain_rule_probabilities.json, generation.json, comparison.json) at full precision
+- Wrote README.md (architecture, quickstart, key results) and REPORT.md (Questions 1-14 with real numbers from results/, reflection stubs)
+- Updated root README.md status table; confirmed ruff check . and pytest -q pass; validated via fresh clone in $env:TEMP\fresh_w8

@@ -1,0 +1,51 @@
+{
+  "<START> <START>": {
+    "the": 6
+  },
+  "<START> the": {
+    "cat": 3,
+    "dog": 3
+  },
+  "the cat": {
+    "sat": 2,
+    "ran": 1
+  },
+  "cat sat": {
+    "on": 2
+  },
+  "sat on": {
+    "the": 4
+  },
+  "on the": {
+    "mat": 2,
+    "rug": 2
+  },
+  "the mat": {
+    "<END>": 2
+  },
+  "the rug": {
+    "<END>": 2
+  },
+  "the dog": {
+    "sat": 2,
+    "ran": 1
+  },
+  "dog sat": {
+    "on": 2
+  },
+  "dog ran": {
+    "to": 1
+  },
+  "ran to": {
+    "the": 2
+  },
+  "to the": {
+    "park": 2
+  },
+  "the park": {
+    "<END>": 2
+  },
+  "cat ran": {
+    "to": 1
+  }
+}

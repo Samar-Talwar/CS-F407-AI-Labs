@@ -1,0 +1,139 @@
+{
+  "first_order": {
+    "model_order": 1,
+    "vocabulary_size": 12,
+    "vocabulary": [
+      "<END>",
+      "<START>",
+      "cat",
+      "dog",
+      "mat",
+      "on",
+      "park",
+      "ran",
+      "rug",
+      "sat",
+      "the",
+      "to"
+    ],
+    "num_observed_contexts": 11,
+    "total_possible_contexts": 12,
+    "unobserved_contexts_count": 1,
+    "total_non_zero_transitions": 17,
+    "total_possible_transitions": 144,
+    "zero_probability_transitions_count": 127,
+    "average_branching_factor": 1.5454545454545454,
+    "training_log_likelihood": -22.887407991856552,
+    "num_empirical_samples": 100,
+    "distinct_generated_sentences": 37,
+    "verbatim_copied_samples_count": 16,
+    "verbatim_copied_fraction": 0.16,
+    "sample_cycle_detected_count": 0,
+    "greedy_generation": {
+      "tokens": [
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the"
+      ],
+      "text": "the cat sat on the",
+      "method": "greedy",
+      "seed": null,
+      "cycle_detected": true,
+      "cycle_tokens": [
+        "the",
+        "cat",
+        "sat",
+        "on"
+      ],
+      "terminated_with_end": false,
+      "num_tokens": 6,
+      "is_in_training_corpus": false
+    }
+  },
+  "second_order": {
+    "model_order": 2,
+    "vocabulary_size": 12,
+    "vocabulary": [
+      "<END>",
+      "<START>",
+      "cat",
+      "dog",
+      "mat",
+      "on",
+      "park",
+      "ran",
+      "rug",
+      "sat",
+      "the",
+      "to"
+    ],
+    "num_observed_contexts": 15,
+    "total_possible_contexts": 144,
+    "unobserved_contexts_count": 129,
+    "total_non_zero_transitions": 19,
+    "total_possible_transitions": 1728,
+    "zero_probability_transitions_count": 1709,
+    "average_branching_factor": 1.2666666666666666,
+    "training_log_likelihood": -10.750556815368329,
+    "num_empirical_samples": 100,
+    "distinct_generated_sentences": 6,
+    "verbatim_copied_samples_count": 100,
+    "verbatim_copied_fraction": 1.0,
+    "sample_cycle_detected_count": 0,
+    "greedy_generation": {
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the",
+        "mat",
+        "<END>"
+      ],
+      "text": "the cat sat on the mat",
+      "method": "greedy",
+      "seed": null,
+      "cycle_detected": false,
+      "cycle_tokens": null,
+      "terminated_with_end": true,
+      "num_tokens": 9,
+      "is_in_training_corpus": true
+    }
+  },
+  "summary": {
+    "vocabulary_size": 12,
+    "observed_contexts": {
+      "first_order": 11,
+      "second_order": 15
+    },
+    "total_non_zero_parameters": {
+      "first_order": 17,
+      "second_order": 19
+    },
+    "average_branching_factor": {
+      "first_order": 1.5454545454545454,
+      "second_order": 1.2666666666666666
+    },
+    "training_total_log_likelihood": {
+      "first_order": -22.887407991856552,
+      "second_order": -10.750556815368329
+    },
+    "distinct_generated_sentences_in_100_samples": {
+      "first_order": 37,
+      "second_order": 6
+    },
+    "verbatim_copied_fraction_in_100_samples": {
+      "first_order": 0.16,
+      "second_order": 1.0
+    },
+    "greedy_cycle_detected": {
+      "first_order": true,
+      "second_order": false
+    }
+  }
+}

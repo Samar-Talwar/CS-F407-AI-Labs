@@ -1,0 +1,40 @@
+{
+  "first_order": {
+    "context_sums": {
+      "<START>": 1.0,
+      "the": 1.0,
+      "cat": 1.0,
+      "sat": 1.0,
+      "on": 1.0,
+      "mat": 1.0,
+      "rug": 1.0,
+      "dog": 1.0,
+      "ran": 1.0,
+      "to": 1.0,
+      "park": 1.0
+    },
+    "max_deviation": 0.0,
+    "all_contexts_normalized": true
+  },
+  "second_order": {
+    "context_sums": {
+      "<START> <START>": 1.0,
+      "<START> the": 1.0,
+      "the cat": 1.0,
+      "cat sat": 1.0,
+      "sat on": 1.0,
+      "on the": 1.0,
+      "the mat": 1.0,
+      "the rug": 1.0,
+      "the dog": 1.0,
+      "dog sat": 1.0,
+      "dog ran": 1.0,
+      "ran to": 1.0,
+      "to the": 1.0,
+      "the park": 1.0,
+      "cat ran": 1.0
+    },
+    "max_deviation": 0.0,
+    "all_contexts_normalized": true
+  }
+}

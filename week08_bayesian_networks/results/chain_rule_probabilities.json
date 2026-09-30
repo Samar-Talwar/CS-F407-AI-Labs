@@ -1,0 +1,962 @@
+[
+  {
+    "sentence_id": 1,
+    "sentence": "the cat sat on the mat",
+    "first_order": {
+      "sentence": "the cat sat on the mat",
+      "tokens": [
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the",
+        "mat",
+        "<END>"
+      ],
+      "joint_probability": 0.027777777777777776,
+      "log_probability": -3.58351893845611,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": "<START>",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": "the",
+          "token": "cat",
+          "probability": 0.25,
+          "log_probability": -1.3862943611198906
+        },
+        {
+          "step": 3,
+          "context": "cat",
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": "sat",
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": "on",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": "the",
+          "token": "mat",
+          "probability": 0.16666666666666666,
+          "log_probability": -1.791759469228055
+        },
+        {
+          "step": 7,
+          "context": "mat",
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    },
+    "second_order": {
+      "sentence": "the cat sat on the mat",
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the",
+        "mat",
+        "<END>"
+      ],
+      "joint_probability": 0.16666666666666666,
+      "log_probability": -1.791759469228055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": [
+            "<START>",
+            "<START>"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": [
+            "<START>",
+            "the"
+          ],
+          "token": "cat",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 3,
+          "context": [
+            "the",
+            "cat"
+          ],
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": [
+            "cat",
+            "sat"
+          ],
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": [
+            "sat",
+            "on"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": [
+            "on",
+            "the"
+          ],
+          "token": "mat",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 7,
+          "context": [
+            "the",
+            "mat"
+          ],
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "sentence_id": 2,
+    "sentence": "the cat sat on the rug",
+    "first_order": {
+      "sentence": "the cat sat on the rug",
+      "tokens": [
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the",
+        "rug",
+        "<END>"
+      ],
+      "joint_probability": 0.027777777777777776,
+      "log_probability": -3.58351893845611,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": "<START>",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": "the",
+          "token": "cat",
+          "probability": 0.25,
+          "log_probability": -1.3862943611198906
+        },
+        {
+          "step": 3,
+          "context": "cat",
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": "sat",
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": "on",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": "the",
+          "token": "rug",
+          "probability": 0.16666666666666666,
+          "log_probability": -1.791759469228055
+        },
+        {
+          "step": 7,
+          "context": "rug",
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    },
+    "second_order": {
+      "sentence": "the cat sat on the rug",
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the",
+        "rug",
+        "<END>"
+      ],
+      "joint_probability": 0.16666666666666666,
+      "log_probability": -1.791759469228055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": [
+            "<START>",
+            "<START>"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": [
+            "<START>",
+            "the"
+          ],
+          "token": "cat",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 3,
+          "context": [
+            "the",
+            "cat"
+          ],
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": [
+            "cat",
+            "sat"
+          ],
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": [
+            "sat",
+            "on"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": [
+            "on",
+            "the"
+          ],
+          "token": "rug",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 7,
+          "context": [
+            "the",
+            "rug"
+          ],
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "sentence_id": 3,
+    "sentence": "the dog sat on the mat",
+    "first_order": {
+      "sentence": "the dog sat on the mat",
+      "tokens": [
+        "<START>",
+        "the",
+        "dog",
+        "sat",
+        "on",
+        "the",
+        "mat",
+        "<END>"
+      ],
+      "joint_probability": 0.027777777777777776,
+      "log_probability": -3.58351893845611,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": "<START>",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": "the",
+          "token": "dog",
+          "probability": 0.25,
+          "log_probability": -1.3862943611198906
+        },
+        {
+          "step": 3,
+          "context": "dog",
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": "sat",
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": "on",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": "the",
+          "token": "mat",
+          "probability": 0.16666666666666666,
+          "log_probability": -1.791759469228055
+        },
+        {
+          "step": 7,
+          "context": "mat",
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    },
+    "second_order": {
+      "sentence": "the dog sat on the mat",
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "dog",
+        "sat",
+        "on",
+        "the",
+        "mat",
+        "<END>"
+      ],
+      "joint_probability": 0.16666666666666666,
+      "log_probability": -1.791759469228055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": [
+            "<START>",
+            "<START>"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": [
+            "<START>",
+            "the"
+          ],
+          "token": "dog",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 3,
+          "context": [
+            "the",
+            "dog"
+          ],
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": [
+            "dog",
+            "sat"
+          ],
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": [
+            "sat",
+            "on"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": [
+            "on",
+            "the"
+          ],
+          "token": "mat",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 7,
+          "context": [
+            "the",
+            "mat"
+          ],
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "sentence_id": 4,
+    "sentence": "the dog ran to the park",
+    "first_order": {
+      "sentence": "the dog ran to the park",
+      "tokens": [
+        "<START>",
+        "the",
+        "dog",
+        "ran",
+        "to",
+        "the",
+        "park",
+        "<END>"
+      ],
+      "joint_probability": 0.013888888888888888,
+      "log_probability": -4.276666119016055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": "<START>",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": "the",
+          "token": "dog",
+          "probability": 0.25,
+          "log_probability": -1.3862943611198906
+        },
+        {
+          "step": 3,
+          "context": "dog",
+          "token": "ran",
+          "probability": 0.3333333333333333,
+          "log_probability": -1.0986122886681098
+        },
+        {
+          "step": 4,
+          "context": "ran",
+          "token": "to",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": "to",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": "the",
+          "token": "park",
+          "probability": 0.16666666666666666,
+          "log_probability": -1.791759469228055
+        },
+        {
+          "step": 7,
+          "context": "park",
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    },
+    "second_order": {
+      "sentence": "the dog ran to the park",
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "dog",
+        "ran",
+        "to",
+        "the",
+        "park",
+        "<END>"
+      ],
+      "joint_probability": 0.16666666666666666,
+      "log_probability": -1.791759469228055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": [
+            "<START>",
+            "<START>"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": [
+            "<START>",
+            "the"
+          ],
+          "token": "dog",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 3,
+          "context": [
+            "the",
+            "dog"
+          ],
+          "token": "ran",
+          "probability": 0.3333333333333333,
+          "log_probability": -1.0986122886681098
+        },
+        {
+          "step": 4,
+          "context": [
+            "dog",
+            "ran"
+          ],
+          "token": "to",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": [
+            "ran",
+            "to"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": [
+            "to",
+            "the"
+          ],
+          "token": "park",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 7,
+          "context": [
+            "the",
+            "park"
+          ],
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "sentence_id": 5,
+    "sentence": "the cat ran to the park",
+    "first_order": {
+      "sentence": "the cat ran to the park",
+      "tokens": [
+        "<START>",
+        "the",
+        "cat",
+        "ran",
+        "to",
+        "the",
+        "park",
+        "<END>"
+      ],
+      "joint_probability": 0.013888888888888888,
+      "log_probability": -4.276666119016055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": "<START>",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": "the",
+          "token": "cat",
+          "probability": 0.25,
+          "log_probability": -1.3862943611198906
+        },
+        {
+          "step": 3,
+          "context": "cat",
+          "token": "ran",
+          "probability": 0.3333333333333333,
+          "log_probability": -1.0986122886681098
+        },
+        {
+          "step": 4,
+          "context": "ran",
+          "token": "to",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": "to",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": "the",
+          "token": "park",
+          "probability": 0.16666666666666666,
+          "log_probability": -1.791759469228055
+        },
+        {
+          "step": 7,
+          "context": "park",
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    },
+    "second_order": {
+      "sentence": "the cat ran to the park",
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "cat",
+        "ran",
+        "to",
+        "the",
+        "park",
+        "<END>"
+      ],
+      "joint_probability": 0.16666666666666666,
+      "log_probability": -1.791759469228055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": [
+            "<START>",
+            "<START>"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": [
+            "<START>",
+            "the"
+          ],
+          "token": "cat",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 3,
+          "context": [
+            "the",
+            "cat"
+          ],
+          "token": "ran",
+          "probability": 0.3333333333333333,
+          "log_probability": -1.0986122886681098
+        },
+        {
+          "step": 4,
+          "context": [
+            "cat",
+            "ran"
+          ],
+          "token": "to",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": [
+            "ran",
+            "to"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": [
+            "to",
+            "the"
+          ],
+          "token": "park",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 7,
+          "context": [
+            "the",
+            "park"
+          ],
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "sentence_id": 6,
+    "sentence": "the dog sat on the rug",
+    "first_order": {
+      "sentence": "the dog sat on the rug",
+      "tokens": [
+        "<START>",
+        "the",
+        "dog",
+        "sat",
+        "on",
+        "the",
+        "rug",
+        "<END>"
+      ],
+      "joint_probability": 0.027777777777777776,
+      "log_probability": -3.58351893845611,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": "<START>",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": "the",
+          "token": "dog",
+          "probability": 0.25,
+          "log_probability": -1.3862943611198906
+        },
+        {
+          "step": 3,
+          "context": "dog",
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": "sat",
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": "on",
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": "the",
+          "token": "rug",
+          "probability": 0.16666666666666666,
+          "log_probability": -1.791759469228055
+        },
+        {
+          "step": 7,
+          "context": "rug",
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    },
+    "second_order": {
+      "sentence": "the dog sat on the rug",
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "dog",
+        "sat",
+        "on",
+        "the",
+        "rug",
+        "<END>"
+      ],
+      "joint_probability": 0.16666666666666666,
+      "log_probability": -1.791759469228055,
+      "is_zero_probability": false,
+      "factors": [
+        {
+          "step": 1,
+          "context": [
+            "<START>",
+            "<START>"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 2,
+          "context": [
+            "<START>",
+            "the"
+          ],
+          "token": "dog",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 3,
+          "context": [
+            "the",
+            "dog"
+          ],
+          "token": "sat",
+          "probability": 0.6666666666666666,
+          "log_probability": -0.40546510810816444
+        },
+        {
+          "step": 4,
+          "context": [
+            "dog",
+            "sat"
+          ],
+          "token": "on",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 5,
+          "context": [
+            "sat",
+            "on"
+          ],
+          "token": "the",
+          "probability": 1.0,
+          "log_probability": 0.0
+        },
+        {
+          "step": 6,
+          "context": [
+            "on",
+            "the"
+          ],
+          "token": "rug",
+          "probability": 0.5,
+          "log_probability": -0.6931471805599453
+        },
+        {
+          "step": 7,
+          "context": [
+            "the",
+            "rug"
+          ],
+          "token": "<END>",
+          "probability": 1.0,
+          "log_probability": 0.0
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,484 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    42,
+    100,
+    2024,
+    2026,
+    9999
+  ],
+  "first_order": {
+    "greedy": {
+      "tokens": [
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the"
+      ],
+      "text": "the cat sat on the",
+      "method": "greedy",
+      "seed": null,
+      "cycle_detected": true,
+      "cycle_tokens": [
+        "the",
+        "cat",
+        "sat",
+        "on"
+      ],
+      "terminated_with_end": false,
+      "num_tokens": 6,
+      "is_in_training_corpus": false
+    },
+    "samples": [
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the park",
+        "method": "sampling",
+        "seed": 0,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 4,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "rug",
+          "<END>"
+        ],
+        "text": "the rug",
+        "method": "sampling",
+        "seed": 1,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 4,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "rug",
+          "<END>"
+        ],
+        "text": "the rug",
+        "method": "sampling",
+        "seed": 2,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 4,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the mat",
+        "method": "sampling",
+        "seed": 3,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 4,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "cat",
+          "sat",
+          "on",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "cat",
+          "sat",
+          "on",
+          "the",
+          "cat",
+          "ran",
+          "to",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the cat sat on the dog sat on the cat sat on the cat ran to the park",
+        "method": "sampling",
+        "seed": 4,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 20,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "cat",
+          "ran",
+          "to",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the cat ran to the park",
+        "method": "sampling",
+        "seed": 42,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 8,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "dog",
+          "ran",
+          "to",
+          "the",
+          "dog",
+          "ran",
+          "to",
+          "the",
+          "cat",
+          "ran",
+          "to",
+          "the",
+          "rug",
+          "<END>"
+        ],
+        "text": "the dog sat on the dog sat on the dog ran to the dog ran to the cat ran to the rug",
+        "method": "sampling",
+        "seed": 100,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 24,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the park",
+        "method": "sampling",
+        "seed": 2024,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 4,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the mat",
+        "method": "sampling",
+        "seed": 2026,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 4,
+        "is_in_training_corpus": false
+      },
+      {
+        "tokens": [
+          "<START>",
+          "the",
+          "cat",
+          "ran",
+          "to",
+          "the",
+          "cat",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the cat ran to the cat sat on the mat",
+        "method": "sampling",
+        "seed": 9999,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 12,
+        "is_in_training_corpus": false
+      }
+    ]
+  },
+  "second_order": {
+    "greedy": {
+      "tokens": [
+        "<START>",
+        "<START>",
+        "the",
+        "cat",
+        "sat",
+        "on",
+        "the",
+        "mat",
+        "<END>"
+      ],
+      "text": "the cat sat on the mat",
+      "method": "greedy",
+      "seed": null,
+      "cycle_detected": false,
+      "cycle_tokens": null,
+      "terminated_with_end": true,
+      "num_tokens": 9,
+      "is_in_training_corpus": true
+    },
+    "samples": [
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the dog sat on the mat",
+        "method": "sampling",
+        "seed": 0,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the dog sat on the mat",
+        "method": "sampling",
+        "seed": 1,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "dog",
+          "ran",
+          "to",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the dog ran to the park",
+        "method": "sampling",
+        "seed": 2,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the dog sat on the mat",
+        "method": "sampling",
+        "seed": 3,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "cat",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the cat sat on the mat",
+        "method": "sampling",
+        "seed": 4,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "cat",
+          "ran",
+          "to",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the cat ran to the park",
+        "method": "sampling",
+        "seed": 42,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "cat",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the cat sat on the mat",
+        "method": "sampling",
+        "seed": 100,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "dog",
+          "ran",
+          "to",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the dog ran to the park",
+        "method": "sampling",
+        "seed": 2024,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "dog",
+          "sat",
+          "on",
+          "the",
+          "mat",
+          "<END>"
+        ],
+        "text": "the dog sat on the mat",
+        "method": "sampling",
+        "seed": 2026,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      },
+      {
+        "tokens": [
+          "<START>",
+          "<START>",
+          "the",
+          "cat",
+          "ran",
+          "to",
+          "the",
+          "park",
+          "<END>"
+        ],
+        "text": "the cat ran to the park",
+        "method": "sampling",
+        "seed": 9999,
+        "cycle_detected": false,
+        "cycle_tokens": null,
+        "terminated_with_end": true,
+        "num_tokens": 9,
+        "is_in_training_corpus": true
+      }
+    ]
+  }
+}
