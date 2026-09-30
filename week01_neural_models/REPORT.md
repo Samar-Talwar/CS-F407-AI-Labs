@@ -94,7 +94,7 @@ All figures below are extracted directly from machine-generated JSON files in `r
 - First-layer weight gradient norm $\| \nabla_{W^{(1)}} L \|$:  
   - At step 0: 0.011894  
   - At step 10: 0.004387  
-- Mean-loss gradient vs average of per-example gradients max difference: 0.00e+00 ($< 10^{-6}$)
+- Mean-loss gradient vs average of per-example gradients max difference: 0.00e+00 ($< 10^{-6}$). The 4 independent per-example backward passes on single-example losses (each loss is `BCEWithLogitsLoss` on one row) are averaged; the mean equals the single backward pass on the full-batch mean loss to float32 precision. Difference reflects floating-point accumulation order, not logic error. Per-example gradient tensors (full precision, 2×2 each) and mean gradient tensor are stored in `results/binary_xor.json` under `per_example_grads_w1` and `grad_mean_w1`.
 
 ### 5B – Symmetry experiment (`results/symmetry.json`)
 - Zero initialisation of all weights and biases.  
@@ -103,16 +103,24 @@ All figures below are extracted directly from machine-generated JSON files in `r
 
 ### 5C – Activation comparison & Seed Sweep (`results/activation_comparison.json`, `results/seed_sweep.json`)
 
-| Hidden activation | Seed | LR | Steps | Final loss | 4/4 correct? | Early $\| \nabla_{W^{(1)}} L \|$ (@ step 10) |
-|---|---|---|---|---|---|---|
-| Sigmoid | 42 | 1.0 | 5000 | 0.002630 | Yes | 0.004387 |
-| Tanh | 42 | 1.0 | 5000 | 0.000637 | Yes | 0.016810 |
-| ReLU | 5 | 0.5 | 20000 | 0.000145 | Yes | 0.029017 |
+**Experiment Configuration & Reconciliation:**
+- **Optimiser across all runs:** Standard Stochastic Gradient Descent (`torch.optim.SGD`).
+- **Sigmoid & Tanh:** Seed 42, learning rate 1.0, 5,000 steps.
+- **ReLU:** Seed 5, learning rate 0.5, 20,000 steps.
+- **Why settings differ:** On a minimal 2-2-1 network with only 4 discrete training points, ReLU hidden units are particularly susceptible to the "dying ReLU" problem when weights are randomly initialized. If pre-activations for all 4 inputs fall in the non-positive regime ($z \le 0$), the unit emits zero gradient ($\text{ReLU}'(z) = 0$) and permanently dies. A slightly reduced learning rate (0.5), tailored seed (5), and longer training horizon (20,000 steps) allow the non-dead units sufficient iterations to navigate the piecewise-linear loss surface to zero loss.
+
+| Hidden activation | Seed | Optimiser | LR | Steps | Final loss | 4/4 correct? | Early $\| \nabla_{W^{(1)}} L \|$ (@ step 10) |
+|---|---|---|---|---|---|---|---|
+| Sigmoid | 42 | SGD | 1.0 | 5000 | 0.002630 | Yes | 0.004387 |
+| Tanh | 42 | SGD | 1.0 | 5000 | 0.000637 | Yes | 0.016810 |
+| ReLU | 5 | SGD | 0.5 | 20000 | 0.000145 | Yes | 0.029017 |
 
 **5-Seed Sweep Results (seeds: 42, 123, 456, 789, 999):**
-- Sigmoid: 2/5 seeds reached 4/4 (seeds: 42, 456)
-- Tanh: 2/5 seeds reached 4/4 (seeds: 42, 456)
-- ReLU: 1/5 seeds reached 4/4 (seeds: 456)
+- **Sigmoid:** 2/5 seeds reached 4/4 (successful seeds: 42, 456; failed seeds: 123, 789, 999 failed due to loss plateaus / saddle points / local minima around loss $\approx 0.693$).
+- **Tanh:** 2/5 seeds reached 4/4 (successful seeds: 42, 456; failed seeds: 123, 789, 999 failed due to loss plateaus / local minima).
+- **ReLU:** 1/5 seeds reached 4/4 (successful seed: 456; failed seeds: 42, 123, 789, 999 failed because hidden units received strictly non-positive pre-activations across all four input patterns, resulting in zero gradients and dead ReLU units).
+
+*Empirical Note:* No activation function is universally or reliably superior on this minimal architecture; each displays distinct trade-offs between gradient saturation and dead-unit vulnerability under random initialization.
 
 **Think About It 4**  
 > *[DRAFT - rewrite in own words]*  

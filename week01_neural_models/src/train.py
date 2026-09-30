@@ -10,6 +10,9 @@ from torch import nn
 
 from .models import XORBinaryNet, XORLinearNet, XORMulticlassNet
 
+# Set single thread on CPU for tiny 4x2 XOR tensors to eliminate OpenMP thread-sync overhead
+torch.set_num_threads(1)
+
 # ── Data ──────────────────────────────────────────────────────────────────────
 
 X_XOR = torch.tensor([[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]])
@@ -31,6 +34,8 @@ class BinaryResult:
     grad_w1_step10: list[list[float]]
     grad_w1_step10_norm: float
     grad_mean_vs_per_example_max_diff: float
+    per_example_grads_w1: list[list[list[float]]]
+    grad_mean_w1: list[list[float]]
 
 
 @dataclass
@@ -115,20 +120,28 @@ def train_binary_xor(
 
         optimiser.step()
 
-    # Compute mean-loss gradient vs per-example gradient difference
+    # Compute 4 independent per-example backward passes (full precision)
+    per_example_grads: list[list[list[float]]] = []
+    for i in range(4):
+        model.zero_grad()
+        li = criterion(model(X_XOR[i : i + 1]), Y_BINARY[i : i + 1])
+        li.backward()
+        per_example_grads.append(
+            model.hidden.weight.grad.clone().tolist()  # full double/float precision
+        )
+
+    # Mean-loss backward (batch mean) for comparison
     model.zero_grad()
     loss_full = criterion(model(X_XOR), Y_BINARY)
     loss_full.backward()
     grad_mean = model.hidden.weight.grad.clone()
+    grad_mean_w1 = grad_mean.tolist()
 
+    # Average of the 4 per-example grads and compare to batch-mean grad
     accum = torch.zeros_like(grad_mean)
     for i in range(4):
-        model.zero_grad()
-        li = criterion(model(X_XOR[i:i+1]), Y_BINARY[i:i+1])
-        li.backward()
-        accum += model.hidden.weight.grad
+        accum += torch.tensor(per_example_grads[i], dtype=grad_mean.dtype)
     grad_per_example_mean = accum / 4.0
-
     grad_diff = (grad_mean - grad_per_example_mean).abs().max().item()
 
     with torch.no_grad():
@@ -146,6 +159,8 @@ def train_binary_xor(
         grad_w1_step10=grad_w1_step10,
         grad_w1_step10_norm=grad_w1_step10_norm,
         grad_mean_vs_per_example_max_diff=grad_diff,
+        per_example_grads_w1=per_example_grads,
+        grad_mean_w1=grad_mean_w1,
     )
 
 
