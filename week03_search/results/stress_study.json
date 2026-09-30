@@ -1,0 +1,50 @@
+{
+  "configuration": {
+    "num_solvable_grids": 200,
+    "grid_size": 15,
+    "wall_probability": 0.25,
+    "random_seed": 0
+  },
+  "metrics": {
+    "manhattan": {
+      "total_grids": 200,
+      "suboptimal_path_count": 0,
+      "optimal_path_rate": 1.0,
+      "mean_states_expanded": 85.68,
+      "std_states_expanded": 17.342474074801896,
+      "min_states_expanded": 43,
+      "max_states_expanded": 126,
+      "mean_expansion_ratio_vs_manhattan": 1.0
+    },
+    "zero": {
+      "total_grids": 200,
+      "suboptimal_path_count": 0,
+      "optimal_path_rate": 1.0,
+      "mean_states_expanded": 122.91,
+      "std_states_expanded": 10.978366117645436,
+      "min_states_expanded": 77,
+      "max_states_expanded": 141,
+      "mean_expansion_ratio_vs_manhattan": 1.4853474151734936
+    },
+    "euclidean": {
+      "total_grids": 200,
+      "suboptimal_path_count": 0,
+      "optimal_path_rate": 1.0,
+      "mean_states_expanded": 97.78,
+      "std_states_expanded": 16.037380956368732,
+      "min_states_expanded": 52,
+      "max_states_expanded": 131,
+      "mean_expansion_ratio_vs_manhattan": 1.1535853376566965
+    },
+    "scaled_manhattan_2x": {
+      "total_grids": 200,
+      "suboptimal_path_count": 55,
+      "optimal_path_rate": 0.725,
+      "mean_states_expanded": 34.305,
+      "std_states_expanded": 10.189262996017428,
+      "min_states_expanded": 25,
+      "max_states_expanded": 89,
+      "mean_expansion_ratio_vs_manhattan": 0.417198092642581
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "test_name": "Test 2: Trivial Case (Adjacent Goal)",
+  "found": true,
+  "path": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "path_length": 1,
+  "cost": 1.0,
+  "states_expanded": 2,
+  "algorithm": "astar",
+  "heuristic": "manhattan",
+  "start": [
+    1,
+    1
+  ],
+  "goal": [
+    1,
+    2
+  ]
+}

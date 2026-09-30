@@ -1,0 +1,71 @@
+{
+  "test_name": "Test 4: Alternative Paths (Equal Shortest + Longer Decoy)",
+  "found": true,
+  "path": [
+    [
+      3,
+      1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      1,
+      9
+    ],
+    [
+      2,
+      9
+    ],
+    [
+      3,
+      9
+    ]
+  ],
+  "path_length": 12,
+  "cost": 12.0,
+  "states_expanded": 24,
+  "algorithm": "astar",
+  "heuristic": "manhattan",
+  "start": [
+    3,
+    1
+  ],
+  "goal": [
+    3,
+    9
+  ]
+}
