@@ -1,0 +1,9 @@
+{
+  "found": false,
+  "path": [],
+  "path_length": -1,
+  "expanded_nodes": 9,
+  "runtime_seconds": 0.00010449999535921961,
+  "algorithm": "BFS",
+  "message": "No path exists"
+}

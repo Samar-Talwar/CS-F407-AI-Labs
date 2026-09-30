@@ -1,0 +1,86 @@
+{
+  "original_map": {
+    "dimensions": [
+      7,
+      21
+    ],
+    "start": [
+      1,
+      1
+    ],
+    "goal": [
+      1,
+      19
+    ]
+  },
+  "scaled_2x_map": {
+    "dimensions": [
+      14,
+      42
+    ],
+    "start": [
+      2,
+      2
+    ],
+    "goal": [
+      3,
+      39
+    ]
+  },
+  "benchmarks": {
+    "BFS": {
+      "original": {
+        "found": true,
+        "path_length": 20,
+        "nodes_expanded": 59,
+        "runtime_seconds": 0.00036538999993354084
+      },
+      "scaled_2x": {
+        "found": true,
+        "path_length": 40,
+        "nodes_expanded": 239,
+        "runtime_seconds": 0.0009671320000779815
+      },
+      "scaling_ratios": {
+        "nodes_expanded_ratio_2x_to_orig": 4.0508474576271185,
+        "runtime_ratio_2x_to_orig": 2.6468485734527185
+      }
+    },
+    "DFS": {
+      "original": {
+        "found": true,
+        "path_length": 36,
+        "nodes_expanded": 57,
+        "runtime_seconds": 0.00018441199994413183
+      },
+      "scaled_2x": {
+        "found": true,
+        "path_length": 142,
+        "nodes_expanded": 286,
+        "runtime_seconds": 0.0013061739999102428
+      },
+      "scaling_ratios": {
+        "nodes_expanded_ratio_2x_to_orig": 5.017543859649122,
+        "runtime_ratio_2x_to_orig": 7.082912176571764
+      }
+    },
+    "A*": {
+      "original": {
+        "found": true,
+        "path_length": 20,
+        "nodes_expanded": 23,
+        "runtime_seconds": 0.00016302999982144683
+      },
+      "scaled_2x": {
+        "found": true,
+        "path_length": 40,
+        "nodes_expanded": 56,
+        "runtime_seconds": 0.0005413720000069589
+      },
+      "scaling_ratios": {
+        "nodes_expanded_ratio_2x_to_orig": 2.4347826086956523,
+        "runtime_ratio_2x_to_orig": 3.320689447340235
+      }
+    }
+  }
+}
