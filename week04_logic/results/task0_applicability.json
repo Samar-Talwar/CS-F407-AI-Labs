@@ -1,0 +1,18 @@
+{
+  "initial_state": [
+    "At(Package,A)",
+    "At(Robot,A)"
+  ],
+  "goal": [
+    "At(Package,C)"
+  ],
+  "pickup_applicable": true,
+  "drop_applicable": false,
+  "pickup_missing_preconditions": {},
+  "drop_missing_preconditions": {
+    "positive_missing": [
+      "At(Robot,C)",
+      "Holding(Package)"
+    ]
+  }
+}

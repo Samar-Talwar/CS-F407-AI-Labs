@@ -1,0 +1,20 @@
+{
+  "initial_state": [
+    "At(Package,A)",
+    "At(Robot,A)"
+  ],
+  "goal": [
+    "At(Package,C)"
+  ],
+  "plan_found": true,
+  "plan": [
+    "PickUp(Package,A)",
+    "Move(A,B)",
+    "Move(B,C)",
+    "Drop(Package,C)"
+  ],
+  "states_expanded": 6,
+  "valid": true,
+  "validation_error": null,
+  "goal_reached": true
+}

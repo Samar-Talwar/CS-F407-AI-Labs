@@ -1,0 +1,15 @@
+{
+  "initial_state": [
+    "At(Package,A)",
+    "At(Robot,A)"
+  ],
+  "goal": [
+    "At(Package,C)"
+  ],
+  "plan_found": false,
+  "plan": [],
+  "states_expanded": 3,
+  "valid": false,
+  "validation_error": "Plan completed but goal ['At(Package,C)'] not reached in final state ['At(Package,A)', 'At(Robot,A)']",
+  "goal_reached": false
+}

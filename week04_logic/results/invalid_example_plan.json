@@ -1,0 +1,21 @@
+{
+  "plan": [
+    "Move(A,B)",
+    "PickUp(Package,B)",
+    "Move(B,C)",
+    "Drop(Package,C)"
+  ],
+  "valid": false,
+  "error": "Step 1 (PickUp(Package,B)): positive preconditions not in state: ['At(Package,B)']",
+  "failed_step": 1,
+  "states": [
+    [
+      "At(Package,A)",
+      "At(Robot,A)"
+    ],
+    [
+      "At(Package,A)",
+      "At(Robot,B)"
+    ]
+  ]
+}

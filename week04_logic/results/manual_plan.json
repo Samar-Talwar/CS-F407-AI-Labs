@@ -1,0 +1,30 @@
+{
+  "plan": [
+    "PickUp(Package,A)",
+    "Move(A,B)",
+    "Move(B,C)",
+    "Drop(Package,C)"
+  ],
+  "states": [
+    [
+      "At(Package,A)",
+      "At(Robot,A)"
+    ],
+    [
+      "At(Robot,A)",
+      "Holding(Package)"
+    ],
+    [
+      "At(Robot,B)",
+      "Holding(Package)"
+    ],
+    [
+      "At(Robot,C)",
+      "Holding(Package)"
+    ],
+    [
+      "At(Package,C)",
+      "At(Robot,C)"
+    ]
+  ]
+}

@@ -1,9 +1,36 @@
-# Prompt Log
+# CS F407 Lab, Week 4 | Author: Samar Talwar | Not licensed for reuse or submission by others.
+## Prompt Log Entry
 
-Date | Week | Prompt | Changes made after review
---- | --- | --- | ---
-2026-09-30 | 1 | "Generate minimal PyTorch code for a 2-2-1 neural network trained on the four XOR examples (0,0→0, 0,1→1, 1,0→1, 1,1→0) with sigmoid hidden units, sigmoid output via BCEWithLogitsLoss, random weight initialisation, full-batch training for 5000 steps. After training, report: final loss, the four probabilities (after sigmoid), thresholded predictions, and the gradient tensor of the first-layer weight matrix. Set random seed 42 for reproducibility. Explain each test in one sentence." | None needed — LLM output already satisfied all constraints. Wrapped into reusable functions and added CLI/test harness.
-2026-09-30 | 1 | "Fix gaps in week01_neural_models found by audit: pythonpath in pyproject.toml, linear baseline on XOR, gradient diagnostics (step 0/10 & mean diff), symmetry per-step row equality, multiclass shapes & softmax stability test, 5-seed sweep, mutation test." | Implemented linear baseline (XORLinearNet), added gradient tracking at step 0 & 10, verified mean vs per-example diff < 1e-6, recorded symmetry row equality for steps [0,1,5,10,100], added softmax numerical stability tests and seed sweeps.
-2026-09-30 | 1 | "In week01_neural_models, fix the Part B check: compute 4 independent per-example backward passes on single-example losses, average, compare with one backward on batch mean loss, store diff (expect ~1e-9 to 1e-8) and the 4 per-example gradients at full precision in results/binary_xor.json. Update test to recompute independently and assert diff < 1e-6. Also reconcile results/seed_sweep.json with results/activation_comparison.json; state seed, lr, optimizer, steps clearly. Report sweep counts exactly per activation with honest failure explanations (plateau/local minima for sigmoid/tanh, dead ReLU units with negative pre-activations). Do not claim any activation is universally better. Update REPORT.md, CHECKLIST.md. Run ruff check ., pytest, CLI, commit and push." | Added per_example_grads_w1 (4 tensors) and grad_mean_w1 to BinaryResult; independent recomputation asserts diff < 1e-6 (0.0 in float32). Updated activation comparison table with full hyperparameter reconciliation; added honest sweep failure explanations in REPORT.md §5C; updated CHECKLIST.md 4B.3 and 4D.3; verified ruff and pytest pass.
-2026-09-30 | 2 | "Implement an explicit Goal-Based Agent architecture for autonomous warehouse pathfinding in Python following Russell & Norvig. The environment is a 2D discrete grid with shelving units (#), free space (.), start (S), and goal (G). Define explicit components for Environment, AgentState, GoalTest, Action enum (Up, Down, Left, Right with validity check), and SearchPlanner with BFS as primary planner (closed set, parent pointers, path reconstruction). Implement DFS and A* (Manhattan heuristic) as baselines for a 2x map scaling experiment answering the Think-About-It question. Generate an architecture block diagram using matplotlib. Add an independent Dijkstra oracle test, boundary tests (unsolvable, start==goal, adjacent goal, diamond equal paths), malformed map validation, and a real monkeypatch mutation test breaking wall validation. Save all metrics at full precision to results/ and answer all questions in REPORT.md." | Structured into modular `src/` packages; added strict map validator `parse_map`; implemented `Action` enum with delta properties; fixed wall coordinate check in mutation test; created `results/agent_diagram.png` with matplotlib patches; generated full-precision JSON metrics for sheet map, no-path, trivial cases, and 2x scaling.
-2026-09-30 | 3 | "Implement A* search algorithm and Breadth-First Search (BFS) for warehouse grid navigation from first principles in Python (using heapq and collections.deque only, without external search packages). Formalize the search problem (S, A, T, s0, G, c), model the 2D discrete grid environment with Action enums and path validators. Implement A* with priority queue min-heap, f(n)=g(n)+h(n), integer tie-breaker counters, closed set, and expansion-time goal testing. Implement Manhattan, Euclidean, Zero (h=0 / UCS), and Scaled Manhattan (2x, inadmissible) heuristics. Benchmark Test 1 (official 9x17 sheet map), Test 2 (trivial adjacent goal), Test 3 (unreachable goal), Test 4 (alternative equal paths + decoy route), Task 5 BFS vs A* comparison, Task 6 heuristic study, and a 200-grid random stress study (15x15 grids, ~25% wall density, seed 0). Build a 41-test pytest suite with an independent Dijkstra shortest-path oracle, cell-by-cell path validation, and real monkeypatch mutation tests. Save all full-precision outputs to results/ and document theoretical proofs in REPORT.md." | Structured into modular `src/` packages (`environment.py`, `heuristics.py`, `search.py`, `experiments.py`, `cli.py`); added monotonic integer insertion counter `(f, counter, state)` to prevent unorderable coordinate comparisons in heapq; verified goal testing evaluates on expansion; proved Manhattan admissibility and consistency; generated full-precision JSON results and comprehensive test suite with 41 passing tests.
+**Date**: 2026-09-30  
+**Week**: 04  
+**Prompt**: I want to implement a simple planning agent in Python.
+Represent a state as a set of logical propositions.
+Each action should contain:
+• a name;
+• positive preconditions;
+• negative preconditions;
+• positive effects;
+• negative effects.
+An action is applicable if all of its preconditions are satisfied by the current state.
+When an action is applied:
+1. remove its negative effects from the state;
+2. add its positive effects;
+Use breadth-first search to find a sequence of actions that achieves a specified goal.
+The program should also:
+• detect when no plan exists;
+• print the resulting sequence of actions;
+• print the states reached after each action.
+Explain the implementation and identify any assumptions you make.
+Run the generated program on the warehouse problem.
+
+**What was changed after review**:
+- Added `missing_preconditions()` helper for Task 0 diagnostics
+- Added `neg_pre` and `neg_eff` fields to Action to fully support negative preconditions and effects
+- Made `applicable()` and `apply_action()` exactly match the spec (remove neg_eff then add pos_eff)
+- Added independent validator that re-implements applicable/apply logic inline (no code sharing)
+- Added BFS planner that returns plan, states after each action, and nodes expanded
+- Added grounding of warehouse actions (Move between A-B, B-A, B-C, C-B; PickUp/Drop at A,B,C)
+- Added support for negative preconditions/effects via synthetic problem (UnlockDoor/Enter)
+- Added Prolog integration via subprocess calls to swipl for independent verification
+- Added cross-check: every Move step in Python plan must be accepted by Prolog valid_move/2
+- Added proper handling of swipl absence (visible skip reason, not silent pass)

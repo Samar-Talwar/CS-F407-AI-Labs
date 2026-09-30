@@ -1,0 +1,18 @@
+{
+  "swipl_found": true,
+  "can_move_a_b": true,
+  "can_move_a_c": false,
+  "valid_move_a_b": true,
+  "valid_move_b_c": true,
+  "valid_move_a_c": false,
+  "reduce_speed": true,
+  "animal_polly": true,
+  "cross_check": {
+    "swipl_found": true,
+    "moves": {
+      "Move(A,B)": true,
+      "Move(B,C)": true
+    },
+    "move_ac_challenge": false
+  }
+}

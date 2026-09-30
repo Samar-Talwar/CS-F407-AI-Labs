@@ -1,0 +1,30 @@
+{
+  "initial_state": [
+    "DoorLocked",
+    "HasKey"
+  ],
+  "goal": [
+    "Inside"
+  ],
+  "plan_found": true,
+  "plan": [
+    "UnlockDoor",
+    "Enter"
+  ],
+  "states": [
+    [
+      "DoorLocked",
+      "HasKey"
+    ],
+    [
+      "HasKey"
+    ],
+    [
+      "HasKey",
+      "Inside"
+    ]
+  ],
+  "states_expanded": 2,
+  "valid": true,
+  "validation_error": null
+}

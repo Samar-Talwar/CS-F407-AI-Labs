@@ -1,50 +1,50 @@
 {
   "configuration": {
-    "num_solvable_grids": 200,
+    "num_solvable_grids": 100,
     "grid_size": 15,
     "wall_probability": 0.25,
     "random_seed": 0
   },
   "metrics": {
     "manhattan": {
-      "total_grids": 200,
+      "total_grids": 100,
       "suboptimal_path_count": 0,
       "optimal_path_rate": 1.0,
-      "mean_states_expanded": 85.68,
-      "std_states_expanded": 17.342474074801896,
-      "min_states_expanded": 43,
-      "max_states_expanded": 126,
+      "mean_states_expanded": 87.14,
+      "std_states_expanded": 16.57003502126838,
+      "min_states_expanded": 47,
+      "max_states_expanded": 124,
       "mean_expansion_ratio_vs_manhattan": 1.0
     },
     "zero": {
-      "total_grids": 200,
+      "total_grids": 100,
       "suboptimal_path_count": 0,
       "optimal_path_rate": 1.0,
-      "mean_states_expanded": 122.91,
-      "std_states_expanded": 10.978366117645436,
-      "min_states_expanded": 77,
-      "max_states_expanded": 141,
-      "mean_expansion_ratio_vs_manhattan": 1.4853474151734936
+      "mean_states_expanded": 123.72,
+      "std_states_expanded": 9.714177912991532,
+      "min_states_expanded": 94,
+      "max_states_expanded": 139,
+      "mean_expansion_ratio_vs_manhattan": 1.467121598922318
     },
     "euclidean": {
-      "total_grids": 200,
+      "total_grids": 100,
       "suboptimal_path_count": 0,
       "optimal_path_rate": 1.0,
-      "mean_states_expanded": 97.78,
-      "std_states_expanded": 16.037380956368732,
-      "min_states_expanded": 52,
+      "mean_states_expanded": 99.3,
+      "std_states_expanded": 14.45753097939624,
+      "min_states_expanded": 67,
       "max_states_expanded": 131,
-      "mean_expansion_ratio_vs_manhattan": 1.1535853376566965
+      "mean_expansion_ratio_vs_manhattan": 1.1527610478507357
     },
     "scaled_manhattan_2x": {
-      "total_grids": 200,
-      "suboptimal_path_count": 55,
-      "optimal_path_rate": 0.725,
-      "mean_states_expanded": 34.305,
-      "std_states_expanded": 10.189262996017428,
+      "total_grids": 100,
+      "suboptimal_path_count": 31,
+      "optimal_path_rate": 0.69,
+      "mean_states_expanded": 34.96,
+      "std_states_expanded": 10.369847509666542,
       "min_states_expanded": 25,
-      "max_states_expanded": 89,
-      "mean_expansion_ratio_vs_manhattan": 0.417198092642581
+      "max_states_expanded": 78,
+      "mean_expansion_ratio_vs_manhattan": 0.4144791891136178
     }
   }
 }
