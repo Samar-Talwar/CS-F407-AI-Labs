@@ -1,0 +1,26 @@
+{
+  "sigmoid": {
+    "final_loss": 0.0026298740413039923,
+    "all_correct": true,
+    "early_grad_norm": 0.004387183580547571,
+    "seed": 42,
+    "lr": 1.0,
+    "steps": 5000
+  },
+  "tanh": {
+    "final_loss": 0.0006374898366630077,
+    "all_correct": true,
+    "early_grad_norm": 0.016809601336717606,
+    "seed": 42,
+    "lr": 1.0,
+    "steps": 5000
+  },
+  "relu": {
+    "final_loss": 0.00014470715541392565,
+    "all_correct": true,
+    "early_grad_norm": 0.029017051681876183,
+    "seed": 5,
+    "lr": 0.5,
+    "steps": 20000
+  }
+}
