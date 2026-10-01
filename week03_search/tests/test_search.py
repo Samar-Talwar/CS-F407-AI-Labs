@@ -376,6 +376,19 @@ class TestBFSComparison:
         assert bfs_res.states_expanded == 34
 
 
+def test_cli_results_dir_module_relative(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: pytest.TempPathFactory
+) -> None:
+    from pathlib import Path
+
+    import week03_search.src.experiments as exp_mod
+
+    monkeypatch.chdir(tmp_path)
+    expected = (Path(exp_mod.__file__).resolve().parents[1] / "results").resolve()
+    assert exp_mod.RESULTS_DIR.resolve() == expected
+
+
+
 class TestHeuristicsProperties:
     """Task 6: Properties of heuristics."""
 

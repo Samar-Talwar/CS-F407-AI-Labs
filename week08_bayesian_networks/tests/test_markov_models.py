@@ -475,3 +475,15 @@ def test_mutation_3_broken_greedy_tie_break(monkeypatch: pytest.MonkeyPatch) -> 
     # 'the' transitions to 'dog' instead of 'cat'
     assert standard_gen.tokens != mutated_gen.tokens
     assert mutated_gen.tokens[2] == "dog"
+
+
+def test_cli_results_dir_module_relative(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    from pathlib import Path
+
+    import week08_bayesian_networks.src.cli as cli_mod
+
+    monkeypatch.chdir(tmp_path)
+    expected = (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+    assert cli_mod.get_results_dir().resolve() == expected
+
+

@@ -273,3 +273,14 @@ def test_mutation_remove_pickup_actions(monkeypatch):
     data = test_a()
     assert data["plan_found"] is False  # same as test B
     assert data["plan"] == []
+
+
+def test_cli_results_dir_module_relative(monkeypatch, tmp_path):
+    from pathlib import Path
+
+    import week04_logic.src.cli as cli_mod
+
+    monkeypatch.chdir(tmp_path)
+    expected = (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+    assert cli_mod.RESULTS_DIR.resolve() == expected
+

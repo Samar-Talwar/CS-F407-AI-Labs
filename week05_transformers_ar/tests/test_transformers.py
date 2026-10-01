@@ -286,6 +286,18 @@ def test_tiny_gpt_training_convergence() -> None:
     assert res["final_loss"] < res["initial_loss"] * 0.20, "Loss did not drop by at least 80%."
 
 
+def test_cli_results_dir_module_relative(monkeypatch, tmp_path):
+    from pathlib import Path
+
+    import week05_transformers_ar.src.cli as cli_mod
+
+    monkeypatch.chdir(tmp_path)
+    expected = (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+    assert cli_mod.RESULTS_DIR.resolve() == expected
+
+
+
+
 # ---------------------------------------------------------------------------
 # 7. Real Mutation Tests (Monkeypatching ACTUAL src Functions)
 # ---------------------------------------------------------------------------

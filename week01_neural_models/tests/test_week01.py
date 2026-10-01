@@ -327,8 +327,11 @@ def test_cli_results_dir_module_relative(
 ) -> None:
     """Verify that results directory is resolved relative to module, not cwd."""
     from pathlib import Path
+
     import week01_neural_models.src.cli as cli_mod
 
     monkeypatch.chdir(tmp_path)
-    assert cli_mod.RESULTS_DIR.resolve() == (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+    expected = (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+    assert cli_mod.RESULTS_DIR.resolve() == expected
+
 

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+
 import pytest
 
 
@@ -16,4 +17,5 @@ def test_cli_results_dir_module_relative(
     monkeypatch.chdir(tmp_path)
     d = cli_mod.ensure_results_dir()
     assert d.resolve() == (Path(__file__).resolve().parents[1] / "results").resolve()
+
 

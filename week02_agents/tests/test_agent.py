@@ -316,3 +316,16 @@ class TestAgentComponentsVisibility:
         assert isinstance(agent.planner, SearchPlanner)
         assert isinstance(agent.explain_algorithm(), str)
         assert "Breadth-First Search" in agent.explain_algorithm()
+
+
+def test_cli_results_dir_module_relative(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: pytest.TempPathFactory
+) -> None:
+    from pathlib import Path
+
+    import week02_agents.src.cli as cli_mod
+
+    monkeypatch.chdir(tmp_path)
+    expected = (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+    assert cli_mod.RESULTS_DIR.resolve() == expected
+
