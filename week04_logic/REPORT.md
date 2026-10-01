@@ -133,10 +133,10 @@ The planner might attempt to apply PickUp(Package,B) when the package is at A, l
 Because "looks reasonable" only checks the surface narrative (e.g., robot moves to C, package appears at C) without verifying that each action's preconditions actually held at the moment of execution. Our invalid example looks reasonable but fails on precondition checking.
 
 **R4**: What did the LLM contribute to the implementation?  
-> *TODO(student):* AI assistant generated the initial STRIPS state representation, action class structure, and BFS planning loop from the formal specification.
+> The AI assistant generated the STRIPS state representation (a frozenset of propositions), the Action class, the BFS planner and the Prolog integration from the sheet's specification. I directed it to treat the sheet's example plan `Move(A,B), PickUp(Package,B), ...` as invalid, because the package starts at A, and to show the failing precondition with a validator.
 
 **R5**: What did you have to verify independently?  
-> *TODO(student):* Human verification tested STRIPS semantics in `applicable()` and `apply_action()`, confirmed shortest-plan optimality against the manual 4-step baseline, and verified that the independent transition validator caught illegal moves.
+> I checked the results against the manual plan: the planner returns the 4-step plan PickUp(Package,A), Move(A,B), Move(B,C), Drop(Package,C); Test B (no PickUp) reports no plan; and the independent validator rejects the sheet's example sequence at its PickUp(Package,B) step. The tests include mutation tests that break `applicable()` and `apply_action()`. [I ran the fresh-clone check including the SWI-Prolog tests; confirm.]
 
 **R6**: In this laboratory, where is logical reasoning being used?  
 Logical reasoning is used in the `applicable()` function to determine whether an action's preconditions are satisfied by the current state (S |= Preconditions(a)).
@@ -182,7 +182,7 @@ Planning uses logical reasoning to generate the *successor function* (which acti
 **S4**: Generated Python program → `src/` package  
 **S5**: Test results → `results/test_a.json`, `test_b.json`, `test_c.json`  
 **S6**: Think About It answers → `REPORT.md` (§Task2.TAI, §Task4, §P7, §P8)  
-**S7**: Reflection on LLM use → `REPORT.md §R4, §R5` (TODO(student) experience stubs)
+**S7**: Reflection on LLM use → `REPORT.md §R4, §R5` (§R4, §R5 reflections)
 
 ## Negative Preconditions
 

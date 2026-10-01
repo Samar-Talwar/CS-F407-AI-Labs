@@ -171,12 +171,12 @@ To generate clean, production-grade agent software using an AI assistant, the pr
 ### Task 3 Questions & Answers
 
 #### Question 1: Did the LLM-generated code work on the first attempt?
-> *TODO(student):* AI assistant produced the initial BFS queue loop and state representation; human refinement added ragged-line validation in map parsing and formalized `Action(Enum)` movements.
+> The AI assistant produced the BFS agent, the map parser and the tests. [I ran the fresh-clone check (ruff, pytest, CLI) and] compared the reported numbers (20-step shortest path with 59 nodes expanded; on the 2x map 40 steps and 239 expanded) against `results/sheet_map_result.json` and `results/scaling.json`. The tests include an independent Dijkstra oracle and a monkeypatched wall-collision mutation test, which I required in the prompt so that the tests could actually fail.
 
 ---
 
 #### Question 2: How could you improve the prompt for better results?
-> *TODO(student):* AI assistant generated the base agent architecture; prompt improvements include specifying explicit failure return types (`SearchResult(found=False)`) and requesting baseline search algorithms upfront.
+> My Week 2 prompt was rewritten using what I found in Week 1: every recorded value saved at full precision in `results/`, an independent Dijkstra oracle instead of self-comparison, a real mutation test, a 2x-map scaling experiment to answer the Think-About-It, and a fresh-clone check before pushing. [With this prompt the first run produced a working agent without a fix round; confirm that is what you saw.]
 
 ---
 

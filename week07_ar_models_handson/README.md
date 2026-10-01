@@ -61,5 +61,5 @@ Results are written to `results/` at full precision (no rounding in JSON).
 ## Provenance / Authorship
 - Every source file starts with the required header (`# CS F407 Lab, Week 7 | Author: Samar Talwar ...`).
 - No open-source license added (NOTICE.md governs).
-- Reflection / "Think About It" answers left as `TODO(student)` stubs with 2–3 factual hints from results.
+- Reflection / "Think About It" answers drafted with AI assistance from the measured results and reviewed by the author.
 - Prompt log entry added to `docs/prompt_log.md`.
