@@ -1,7 +1,14 @@
 # CS F407 — Artificial Intelligence: Lab Solutions
 
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://python.org/)
+[![Code Style: Ruff](https://img.shields.io/badge/Code%20Style-Ruff-000000.svg?style=flat-square&logo=ruff&logoColor=white)](https://github.com/astral-sh/ruff)
+[![Tests: 230+](https://img.shields.io/badge/Tests-230%2B-Passing-brightgreen.svg?style=flat-square&logo=pytest&logoColor=white)](#)
+[![PyTorch 2.0+](https://img.shields.io/badge/Pytorch-2.0%2B-EE4C2C.svg?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![CI: Passing](https://github.com/Samar-Talwar/CS-F407-AI-Labs/workflows/CI/badge.svg)](.github/workflows/ci.yml)
+[![Institution: BITS Pilani Goa](https://img.shields.io/badge/BITS%20Pilani-Goa%20Campus-B31B1B.svg?style=flat-square)](https://www.bits-pilani.ac.in/goa/)
+
 > **Institution:** BITS Pilani, Goa Campus  ·  **Course:** CS F407 — Artificial Intelligence  ·  **Semester:** AY 2026-27, Sem 1  
-> **Author:** Samar Talwar (2024A1PS0264G) ·  **License:** Not licensed for reuse or submission by others  ·  **Repository:** https://github.com/tirtharajdash/CS-F407-AI-AY2026-27-S1  
+> **Author:** Samar Talwar (2024A1PS0264G) ·  **License:** Not licensed for reuse or submission by others  ·  **Repository:** https://github.com/tirtharajdash/CS-F407-AI-AY2026-27-S1
 > **Quality Gate:** `ruff check .` and `pytest -q` must pass; every value is written unrounded to `results/`; no fabricated outputs.
 
 ---
@@ -36,6 +43,29 @@ CS-F407-AI-Labs/
 ├── pyproject.toml         # Python >=3.10 | ruff | pytest config (testpaths = all 8 weeks)
 ├── requirements.lock.txt
 └── README.md              # ← this file (global index only)
+```
+
+```mermaid
+flowchart TD
+    subgraph S1["Classical AI: Search, Agents & Logic"]
+        W2["Week 02: Goal-Based Agent"] --> W3["Week 03: A* & Heuristic Search"]
+        W3 --> W4["Week 04: Logic & State-Space Planning"]
+    end
+
+    subgraph S2["Probabilistic AI & Graphical Models"]
+        W6["Week 06: Bayesian Networks & LLMs"] <--> W8["Week 08: Bayesian Networks & Markov LMs"]
+    end
+
+    subgraph S3["Deep Learning & Autoregressive Models"]
+        W1["Week 01: Neural Models & MLP"] --> W5["Week 05: Decoder Transformers (TinyGPT)"]
+        W5 --> W7["Week 07: Autoregressive Transformers & RAG"]
+    end
+
+    S1 -.-> S2
+    S2 -.-> S3
+
+    classDef default fill:#1f242d,stroke:#3b82f6,stroke-width:1.5px,color:#f8fafc;
+    classDef highlight fill:#1e3a8a,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
 ```
 
 ---
