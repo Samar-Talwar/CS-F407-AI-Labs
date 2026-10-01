@@ -68,3 +68,14 @@ Run the generated program on the warehouse problem.
 - Generated results/*.json (unrounded machine outputs)
 - Wrote README.md and REPORT.md (comprehensive mathematical derivations, tables, TODO(student) stubs)
 - Updated root README.md; confirmed ruff check . and pytest -q pass; validated via fresh clone in $env:TEMP\fresh_w5
+
+---
+# CS F407 Lab, Week 6 | Author: Samar Talwar | Not licensed for reuse or submission by others.
+**Date**: 2026-10-01
+**Week**: 06
+**Prompt**: Implement Week 6 Bayesian Networks and LLM Integration: discrete BN framework (TabularCPD, DiscreteBayesianNetwork), exact Variable Elimination inference with independent 16-state joint enumeration oracle, MLE and BDeu Bayesian estimation with sample-size sweep, LLM stub interface with AST safety checker (ast.walk, allowed_modules, forbidden_calls), execution sandbox, and full pytest/ruff pipeline; generate all JSON/PNG artifacts; write CHECKLIST.md, REPORT.md, README.md; complete fresh-clone gate.
+**What was changed after review**:
+- Added `pandas DataFrame` string to `ESTIMATION_PROMPT` Requirement 1 to satisfy `test_estimation_prompt_contains_requirements`.
+- Wrapped long import-check lines exceeding 100 chars in `src/llm_interface.py` and fixed indentation of the `ast.walk` visitor block.
+- Prefixed unused loop variables with underscore (`_var`, `_ev`) to satisfy Ruff B007.
+- Confirmed 99 pytest passes, 0 ruff errors, CLI `--all` generates all artifacts, fresh clone passes with `.venv/Scripts/python`.

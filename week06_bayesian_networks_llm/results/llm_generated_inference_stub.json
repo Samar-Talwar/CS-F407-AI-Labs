@@ -1,0 +1,47 @@
+{
+  "prompt": "You are an expert in probabilistic graphical models and Python.\nGenerate self-contained Python code to define the Sprinkler Bayesian\nNetwork and query P(Rain=1 | WetGrass=1).\n\nGraph structure:\nCloudy -> Rain\nCloudy -> Sprinkler\nRain -> WetGrass\nSprinkler -> WetGrass\n\nBinary variables (0 = False, 1 = True):\nP(Cloudy=1) = 0.5\nP(Rain=1 | Cloudy=0) = 0.2\nP(Rain=1 | Cloudy=1) = 0.8\nP(Sprinkler=1 | Cloudy=0) = 0.5\nP(Sprinkler=1 | Cloudy=1) = 0.1\nP(WetGrass=1 | Rain=0, Sprinkler=0) = 0.01\nP(WetGrass=1 | Rain=0, Sprinkler=1) = 0.90\nP(WetGrass=1 | Rain=1, Sprinkler=0) = 0.90\nP(WetGrass=1 | Rain=1, Sprinkler=1) = 0.99\n\nRequirements:\n1. Use DiscreteBayesianNetwork (or BayesianModel) and TabularCPD.\n2. Define `generated_model` and add all CPDs. Call `generated_model.check_model()`.\n3. Use VariableElimination to compute P(Rain | WetGrass=1).\n4. Store the resulting factor or posterior object in a variable named `generated_posterior`.\n5. Return ONLY executable Python code in ```python ... ``` fences.\n",
+  "raw_response": "```python\nfrom week06_bayesian_networks_llm.src.bn import DiscreteBayesianNetwork, TabularCPD\nfrom week06_bayesian_networks_llm.src.inference import VariableElimination\n\ngenerated_model = DiscreteBayesianNetwork([\n    (\"Cloudy\", \"Rain\"),\n    (\"Cloudy\", \"Sprinkler\"),\n    (\"Rain\", \"WetGrass\"),\n    (\"Sprinkler\", \"WetGrass\"),\n])\n\ncpd_cloudy = TabularCPD(variable=\"Cloudy\", variable_card=2, values=[[0.5], [0.5]])\ncpd_rain = TabularCPD(\n    variable=\"Rain\", variable_card=2,\n    values=[[0.8, 0.2], [0.2, 0.8]],\n    evidence=[\"Cloudy\"], evidence_card=[2],\n)\ncpd_sprinkler = TabularCPD(\n    variable=\"Sprinkler\",\n    variable_card=2,\n    values=[[0.5, 0.9], [0.5, 0.1]],\n    evidence=[\"Cloudy\"],\n    evidence_card=[2],\n)\ncpd_wetgrass = TabularCPD(\n    variable=\"WetGrass\",\n    variable_card=2,\n    values=[\n        [0.99, 0.10, 0.10, 0.01],\n        [0.01, 0.90, 0.90, 0.99]\n    ],\n    evidence=[\"Rain\", \"Sprinkler\"],\n    evidence_card=[2, 2],\n)\n\ngenerated_model.add_cpds(cpd_cloudy, cpd_rain, cpd_sprinkler, cpd_wetgrass)\ngenerated_model.check_model()\n\nve = VariableElimination(generated_model)\ngenerated_posterior = ve.query(variables=[\"Rain\"], evidence={\"WetGrass\": 1})\n```",
+  "extracted_code": "from week06_bayesian_networks_llm.src.bn import DiscreteBayesianNetwork, TabularCPD\nfrom week06_bayesian_networks_llm.src.inference import VariableElimination\n\ngenerated_model = DiscreteBayesianNetwork([\n    (\"Cloudy\", \"Rain\"),\n    (\"Cloudy\", \"Sprinkler\"),\n    (\"Rain\", \"WetGrass\"),\n    (\"Sprinkler\", \"WetGrass\"),\n])\n\ncpd_cloudy = TabularCPD(variable=\"Cloudy\", variable_card=2, values=[[0.5], [0.5]])\ncpd_rain = TabularCPD(\n    variable=\"Rain\", variable_card=2,\n    values=[[0.8, 0.2], [0.2, 0.8]],\n    evidence=[\"Cloudy\"], evidence_card=[2],\n)\ncpd_sprinkler = TabularCPD(\n    variable=\"Sprinkler\",\n    variable_card=2,\n    values=[[0.5, 0.9], [0.5, 0.1]],\n    evidence=[\"Cloudy\"],\n    evidence_card=[2],\n)\ncpd_wetgrass = TabularCPD(\n    variable=\"WetGrass\",\n    variable_card=2,\n    values=[\n        [0.99, 0.10, 0.10, 0.01],\n        [0.01, 0.90, 0.90, 0.99]\n    ],\n    evidence=[\"Rain\", \"Sprinkler\"],\n    evidence_card=[2, 2],\n)\n\ngenerated_model.add_cpds(cpd_cloudy, cpd_rain, cpd_sprinkler, cpd_wetgrass)\ngenerated_model.check_model()\n\nve = VariableElimination(generated_model)\ngenerated_posterior = ve.query(variables=[\"Rain\"], evidence={\"WetGrass\": 1})",
+  "basic_check_problems": [],
+  "validation": {
+    "structure": "PASS",
+    "check_model": "PASS",
+    "absolute_error": 0.0,
+    "backend": "stub",
+    "extra_details": {
+      "generated_nodes": [
+        "Cloudy",
+        "Rain",
+        "Sprinkler",
+        "WetGrass"
+      ],
+      "generated_edges": [
+        [
+          "Cloudy",
+          "Rain"
+        ],
+        [
+          "Cloudy",
+          "Sprinkler"
+        ],
+        [
+          "Rain",
+          "WetGrass"
+        ],
+        [
+          "Sprinkler",
+          "WetGrass"
+        ]
+      ],
+      "posterior_values": [
+        0.29523076923076924,
+        0.7047692307692307
+      ],
+      "reference_values": [
+        0.29523076923076924,
+        0.7047692307692307
+      ]
+    }
+  },
+  "backend": "stub"
+}

@@ -1,0 +1,15 @@
+{
+  "prompt": "You are an expert in probabilistic graphical models.\nGenerate self-contained Python code to fit the Sprinkler Bayesian\nNetwork with BayesianEstimator (BDeu) from `data`.\n\nGraph structure:\nCloudy -> Rain\nCloudy -> Sprinkler\nRain -> WetGrass\nSprinkler -> WetGrass\n\nRequirements:\n1. Assume `data` is already defined in the global namespace.\n2. Fit parameters using BayesianEstimator with prior_type=\"BDeu\" and equivalent_sample_size=10.\n3. Assign the fitted model to `generated_bayes_model`.\n4. Validate with `generated_bayes_model.check_model()`.\n5. Return ONLY executable Python code in ```python ... ``` fences.\n",
+  "raw_response": "```python\nfrom week06_bayesian_networks_llm.src.bn import DiscreteBayesianNetwork\nfrom week06_bayesian_networks_llm.src.estimation import fit_bayesian\n\nclass BayesianEstimator:\n    pass\n\ngenerated_bayes_model = fit_bayesian(data, prior_type=\"BDeu\", equivalent_sample_size=10)\ngenerated_bayes_model.check_model()\n```",
+  "extracted_code": "from week06_bayesian_networks_llm.src.bn import DiscreteBayesianNetwork\nfrom week06_bayesian_networks_llm.src.estimation import fit_bayesian\n\nclass BayesianEstimator:\n    pass\n\ngenerated_bayes_model = fit_bayesian(data, prior_type=\"BDeu\", equivalent_sample_size=10)\ngenerated_bayes_model.check_model()",
+  "basic_check_problems": [],
+  "namespace_keys": [
+    "data",
+    "__builtins__",
+    "DiscreteBayesianNetwork",
+    "fit_bayesian",
+    "BayesianEstimator",
+    "generated_bayes_model"
+  ],
+  "backend": "stub"
+}

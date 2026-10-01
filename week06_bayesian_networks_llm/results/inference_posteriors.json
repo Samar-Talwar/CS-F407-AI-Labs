@@ -1,0 +1,15 @@
+{
+  "rain_given_wetgrass": {
+    "native": 0.7047692307692307,
+    "enumeration": 0.7047692307692309,
+    "difference": 2.220446049250313e-16
+  },
+  "exercises": {
+    "rain_given_wetgrass": 0.7047692307692307,
+    "sprinkler_given_wetgrass": 0.42784615384615376,
+    "cloudy_given_wetgrass": 0.5746153846153845,
+    "rain_given_wetgrass_sprinkler0": 0.9922022048937886,
+    "enumeration_rain_given_wetgrass": 0.7047692307692309,
+    "enumeration_diff": 2.220446049250313e-16
+  }
+}

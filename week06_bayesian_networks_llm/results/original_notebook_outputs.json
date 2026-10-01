@@ -1,0 +1,73 @@
+{
+  "note": "These outputs are copied from the professor's original notebook (llm_bn.ipynb). They are kept separate from reproduced results.",
+  "posterior_rain_given_wetgrass": 0.7047692307692307,
+  "enumeration_posterior": 0.7047692307692309,
+  "difference": 2.220446049250313e-16,
+  "mle_n1000_rain_given_cloudy1": 0.7725409836065574,
+  "manual_mle_n1000": 0.7725409836065574,
+  "true_rain_given_cloudy1": 0.8,
+  "sample_size_sweep": [
+    {
+      "N": 20,
+      "estimate": 0.8888888888888888,
+      "error": 0.08888888888888882
+    },
+    {
+      "N": 50,
+      "estimate": 0.8260869565217391,
+      "error": 0.02608695652173914
+    },
+    {
+      "N": 100,
+      "estimate": 0.7083333333333334,
+      "error": 0.0916666666666666
+    },
+    {
+      "N": 500,
+      "estimate": 0.7804878048780488,
+      "error": 0.019512195121951244
+    },
+    {
+      "N": 1000,
+      "estimate": 0.7725409836065574,
+      "error": 0.02745901639344256
+    },
+    {
+      "N": 5000,
+      "estimate": 0.8039607843137255,
+      "error": 0.00396078431372549
+    }
+  ],
+  "small_sample_comparison": {
+    "true": 0.8,
+    "mle_n30": 0.9090909090909091,
+    "bayes_n30_ess10": 0.78125
+  },
+  "exercise_posteriors": {
+    "sprinkler_given_wetgrass": 0.4278461538461539,
+    "cloudy_given_wetgrass": 0.5746153846153845,
+    "rain_given_wetgrass_sprinkler0": 0.9922022048937886
+  },
+  "multi_seed_estimates": [
+    {
+      "seed": 1,
+      "estimate": 0.8571428571428571
+    },
+    {
+      "seed": 2,
+      "estimate": 0.875
+    },
+    {
+      "seed": 3,
+      "estimate": 0.8
+    },
+    {
+      "seed": 4,
+      "estimate": 0.6666666666666666
+    },
+    {
+      "seed": 5,
+      "estimate": 0.8333333333333334
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "prompt": "You are an expert in probabilistic graphical models and parameter estimation.\nGenerate self-contained Python code to fit the Sprinkler Bayesian\nNetwork parameters using MaximumLikelihoodEstimator from `data`.\n\nGraph structure:\nCloudy -> Rain\nCloudy -> Sprinkler\nRain -> WetGrass\nSprinkler -> WetGrass\n\nRequirements:\n1. Assume `data` is a pandas DataFrame already defined in the global namespace.\n2. Initialize DiscreteBayesianNetwork with the DAG edges.\n3. Fit parameters using MaximumLikelihoodEstimator and assign\n   the fitted model to `generated_mle_model`.\n4. Validate with `generated_mle_model.check_model()`.\n5. Return ONLY executable Python code in ```python ... ``` fences.\n",
+  "raw_response": "```python\nfrom week06_bayesian_networks_llm.src.bn import DiscreteBayesianNetwork\nfrom week06_bayesian_networks_llm.src.estimation import fit_mle\n\n# Fit MLE on data\nclass MaximumLikelihoodEstimator:\n    pass\n\ngenerated_mle_model = fit_mle(data)\ngenerated_mle_model.check_model()\n```",
+  "extracted_code": "from week06_bayesian_networks_llm.src.bn import DiscreteBayesianNetwork\nfrom week06_bayesian_networks_llm.src.estimation import fit_mle\n\n# Fit MLE on data\nclass MaximumLikelihoodEstimator:\n    pass\n\ngenerated_mle_model = fit_mle(data)\ngenerated_mle_model.check_model()",
+  "basic_check_problems": [],
+  "namespace_keys": [
+    "data",
+    "__builtins__",
+    "DiscreteBayesianNetwork",
+    "fit_mle",
+    "MaximumLikelihoodEstimator",
+    "generated_mle_model"
+  ],
+  "model_comparison": {
+    "Cloudy": 0.0,
+    "Rain": 0.0,
+    "Sprinkler": 0.0,
+    "WetGrass": 0.0
+  },
+  "backend": "stub"
+}

@@ -1,0 +1,12 @@
+{
+  "broken_cpt": {
+    "caught": true,
+    "error": "CPD values for Rain are not equal to 1. Column sums: [1.2 1. ]"
+  },
+  "semantic_error": {
+    "check_model_passes": true,
+    "correct_posterior": 0.7047692307692307,
+    "wrong_posterior": 0.7172952268709487,
+    "difference": 0.012525996101718007
+  }
+}

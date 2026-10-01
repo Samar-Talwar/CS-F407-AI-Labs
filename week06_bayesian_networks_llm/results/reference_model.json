@@ -1,0 +1,102 @@
+{
+  "model_valid": true,
+  "edges": [
+    [
+      "Cloudy",
+      "Rain"
+    ],
+    [
+      "Cloudy",
+      "Sprinkler"
+    ],
+    [
+      "Rain",
+      "WetGrass"
+    ],
+    [
+      "Sprinkler",
+      "WetGrass"
+    ]
+  ],
+  "nodes": [
+    "Cloudy",
+    "Rain",
+    "Sprinkler",
+    "WetGrass"
+  ],
+  "cpd_validation": true,
+  "cpds": {
+    "Cloudy": {
+      "values": [
+        [
+          0.5
+        ],
+        [
+          0.5
+        ]
+      ],
+      "evidence": null,
+      "evidence_card": null
+    },
+    "Rain": {
+      "values": [
+        [
+          0.8,
+          0.2
+        ],
+        [
+          0.2,
+          0.8
+        ]
+      ],
+      "evidence": [
+        "Cloudy"
+      ],
+      "evidence_card": [
+        2
+      ]
+    },
+    "Sprinkler": {
+      "values": [
+        [
+          0.5,
+          0.9
+        ],
+        [
+          0.5,
+          0.1
+        ]
+      ],
+      "evidence": [
+        "Cloudy"
+      ],
+      "evidence_card": [
+        2
+      ]
+    },
+    "WetGrass": {
+      "values": [
+        [
+          0.99,
+          0.1,
+          0.1,
+          0.01
+        ],
+        [
+          0.01,
+          0.9,
+          0.9,
+          0.99
+        ]
+      ],
+      "evidence": [
+        "Rain",
+        "Sprinkler"
+      ],
+      "evidence_card": [
+        2,
+        2
+      ]
+    }
+  }
+}

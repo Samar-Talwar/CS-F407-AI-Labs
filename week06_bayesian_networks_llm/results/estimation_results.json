@@ -1,0 +1,87 @@
+{
+  "mle_fitted_cpds": {
+    "Cloudy": [
+      [
+        0.502
+      ],
+      [
+        0.498
+      ]
+    ],
+    "Rain": [
+      [
+        0.796812749003984,
+        0.1706827309236948
+      ],
+      [
+        0.20318725099601595,
+        0.8293172690763052
+      ]
+    ]
+  },
+  "manual_mle_verification": {
+    "manual": 0.8293172690763052,
+    "native_mle": 0.8293172690763052,
+    "pgmpy": 0.8293172690763052,
+    "true_value": 0.8
+  },
+  "small_sample_comparison": {
+    "true_parameter": 0.8,
+    "mle_n30": 0.625,
+    "bayes_n30_ess10": 0.5952380952380952
+  },
+  "sample_size_sweep": [
+    {
+      "N": 20,
+      "estimated_P_Rain1_given_Cloudy1": 0.6666666666666666,
+      "absolute_error": 0.13333333333333341
+    },
+    {
+      "N": 50,
+      "estimated_P_Rain1_given_Cloudy1": 0.7037037037037037,
+      "absolute_error": 0.09629629629629632
+    },
+    {
+      "N": 100,
+      "estimated_P_Rain1_given_Cloudy1": 0.76,
+      "absolute_error": 0.040000000000000036
+    },
+    {
+      "N": 500,
+      "estimated_P_Rain1_given_Cloudy1": 0.7660377358490567,
+      "absolute_error": 0.03396226415094339
+    },
+    {
+      "N": 1000,
+      "estimated_P_Rain1_given_Cloudy1": 0.8293172690763052,
+      "absolute_error": 0.029317269076305164
+    },
+    {
+      "N": 5000,
+      "estimated_P_Rain1_given_Cloudy1": 0.7945149406467458,
+      "absolute_error": 0.0054850593532542735
+    }
+  ],
+  "multi_seed_estimates": [
+    {
+      "seed": 1,
+      "estimate": 0.8679245283018868
+    },
+    {
+      "seed": 2,
+      "estimate": 0.8163265306122449
+    },
+    {
+      "seed": 3,
+      "estimate": 0.8490566037735849
+    },
+    {
+      "seed": 4,
+      "estimate": 0.8301886792452831
+    },
+    {
+      "seed": 5,
+      "estimate": 0.803921568627451
+    }
+  ]
+}
