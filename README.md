@@ -1,11 +1,11 @@
 # CS F407 — Artificial Intelligence: Lab Solutions
 
-[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://python.org/)
-[![Code Style: Ruff](https://img.shields.io/badge/Code%20Style-Ruff-000000.svg?style=flat-square&logo=ruff&logoColor=white)](https://github.com/astral-sh/ruff)
-[![Tests: 230+](https://img.shields.io/badge/Tests-230%2B-Passing-brightgreen.svg?style=flat-square&logo=pytest&logoColor=white)](#)
-[![PyTorch 2.0+](https://img.shields.io/badge/Pytorch-2.0%2B-EE4C2C.svg?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![CI: Passing](https://github.com/Samar-Talwar/CS-F407-AI-Labs/workflows/CI/badge.svg)](.github/workflows/ci.yml)
-[![Institution: BITS Pilani Goa](https://img.shields.io/badge/BITS%20Pilani-Goa%20Campus-B31B1B.svg?style=flat-square)](https://www.bits-pilani.ac.in/goa/)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org/)
+[![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000?style=flat-square&logo=ruff&logoColor=white)](https://github.com/astral-sh/ruff)
+[![Tests: 230+ passing](https://img.shields.io/badge/tests-230%2B%20passing-brightgreen?style=flat-square&logo=pytest&logoColor=white)](#)
+[![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![CI](https://github.com/Samar-Talwar/CS-F407-AI-Labs/actions/workflows/ci.yml/badge.svg)](https://github.com/Samar-Talwar/CS-F407-AI-Labs/actions/workflows/ci.yml)
+[![Institution: BITS Pilani Goa](https://img.shields.io/badge/BITS%20Pilani-Goa%20Campus-B31B1B?style=flat-square)](https://www.bits-pilani.ac.in/goa/)
 
 > **Institution:** BITS Pilani, Goa Campus  ·  **Course:** CS F407 — Artificial Intelligence  ·  **Semester:** AY 2026-27, Sem 1  
 > **Author:** Samar Talwar (2024A1PS0264G) ·  **License:** Not licensed for reuse or submission by others  ·  **Repository:** https://github.com/tirtharajdash/CS-F407-AI-AY2026-27-S1
