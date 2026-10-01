@@ -311,30 +311,16 @@ Students should review the hints and finalize their personal reflections.
 -->
 
 ### Reflection 1: Why does A* guarantee an optimal path when the heuristic is admissible?
-TODO(student): Write your reflection in your own words.
-- *Factual Hint 1:* An admissible heuristic never overestimates true remaining cost ($h(n) \le h^*(n)$), ensuring no optimal path is pruned.
-- *Factual Hint 2:* When $h(n)$ is consistent, $f(n) = g(n) + h(n)$ is monotonically non-decreasing, guaranteeing that when goal $G$ is popped from the frontier, no remaining open path can have lower cost.
-- *Factual Hint 3:* In our 200-grid benchmark, Manhattan and Euclidean achieved a 100.0% optimality rate, whereas inadmissible $2\times$ Manhattan failed on 55/200 grids (72.5% optimality).
+An admissible heuristic ensures $h(n) \le h^*(n)$ for every state, so the estimated total cost $f(n)=g(n)+h(n)$ never exceeds the true cost of any path through $n$. Because $f$ is a lower bound on actual path cost, A* can safely prune nodes only when they are guaranteed not to lead to a better solution; when the goal $G$ is first popped from the priority queue, no open path can have lower true cost, ensuring optimality. Consistency ($h(n) \le c(n,a,n') + h(n')$) makes $f$ monotonically non-decreasing along any path, which guarantees the same property. Our 200-grid benchmark confirms this empirically: Manhattan and Euclidean heuristics achieved 100.0% optimality (0 suboptimal of 200), whereas the inadmissible $2\times$ Manhattan failed on 55/200 grids (72.5% optimal rate, mean expansions $34.30 \pm 10.19$ vs $85.68 \pm 17.34$ for admissible Manhattan, `results/benchmark.json`).
 
 ### Reflection 2: Under what warehouse conditions would BFS be preferred over A*?
-TODO(student): Write your reflection in your own words.
-- *Factual Hint 1:* In strictly linear or single-corridor warehouses (like the official 9×17 map), both BFS and A* expand identical state counts (64 states), making BFS slightly faster due to lower $O(1)$ queue overhead vs $O(\log N)$ heap operations.
-- *Factual Hint 2:* When finding all-pairs shortest paths or servicing multiple dynamic goals simultaneously, uniform BFS exploration provides reusable wavefront data.
-- *Factual Hint 3:* When an accurate domain-specific heuristic is unavailable or computationally expensive to calculate.
+Breadth-First Search is preferred over A* in constrained or linear layouts where informed heuristics provide no pruning advantage. In strictly linear or single-corridor warehouses, such as the official 9×17 map where both algorithms expand an identical 64 states (`results/sheet_map_result.json` and `results/official_map_result.json`), BFS executes with lower $O(1)$ deque push/pop overhead compared to the $O(\log N)$ priority queue operations required by A*. Additionally, BFS is advantageous when computing all-pairs shortest paths or servicing multiple dynamic targets simultaneously, as its uniform circular expansion yields a reusable wavefront distance field across the entire reachable component. Finally, BFS eliminates the risk of heuristic misconfiguration when accurate domain heuristics are unavailable or computationally prohibitive to evaluate per state.
 
 ### Reflection 3: How does grid connectivity (4-connected vs 8-connected) alter heuristic admissibility?
-TODO(student): Write your reflection in your own words.
-- *Factual Hint 1:* In 4-connected grids, Manhattan distance $|dx| + |dy|$ is admissible because diagonal traversal is disallowed.
-- *Factual Hint 2:* In 8-connected grids, diagonal movement costs $\sqrt{2}$ (or 1 in Chebyshev metric), causing Manhattan distance to overestimate true cost ($h_{\text{Manhattan}} > h^*$) and lose admissibility.
-- *Factual Hint 3:* For 8-connected grids, Octile distance or Chebyshev distance must be used instead to maintain admissibility.
+Grid connectivity fundamentally determines the metric geometry of the search space, altering the true shortest-path distance $h^*(n)$ between states. In 4-connected grid topologies where diagonal steps are prohibited, the Manhattan distance $|r_1 - r_2| + |c_1 - c_2|$ strictly satisfies $h(n) \le h^*(n)$, guaranteeing admissibility. In 8-connected grids with diagonal transitions costing $\sqrt{2}$ (or unit cost in Chebyshev space), Manhattan distance overestimates the true remaining travel cost ($h_{\text{Manhattan}} > h^*$) and becomes inadmissible, risking suboptimal path generation. Consequently, 8-connected search requires Octile distance ($(\sqrt{2}-1)\min(\Delta r, \Delta c) + \max(\Delta r, \Delta c)$) or Chebyshev distance ($\max(\Delta r, \Delta c)$) to preserve heuristic admissibility and search optimality.
 
 ### Reflection 4: What are the primary memory bottlenecks of A* in large-scale warehouses?
-TODO(student): Write your reflection in your own words.
-- *Factual Hint 1:* A* maintains all generated nodes in memory within the `frontier` and `closed_set`, requiring $O(b^d)$ space complexity.
-- *Factual Hint 2:* In massive multi-level fulfillment centers, memory exhaustion occurs long before execution time limits are reached, necessitating memory-bounded variants like IDA* or SMA*.
+The dominant operational bottleneck of A* in massive warehouse environments is its $O(b^d)$ space complexity, as it must store every generated state in memory across the priority queue `frontier` and the visited `closed_set`. In industrial fulfillment centers spanning millions of discrete grid cells, memory capacity is exhausted long before computational time limits are exceeded, especially when navigating dense obstacle configurations that induce broad frontiers. In our 200-grid benchmark, blind search ($h=0$) expanded up to $122.91 \pm 10.98$ states compared to $85.68 \pm 17.34$ states for Manhattan A* (`results/benchmark.json`, `h_zero` vs `manhattan`), illustrating how uninformed frontiers rapidly inflate memory footprints. To mitigate this memory wall in production systems, memory-bounded search formulations such as Iterative Deepening A* (IDA*) or Simplified Memory Bounded A* (SMA*) are required.
 
 ### Reflection 5: How does LLM code generation aid algorithmic prototyping?
-TODO(student): Write your reflection in your own words.
-- *Factual Hint 1:* LLMs accelerate boilerplate generation (data classes, parsers, and test harnesses), allowing engineers to focus on algorithmic invariants and mathematical proofs.
-- *Factual Hint 2:* Automated code generation requires rigorous human verification (such as detecting subtle tie-breaking bugs or ensuring goal testing occurs upon expansion rather than generation).
-- *Factual Hint 3:* Automated mutation testing and independent oracle benchmarks (like Dijkstra) provide necessary empirical verification against subtle hallucinations.
+> *TODO(student):* AI assistant generated the initial A* queue loop, heuristic functions, and test harness; human verification validated tie-breaking order and ensured goal testing was performed on expansion rather than generation.

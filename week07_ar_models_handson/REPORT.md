@@ -133,26 +133,17 @@ Across the 4 official benchmark queries from `rag.ipynb`:
 ### 6.1 Reflection Question 1: Scaling Factor in Attention
 > **Question**: Why do we divide the dot products by $\sqrt{d_k}$ in Scaled Dot-Product Attention? What happens mathematically and during backpropagation when $d_k$ is large?
 
-TODO(student): Write final answer here.
-- *Hint 1*: For independent components $q_i, k_i \sim \mathcal{N}(0, 1)$, the dot product $q \cdot k = \sum_{i=1}^{d_k} q_i k_i$ has mean $0$ and variance $d_k$. As $d_k$ grows, the dot products grow large in magnitude.
-- *Hint 2*: Passing large magnitude inputs into the softmax function pushes the activations into regions with extremely small gradients (vanishing gradient problem), slowing down training.
-- *Hint 3*: Dividing by $\sqrt{d_k}$ normalizes the variance back to $1.0$, preserving healthy gradient flow during backpropagation.
+For independent components $q_i, k_i \sim \mathcal{N}(0, 1)$, the dot product $q \cdot k = \sum_{i=1}^{d_k} q_i k_i$ has mean $0$ and variance $d_k$ (since $\operatorname{Var}(q_i k_i) = 1$). As $d_k$ grows, dot-product magnitudes grow with $\sqrt{d_k}$, pushing pre-softmax values into regions where $\exp(z_i)$ dominates and gradients vanish ($\partial \operatorname{softmax}/\partial z \approx 0$). Dividing by $\sqrt{d_k}$ normalizes the variance back to $1.0$, preserving healthy gradient flow during backpropagation; this is reflected empirically in the convergence trajectory from initial loss $3.5016$ to final $0.1200$ (`results/transformer_results.json`, `final_loss`), which depends on healthy backpropagation through the attention layer.
 
 ### 6.2 Reflection Question 2: Causal Masking vs Bidirectional Encodings
 > **Question**: Why can't we use standard bidirectional self-attention (like in BERT) for autoregressive text generation?
 
-TODO(student): Write final answer here.
-- *Hint 1*: In next-token prediction, the objective is to predict token $x_t$ given only the past context $x_{<t}$.
-- *Hint 2*: Bidirectional attention allows every token to attend to every other token in the sequence simultaneously, causing trivial target leakage during training.
-- *Hint 3*: An upper-triangular causal mask forces attention weights $w_{i,j}=0$ for all $j > i$, maintaining the validity of the causal factorization.
+In autoregressive next-token prediction, the objective is $P(x_t \mid x_{<t})$; allowing token $t$ to attend to future tokens $x_{>t}$ would provide direct access to the prediction target, causing trivial target leakage during training and invalidating the causal factorization $P(x) = \prod_t P(x_t \mid x_{<t})$. The causal mask (`results/attention_matrix.json`, `causal_mask`) strictly enforces $w_{i,j} = 0$ for all $j > i$, preserving sequential validity during both parallel training and sequential inference. Bidirectional encoders are correct for representation learning tasks (classification, extractive QA, semantic retrieval) but cannot be applied directly to autoregressive sequence generation.
 
 ### 6.3 Reflection Question 3: Hallucination Mitigation with RAG
 > **Question**: How does Retrieval-Augmented Generation address the fundamental limitations of parametric memory in LLMs?
 
-TODO(student): Write final answer here.
-- *Hint 1*: Parametric memory is static, bounded by the training cutoff date, and prone to hallucinations on specialized domain queries.
-- *Hint 2*: RAG separates non-parametric knowledge retrieval (TF-IDF/BM25/vector search over external databases) from parametric language reasoning.
-- *Hint 3*: Strict system prompts (`SYSTEM_RAG`) enforce that the generator cites explicit source documents and refuses to guess when relevant context is absent.
+Parametric memory is bounded by the static training corpus and prone to hallucinations when queried on specialized domain tasks not well-represented during pre-training (as observed in baseline responses from `results/rag_results.json`). RAG decouples knowledge storage from reasoning: BM25 retrieval over external scientific papers delivers the relevant grounded document chunks (achieving a benchmark MRR of $0.8750$ and Recall@4 of $1.0000$ in `results/rag_results.json`, `retrieval_metrics`), while strict system prompts (`SYSTEM_RAG`) enforce that the generator cites explicit source documents and refuses to guess when context is absent. This produces verifiable, domain-accurate answers referencing specific formulations (such as Grothendieck posets in drug discovery) rather than ungrounded approximations.
 
 ---
 

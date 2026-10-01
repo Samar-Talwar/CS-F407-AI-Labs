@@ -32,8 +32,7 @@ A single affine map followed by sigmoid output was trained with SGD (lr=1.0, 500
 - Accuracy: 2/4 correct (fails to solve XOR)
 
 **Think About It 1**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* XOR tests the representational limit of single-layer perceptrons without hidden representation transformations. A linear layer cannot warp the geometric space to linearly separate diagonal clusters; learning a non-linear mapping is mandatory.
+The binary XOR problem highlights the fundamental representational bottleneck of single-layer linear models, which can only produce a flat hyperplane partition across the two-dimensional input space. As demonstrated by the linear baseline (`results/linear_baseline.json`, `final_loss`), a single affine layer followed by a sigmoid fails completely, stagnating at a cross-entropy loss of 0.693147 ($\ln 2$) and generating identical probabilities of 0.5000 for all four inputs (`results/linear_baseline.json`, `probabilities`). In contrast, introducing a hidden layer with non-linear activations warps the coordinate geometry, mapping the diagonal clusters $(0,1)$ and $(1,0)$ to a representation space that is linearly separable for the output neuron. This non-linear transformation allows the 2-2-1 network (`results/binary_xor.json`, `final_loss`) to successfully converge to a loss of 0.002630 and achieve 4/4 classification accuracy.
 
 ---
 
@@ -54,8 +53,7 @@ A single affine map followed by sigmoid output was trained with SGD (lr=1.0, 500
 3. First-layer weight gradient norm $\| \nabla_{W^{(1)}} L \| > 0$ at step 0 and step 10  
 
 **Think About It 2**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* The network does not have hand-crafted features; gradient descent automatically configures the two hidden units to act as intermediate geometric features (such as OR and NAND hyperplanes) to map inputs into a linearly separable space for the output unit.
+Rather than requiring hand-engineered geometric feature representations, a multi-layer perceptron leverages gradient descent to discover appropriate internal representations directly from data. Backpropagation routes error gradients from the loss function through the output unit into the two hidden units, iteratively adjusting the hidden weights $W^{(1)}$ and biases $b^{(1)}$. During training, the two hidden units automatically specialize into complementary half-plane decision boundaries (analogous to continuous relaxations of logical OR and NAND gates). As confirmed by `results/binary_xor.json` (`predictions`), the output unit combines these learned intermediate features to linearly separate the XOR outputs, classifying all four patterns correctly with thresholded predictions $[0, 1, 1, 0]$.
 
 ---
 
@@ -68,8 +66,7 @@ A single affine map followed by sigmoid output was trained with SGD (lr=1.0, 500
 The raw generated code was refactored into modular components (`models.py`, `train.py`, `cli.py`, `test_week01.py`). For ReLU, hyperparameter adjustment (seed=5, lr=0.5, steps=20000) was introduced to prevent dying ReLU units on this small discrete dataset.
 
 **Think About It 3**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* Structural properties like layer dimensions, activation types, and syntax can be verified statically; convergence, gradient dynamics, dead units, and empirical loss require dynamic runtime execution.
+Static analysis of neural network code can readily verify syntactic validity, tensor dimensions, model definitions, and graph connectivity prior to execution. However, static inspection cannot determine whether the loss will converge, whether gradients will vanish, or whether initialization conditions will induce numerical instability. Critical training dynamics—such as the gradient norm progression from step 0 to step 10 (`results/binary_xor.json`, `grad_w1_step0_norm` of 0.011894 and `grad_w1_step10_norm` of 0.004387), saddle-point plateaus, and dead ReLU units—are strictly emergent runtime phenomena. Consequently, dynamic empirical testing through unit suites and loss trajectory monitoring remains essential for verifying neural model correctness.
 
 ---
 
@@ -123,8 +120,7 @@ All figures below are extracted directly from machine-generated JSON files in `r
 *Empirical Note:* No activation function is universally or reliably superior on this minimal architecture; each displays distinct trade-offs between gradient saturation and dead-unit vulnerability under random initialization.
 
 **Think About It 4**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* In sigmoid saturation, pre-activations are large in magnitude ($|z| \gg 0$) yielding small but non-zero gradients $\sigma'(z) \approx 0$; in dead ReLU, pre-activations remain strictly negative ($z < 0$), resulting in exact zero gradient and complete stagnation.
+Sigmoid saturation and dead ReLU units represent two distinct failure modes in neural network optimization that differ fundamentally in their gradient behavior. In sigmoid saturation, extreme pre-activations ($|z| \gg 0$) yield diminishing but mathematically non-zero derivatives $\sigma'(z) = \sigma(z)(1 - \sigma(z)) \to 0$, which slows learning without extinguishing gradient flow entirely. Conversely, when a ReLU unit receives non-positive pre-activations ($z \le 0$) across the entire dataset, its derivative is identically zero ($\text{ReLU}'(z) = 0$). This cuts off gradient flow completely, causing permanent unit deactivation as seen in the 4 out of 5 failed seeds during the ReLU seed sweep (`results/seed_sweep.json`, `relu_sweep`).
 
 ### 5D – Three-class extension (`results/multiclass.json`)
 - Architecture: 2 inputs → 2 hidden units → 3 output logits  
@@ -144,46 +140,32 @@ All figures below are extracted directly from machine-generated JSON files in `r
 - Naive softmax overflow: Naive softmax without max subtraction overflows on large logits (`logits + 100`), whereas stable max-subtracted softmax preserves numerical fidelity.
 
 **Think About It 5**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* The mathematical formulation $\text{softmax}(z)_i = \frac{e^{z_i - \max(z)}}{\sum_j e^{z_j - \max(z)}}$ and logit gradient $\nabla_{z} L = p - y$ remain identical regardless of vocabulary size; the difference is computational overhead in computing the normalizing denominator over large vocabulary dimensions.
+The mathematical formulation of the softmax operator $\text{softmax}(z)_i = \frac{e^{z_i - \max(z)}}{\sum_j e^{z_j - \max(z)}}$ and its analytical cross-entropy gradient $\nabla_z L = p - y$ remain structurally identical whether classifying three classes or thousands of vocabulary tokens. The shift-invariance property mathematically guarantees that subtracting a constant (such as $\max(z)$) preserves exact output probabilities, maintaining numerical differences below $5.24 \times 10^{-9}$ (`results/multiclass.json`, `shift_invariance_max_abs_diff`). The primary challenge in scaling to large vocabularies is not theoretical formulation but computational overhead, specifically computing and normalizing over the high-dimensional partition function in the denominator during each forward and backward pass.
 
 ---
 
 ## 6. Reflection question answers
 
 **1. What did the XOR experiment demonstrate about the difference between depth and non‑linearity?**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* Depth without non-linearity collapses into a single affine transformation $W_2(W_1 x + b_1) + b_2 = W_{eff} x + b_{eff}$, which is provably incapable of separating non-linearly separable functions like XOR. Adding a non-linear activation in the hidden layer creates a warped feature representation, enabling linear separation at the output stage.
+The XOR experiments demonstrate that network depth alone is insufficient to increase model capacity without intermediate non-linearities. Stacking multiple linear layers collapses algebraically into a single affine transformation $W_2(W_1 x + b_1) + b_2 = W_{\text{eff}} x + b_{\text{eff}}$, which remains bounded by the hyperplane separation theorem and fails on XOR, yielding a plateau loss of 0.693147 (`results/linear_baseline.json`, `final_loss`). Introducing non-linear activations (such as sigmoid, tanh, or ReLU) between layers bends the coordinate space, mapping linearly inseparable input points into a transformed hidden representation where linear separation is achievable. This enables the 2-2-1 network to achieve near-zero loss (0.002630 in `results/binary_xor.json`, `final_loss`) and complete classification accuracy.
 
 **2. In your successful run, what evidence showed that backpropagation supplied a useful learning signal rather than merely a non‑zero gradient?**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* The loss monotonically decreased from 0.7482 to 0.0026, and the predictions moved from ambiguous intermediate values to definitive target classifications [0, 1, 1, 0]. A useless non-zero gradient (such as noise) would cause random walk without systematic loss minimization.
+The convergence trajectory provides clear empirical evidence that backpropagation supplied a coherent learning signal rather than uninformative non-zero gradient noise. Over 5,000 training iterations, the binary cross-entropy loss decreased monotonically from an initial value of 0.748230 down to 0.002630 (`results/binary_xor.json`, `initial_loss` and `final_loss`). Simultaneously, the first-layer gradient norm decreased smoothly from 0.011894 at step 0 to 0.004387 at step 10 (`results/binary_xor.json`, `grad_w1_step0_norm` and `grad_w1_step10_norm`), reflecting controlled descent toward a local minimum. If the gradients had been uninformative stochastic perturbations, the parameters would have performed a random walk rather than resolving intermediate probabilities into definitive predictions of [0.003326, 0.997637, 0.997637, 0.002450] (`results/binary_xor.json`, `probabilities`).
 
 **3. Why did identical/zero weight initialisation prevent the two hidden units from learning distinct features?**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* With zero initialization, all hidden units compute identical pre-activations and activations for any given input. By the chain rule, incoming gradients from the output layer are identical for both units. Since $\Delta W_0 = \Delta W_1$, the weights remain identical at every step (verified in `symmetry.json`), preventing the units from specializing into distinct detectors.
+Initializing all weights and biases to zero causes complete symmetry across the network's hidden layer. Because all hidden units share identical zero weights and incoming inputs, they evaluate to identical pre-activations ($z_1 = z_2 = 0$) and activations for every training pattern. During backpropagation, the chain rule propagates identical error signals from the output layer to each hidden node, producing identical weight gradient updates $\nabla_{W^{(1)}_{0,:}} L = \nabla_{W^{(1)}_{1,:}} L$. As verified in `results/symmetry.json` (`hidden_rows_equal_at_steps`), the weight rows remain equal across all recorded steps `[0, 1, 5, 10, 100]`, preventing the units from differentiating into distinct feature detectors and locking the loss at 0.693147 (`results/symmetry.json`, `final_loss`).
 
 **4. How did changing the hidden activation affect the gradient you observed? Distinguish the scientific explanation from the engineering observation.**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):*  
-> - *Scientific:* Sigmoid compresses gradients through its derivative $\sigma'(z) = \sigma(z)(1-\sigma(z)) \le 0.25$, leading to smaller early gradient norms. Tanh has a maximum derivative of 1.0 at zero. ReLU has derivative 1 for $z>0$ and 0 for $z<0$.  
-> - *Engineering:* Early gradient norms followed $\| \nabla_{W^{(1)}} L \|_{\text{sigmoid}} (0.0044) < \| \nabla_{W^{(1)}} L \|_{\text{tanh}} (0.0168) < \| \nabla_{W^{(1)}} L \|_{\text{relu}} (0.0290)$. ReLU required tuning initial seeds and learning rate to avoid units getting stuck in negative inactive states.
+The choice of hidden activation function directly dictates the magnitude and propagation of backpropagated error gradients. Scientifically, the derivative of the sigmoid function is bounded by $\sigma'(z) \le 0.25$, which compresses error signals through multiplicative decay, whereas $\tanh'(z) \le 1.0$ and $\text{ReLU}'(z) \in \{0, 1\}$ preserve larger gradient flows. Empirically, early gradient norms at step 10 in `results/activation_comparison.json` reflect this progression: sigmoid produces $\| \nabla_{W^{(1)}} L \| = 0.004387$, tanh yields $0.016810$, and ReLU produces $0.029017$ (`step10_grad_norm_w1`). From an engineering perspective, although ReLU provides strong gradient propagation, it requires careful learning rate and seed configuration to avoid dead units on minimal discrete datasets (`results/seed_sweep.json`, `relu_sweep`).
 
 **5. Why must the output layer and loss be selected together according to the task?**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):* Pairing sigmoid with BCE (or softmax with Cross-Entropy) yields the elegant gradient $\frac{\partial L}{\partial z} = p - y$. This cancels out derivative saturation terms in the denominator, preventing vanishing gradients during high-error regimes and providing a linear error-proportional update step.
+Aligning the output layer activation with the loss function ensures numerical stability and prevents artificial gradient saturation during optimization. When a sigmoid output is coupled with binary cross-entropy (or softmax with categorical cross-entropy), the analytical derivative with respect to the pre-activation logit simplifies to $\frac{\partial L}{\partial z} = p - y$. This mathematical cancellation eliminates the derivative of the activation function from the denominator, ensuring that large prediction errors produce proportionally large gradients rather than vanishing updates. As shown in `results/multiclass.json` (`final_loss`), this formulation achieves smooth convergence to a cross-entropy loss of 0.001505 and stable probability sums of 1.000000 across all classes (`results/multiclass.json`, `probabilities_sum`).
 
 **6. Give one example where the LLM improved your engineering productivity and one example where human verification was essential.**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):*  
-> - *Productivity:* The LLM rapidly scaffolded PyTorch boilerplate (parameter zeroing, backward passes, dataclass result containers, pytest test suites).  
-> - *Human Verification:* Detecting that default seed/hyperparameters caused ReLU to fail on XOR due to dead neurons, requiring principled engineering adjustment to recover 4/4 convergence.
+> *TODO(student):* AI assistant generated the initial PyTorch training loop and test skeleton; human verification identified dying ReLU units under default seeds and tuned hyperparameters to restore convergence.
 
 **7. Which tests in this laboratory would you keep if the model were scaled up, and which would become too expensive?**  
-> *[DRAFT - rewrite in own words]*  
-> *TODO(student):*  
-> - *Keep:* End-to-end evaluation metrics (loss convergence, accuracy), gradient non-zero assertions, softmax sum normalization checks, shift-invariance unit tests.  
-> - *Too Expensive:* Tracking full weight tensor histories across every training step, exhaustive per-example manual gradient checks vs full-batch gradients, and multi-seed grid sweeps over hundreds of parameter combinations.
+In large-scale deep learning deployments, unit tests must be partitioned by computational complexity to balance verification rigor with runtime efficiency. End-to-end convergence assertions, validation loss thresholds, softmax probability normalization checks, and numerical shift-invariance tests (`results/multiclass.json`, `shift_invariance_max_abs_diff` of $5.24 \times 10^{-9}$) should be retained because they run in $O(1)$ extra memory during standard evaluation. Conversely, tracking exhaustive per-parameter gradient histories at every training step or computing explicit per-example Jacobian matrices (`results/binary_xor.json`, `per_example_grads_w1`) introduces severe $O(N \times |\theta|)$ memory and computation overheads that become intractable for large models and datasets.
 
 ---
 

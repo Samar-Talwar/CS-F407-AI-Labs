@@ -171,22 +171,12 @@ To generate clean, production-grade agent software using an AI assistant, the pr
 ### Task 3 Questions & Answers
 
 #### Question 1: Did the LLM-generated code work on the first attempt?
-<!-- DRAFT - rewrite in own words -->
-**DRAFT - Student Experience Stub (Grounded in Facts):**
-*The initial implementation generated the core BFS queue and graph search logic accurately. However, minor refinements were required during the first test execution:*
-- *Strict Map Parsing:* The initial parser lacked explicit validation for ragged lines and invalid characters, which was subsequently added to reject malformed input cleanly.
-- *Action Representation:* The original draft passed raw coordinate tuples directly; this was refactored into a formal `Action(Enum)` with explicit delta properties to strictly conform to agent architecture design requirements.
-- *Mutation Scope:* During unit testing, global monkeypatching of `Environment.is_wall` required preserving the unmutated class method reference to independently evaluate the mutated agent's output path against the real map.
+> *TODO(student):* AI assistant produced the initial BFS queue loop and state representation; human refinement added ragged-line validation in map parsing and formalized `Action(Enum)` movements.
 
 ---
 
 #### Question 2: How could you improve the prompt for better results?
-<!-- DRAFT - rewrite in own words -->
-**DRAFT - Student Experience Stub (Grounded in Facts):**
-*Prompt quality can be significantly enhanced by providing concrete structural specifications rather than high-level descriptions:*
-- *Explicit Class Hierarchy:* Pre-defining exact class signatures (`GoalBasedAgent(env)`, `SearchPlanner.plan(env, start, goal) -> SearchResult`) eliminates ambiguity in naming and interface contracts.
-- *Failure Mode Specifications:* Explicitly prompting for negative testing requirements (e.g., *"return SearchResult(found=False, path_length=-1) when no path exists instead of throwing IndexError"*) prevents unhandled edge-case crashes.
-- *Comparative Baseline Demands:* Explicitly requesting baseline algorithms (DFS, A*) in the initial prompt rather than as a subsequent iteration saves time and ensures consistent data structures across comparisons.
+> *TODO(student):* AI assistant generated the base agent architecture; prompt improvements include specifying explicit failure return types (`SearchResult(found=False)`) and requesting baseline search algorithms upfront.
 
 ---
 
