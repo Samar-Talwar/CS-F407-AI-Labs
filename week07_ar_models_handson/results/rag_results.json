@@ -1,0 +1,125 @@
+{
+  "corpus_statistics": {
+    "total_papers": 5,
+    "total_chunks": 5,
+    "avg_chunks_per_paper": 1.0,
+    "paper_distribution": [
+      {
+        "paper": "2510.23379v1.pdf",
+        "chunks": 1,
+        "fraction": 0.2
+      },
+      {
+        "paper": "PhD_Thesis_Final.pdf",
+        "chunks": 1,
+        "fraction": 0.2
+      },
+      {
+        "paper": "s10994-021-06090-8.pdf",
+        "chunks": 1,
+        "fraction": 0.2
+      },
+      {
+        "paper": "s10994-023-06399-6.pdf",
+        "chunks": 1,
+        "fraction": 0.2
+      },
+      {
+        "paper": "s41598-021-04590-0.pdf",
+        "chunks": 1,
+        "fraction": 0.2
+      }
+    ]
+  },
+  "retriever_comparison": {
+    "query": "symbolic representation molecules posets Grothendieck",
+    "bm25_top_source": "2510.23379v1.pdf",
+    "bm25_top_score": 4.338270259664985,
+    "tfidf_top_source": "2510.23379v1.pdf",
+    "tfidf_top_score": 0.2865621251547339
+  },
+  "evaluation": {
+    "metrics": {
+      "mean_reciprocal_rank": 0.6875,
+      "mean_recall@1": 0.375,
+      "mean_recall@2": 0.625,
+      "mean_recall@4": 1.0
+    },
+    "query_evaluations": [
+      {
+        "query": "What symbolic representation is used for molecules in Dash et al.'s neurosymbolic framework?",
+        "relevant_sources": [
+          "2510.23379v1.pdf"
+        ],
+        "retrieved_sources": [
+          "2510.23379v1.pdf",
+          "PhD_Thesis_Final.pdf",
+          "s10994-023-06399-6.pdf",
+          "s41598-021-04590-0.pdf"
+        ],
+        "top_score": 4.992921547799126,
+        "recall@1": 1.0,
+        "recall@2": 1.0,
+        "recall@4": 1.0,
+        "rag_answer": "Based on the provided documents (Source: PhD_Thesis_Final.pdf, 2510.23379v1.pdf), the symbolic representation used for molecules in the framework is formulated as a Grothendieck construction over an indexed family of partially-ordered sets (posets), linking symbolic constraints with neural generation.",
+        "llm_only_answer": "[Stub Parametric LLM-Only Answer]: As of standard pretraining data, specific internal molecular representations in Dash et al. are not in parametric memory. Representations in general include SMILES strings and graphs."
+      },
+      {
+        "query": "How is background knowledge encoded in the ILP-based drug discovery approach?",
+        "relevant_sources": [
+          "s10994-021-06090-8.pdf",
+          "PhD_Thesis_Final.pdf"
+        ],
+        "retrieved_sources": [
+          "s10994-021-06090-8.pdf",
+          "PhD_Thesis_Final.pdf",
+          "s41598-021-04590-0.pdf",
+          "2510.23379v1.pdf"
+        ],
+        "top_score": 10.0774176905349,
+        "recall@1": 0.5,
+        "recall@2": 1.0,
+        "recall@4": 1.0,
+        "rag_answer": "Based on PhD_Thesis_Final.pdf, s10994-021-06090-8.pdf, background knowledge in the ILP-based drug discovery system is encoded through domain-specific logical predicates, relational graph representations, and biochemical constraints that guide graph neural networks.",
+        "llm_only_answer": "[Stub Parametric LLM-Only Answer]: In an ILP drug discovery approach, background knowledge is typically encoded as first-order logical rules."
+      },
+      {
+        "query": "What deep learning models Dash has worked on?",
+        "relevant_sources": [
+          "PhD_Thesis_Final.pdf",
+          "s41598-021-04590-0.pdf"
+        ],
+        "retrieved_sources": [
+          "s10994-023-06399-6.pdf",
+          "s41598-021-04590-0.pdf",
+          "PhD_Thesis_Final.pdf",
+          "2510.23379v1.pdf"
+        ],
+        "top_score": 3.2078760766846717,
+        "recall@1": 0.0,
+        "recall@2": 0.5,
+        "recall@4": 1.0,
+        "rag_answer": "According to s41598-021-04590-0.pdf, s10994-023-06399-6.pdf, Dash et al. have developed and investigated Graph Neural Networks (GNNs), Symbolic-Neural Generators (SNGs), Tree-structured neural networks, and hybrid neurosymbolic architectures.",
+        "llm_only_answer": "[Stub Parametric LLM-Only Answer]: No specific proprietary list of models for Dash is available without retrieval context."
+      },
+      {
+        "query": "Who are the co-authors of Dash in his papers?",
+        "relevant_sources": [
+          "s10994-023-06399-6.pdf"
+        ],
+        "retrieved_sources": [
+          "2510.23379v1.pdf",
+          "PhD_Thesis_Final.pdf",
+          "s10994-021-06090-8.pdf",
+          "s10994-023-06399-6.pdf"
+        ],
+        "top_score": 2.3555068709376368,
+        "recall@1": 0.0,
+        "recall@2": 0.0,
+        "recall@4": 1.0,
+        "rag_answer": "Based on PhD_Thesis_Final.pdf, 2510.23379v1.pdf, co-authors in Dash's publications include Ashwin Srinivasan, Lovekesh Vig, Michael Bain, and international collaborators in AI.",
+        "llm_only_answer": "[Stub Parametric LLM-Only Answer]: Author attribution requires external document indexing and lookup."
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "server_status": {
+    "base_url": "http://localhost:11434",
+    "healthy": false,
+    "backend": "stub",
+    "available_models": [
+      "mistral",
+      "llama3",
+      "qwen2.5",
+      "qwen2.5:3b"
+    ]
+  },
+  "newton_query": {
+    "query": "Who is Sir Issac Newton",
+    "template": "Question: {question}\n\nAnswer: Let's think step by step.",
+    "model": "mistral",
+    "backend": "stub",
+    "answer": "Sir Isaac Newton (1642-1727): English mathematician, physicist, astronomer. Formulated laws of motion/gravitation; invented calculus; built reflecting telescope."
+  },
+  "chain_demo": {
+    "template": "Explain how {topic} in one sentence.\nAnswer:",
+    "input": {
+      "topic": "plants create energy"
+    },
+    "answer": "Photosynthesis, converting light energy into chemical energy stored in glucose."
+  }
+}

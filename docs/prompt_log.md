@@ -70,12 +70,19 @@ Run the generated program on the warehouse problem.
 - Updated root README.md; confirmed ruff check . and pytest -q pass; validated via fresh clone in $env:TEMP\fresh_w5
 
 ---
-# CS F407 Lab, Week 6 | Author: Samar Talwar | Not licensed for reuse or submission by others.
+# CS F407 Lab, Week 7 | Author: Samar Talwar | Not licensed for reuse or submission by others.
 **Date**: 2026-10-01
-**Week**: 06
-**Prompt**: Implement Week 6 Bayesian Networks and LLM Integration: discrete BN framework (TabularCPD, DiscreteBayesianNetwork), exact Variable Elimination inference with independent 16-state joint enumeration oracle, MLE and BDeu Bayesian estimation with sample-size sweep, LLM stub interface with AST safety checker (ast.walk, allowed_modules, forbidden_calls), execution sandbox, and full pytest/ruff pipeline; generate all JSON/PNG artifacts; write CHECKLIST.md, REPORT.md, README.md; complete fresh-clone gate.
+**Week**: 07
+**Prompt**: Implement complete Week 7 Autoregressive Models, Transformers, Ollama & RAG lab module from first principles: PyTorch Transformer building blocks (scaled dot-product attention with causal mask, sinusoidal positional encoding, multi-head self/cross-attention, GPT-style decoder-only model, autoregressive training and text generation), Ollama REST client wrapper with offline deterministic stub and prompt chaining (`PromptTemplate | Client`), and RAG pipeline with word-level overlapping chunking, BM25/TF-IDF retrievers, strict system prompt assembly (`SYSTEM_PLAIN` vs `SYSTEM_RAG`), and benchmark evaluation (Recall@K, MRR). Write CHECKLIST.md, 22-test pytest suite with independent NumPy oracle, invariants, gradcheck, and 3 real mutation tests, generate all results, write README.md and REPORT.md, and pass the fresh-clone gate.
+
 **What was changed after review**:
-- Added `pandas DataFrame` string to `ESTIMATION_PROMPT` Requirement 1 to satisfy `test_estimation_prompt_contains_requirements`.
-- Wrapped long import-check lines exceeding 100 chars in `src/llm_interface.py` and fixed indentation of the `ast.walk` visitor block.
-- Prefixed unused loop variables with underscore (`_var`, `_ev`) to satisfy Ruff B007.
-- Confirmed 99 pytest passes, 0 ruff errors, CLI `--all` generates all artifacts, fresh clone passes with `.venv/Scripts/python`.
+- Implemented `transformer.py` with causal mask upper-triangular indexing, sinusoidal PE, MHA, and decoder-only autoregressive model.
+- Implemented `ollama_client.py` with health-check, list-models, generate endpoint, prompt templates, and chained pipeline with graceful offline stub fallback.
+- Implemented `rag.py` with text chunking (`chunk_words=100`, `overlap=20`, `min_chars=30`), TF-IDF and BM25 retrievers, prompt construction, and Recall@K / MRR metrics.
+- Added `tests/test_transformers_rag.py` (22 tests including NumPy attention oracle, row normalization, float64 gradcheck, permutation equivariance, deterministic training, Ollama fallback, and 3 real monkeypatch mutation tests).
+- Resolved sequence length mismatch by setting `max_seq_len=256` in DecoderOnlyTransformer.
+- Fixed line-length formatting with Ruff across all Week 7 modules.
+- Generated all artifacts (`attention_matrix.json`, `loss_curve.png`, `ollama_results.json`, `original_notebook_outputs.json`, `rag_results.json`, `transformer_results.json`).
+- Wrote `README.md` and `REPORT.md` referencing exact numbers from `results/` artifacts with student reflection stubs.
+- Verified `ruff check .`, `pytest`, and the Windows fresh-clone gate.
+

@@ -1,0 +1,451 @@
+{
+  "_meta": {
+    "description": "Original notebook outputs extracted verbatim from source notebooks in original/",
+    "provenance": {
+      "AI_lab_transformers.ipynb": "AY 2026-27 S1 CS F407 Lab",
+      "Run_Ollama.ipynb": "AY 2026-27 S1 CS F407 Lab",
+      "rag.ipynb": "AY 2025-26 S2 CS F407 Lab 3 (Dr. Tirtharaj Dash)"
+    },
+    "label": "original-notebook"
+  },
+  "AI_lab_transformers": [
+    {
+      "cell_index": 0,
+      "cell_type": "code",
+      "source_snippet": "!pip install \"transformers[torch]\"",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Requirement already satisfied: transformers[torch] in /usr/local/lib/python3.13/dist-packages (5.16.1)\nRequirement already satisfied: huggingface-hub<2.0,>=1.5.0 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (1.29.0)\nRequirement already satisfied: numpy>=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (2.1.3)\nRequirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (26.3)\nRequirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (6.0.3)\nRequirement already satisfied: regex>=2025.10.22 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (2025.11.3)\nRequirement already satisfied: tokenizers<0.24.0,>=0.23.1 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (0.23.1)\nRequirement already satisfied: typer in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (0.27.2)\nRequirement already satisfied: safetensors>=0.8.0 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (0.8.0)\nRequirement already satisfied: tqdm>=4.60 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (4.67.3)\nRequirement already satisfied: torch>=2.5 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (2.11.0+cu128)\nRequirement already satisfied: accelerate>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from transformers[torch]) (1.14.0)\nRequirement already satisfied: psutil in /usr/local/lib/python3.13/dist-packages (from accelerate>=1.1.0->transformers[torch]) (5.9.5)\nRequirement already satisfied: click<9.0.0,>=8.4.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers[torch]) (8.5.0)\nRequirement already satisfied: filelock>=3.10.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers[torch]) (3.32.5)\nRequirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers[torch]) (2025.12.0)\nRequirement already satisfied: hf-xet<2.0.0,>=1.5.2 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers[torch]) (1.6.0)\nRequirement already satisfied: httpx<1,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers[torch]) (0.28.1)\nRequirement already satisfied: typing-extensions>=4.1.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub<2.0,>=1.5.0->transformers[torch]) (4.16.0)\nRequirement already satisfied: setuptools<82 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (80.10.2)\nRequirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (1.14.0)\nRequirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (3.6.1)\nRequirement already satisfied: jinja2 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (3.1.6)\nRequirement already satisfied: cuda-toolkit==12.8.1 in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.1)\nRequirement already satisfied: cuda-bindings<13,>=12.9.4 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (12.9.7)\nRequirement already satisfied: nvidia-cudnn-cu12==9.19.0.56 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (9.19.0.56)\nRequirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (0.7.1)\nRequirement already satisfied: nvidia-nccl-cu12==2.28.9 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (2.28.9)\nRequirement already satisfied: nvidia-nvshmem-cu12==3.4.5 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (3.4.5)\nRequirement already satisfied: triton==3.6.0 in /usr/local/lib/python3.13/dist-packages (from torch>=2.5->transformers[torch]) (3.6.0)\nRequirement already satisfied: nvidia-cublas-cu12==12.8.4.1.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.4.1)\nRequirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.90)\nRequirement already satisfied: nvidia-cufft-cu12==11.3.3.83.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (11.3.3.83)\nRequirement already satisfied: nvidia-cufile-cu12==1.13.1.3.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (1.13.1.3)\nRequirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.90)\nRequirement already satisfied: nvidia-curand-cu12==10.3.9.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (10.3.9.90)\nRequirement already satisfied: nvidia-cusolver-cu12==11.7.3.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (11.7.3.90)\nRequirement already satisfied: nvidia-cusparse-cu12==12.5.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.5.8.93)\nRequirement already satisfied: nvidia-nvjitlink-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.93)\nRequirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.93)\nRequirement already satisfied: nvidia-nvtx-cu12==12.8.90.* in /usr/local/lib/python3.13/dist-packages (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==12.8.1; platform_system == \"Linux\"->torch>=2.5->transformers[torch]) (12.8.90)\nRequirement already satisfied: shellingham>=1.3.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers[torch]) (1.5.4)\nRequirement already satisfied: rich>=13.8.0 in /usr/local/lib/python3.13/dist-packages (from typer->transformers[torch]) (13.9.4)\nRequirement already satisfied: annotated-doc>=0.0.2 in /usr/local/lib/python3.13/dist-packages (from typer->transformers[torch]) (0.0.5)\nRequirement already satisfied: cuda-pathfinder~=1.1 in /usr/local/lib/python3.13/dist-packages (from cuda-bindings<13,>=12.9.4->torch>=2.5->transformers[torch]) (1.8.0)\nRequirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers[torch]) (4.14.2)\nRequirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers[torch]) (2026.7.22)\nRequirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers[torch]) (1.0.9)\nRequirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers[torch]) (3.19)\nRequirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1,>=0.23.0->huggingface-hub<2.0,>=1.5.0->transformers[torch]) (0.16.0)\nRequirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers[torch]) (4.2.0)\nRequirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.13/dist-packages (from rich>=13.8.0->typer->transformers[torch]) (2.21.0)\nRequirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.13/dist-packages (from sympy>=1.13.3->torch>=2.5->transformers[torch]) (1.3.0)\nRequirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.13/dist-packages (from jinja2->torch>=2.5->transformers[torch]) (3.0.3)\nRequirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.13/dist-packages (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers[torch]) (0.1.2)\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 1,
+      "cell_type": "markdown",
+      "source_snippet": "# Encoder-Decoder Architecture",
+      "outputs": []
+    },
+    {
+      "cell_index": 2,
+      "cell_type": "code",
+      "source_snippet": "from transformers import AutoTokenizer, EncoderDecoderModel, AutoModelForSeq2SeqLM, AutoTokenizer\n\n\n# Load a pre-trained translation model\nmodel_name = \"google/bert2bert_L-24_wmt_en_de\"\ntokenizer = Au",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\nWARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"
+        },
+        {
+          "type": "display_data",
+          "text": "config.json:   0%|          | 0.00/3.44k [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "vocab.txt:   0%|          | 0.00/269k [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "pytorch_model.bin: reconstructing file:   0%|          |  0.00B / 3.09GB            "
+        },
+        {
+          "type": "display_data",
+          "text": "pytorch_model.bin: downloading bytes:           |  0.00B            "
+        },
+        {
+          "type": "display_data",
+          "text": "model.safetensors: reconstructing file:   0%|          |  0.00B / 3.09GB            "
+        },
+        {
+          "type": "display_data",
+          "text": "model.safetensors: downloading bytes:           |  0.00B            "
+        },
+        {
+          "type": "display_data",
+          "text": "Loading weights:   0%|          | 0/1019 [00:00<?, ?it/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "generation_config.json:   0%|          | 0.00/207 [00:00<?, ?B/s]"
+        },
+        {
+          "type": "stream",
+          "text": "Translated text: Pflanzen erzeugen Energie durch einen so genannten Prozess.\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 3,
+      "cell_type": "code",
+      "source_snippet": "\ntokenizer = AutoTokenizer.from_pretrained(\n    \"google-t5/t5-base\"\n    )\nmodel = AutoModelForSeq2SeqLM.from_pretrained(\n    \"google-t5/t5-base\",\n    device_map=\"auto\"\n    )\n\ninput_ids = tokenizer(\"tr",
+      "outputs": [
+        {
+          "type": "display_data",
+          "text": "Loading weights:   0%|          | 0/257 [00:00<?, ?it/s]"
+        },
+        {
+          "type": "stream",
+          "text": "/usr/local/lib/python3.13/dist-packages/torch/_inductor/lowering.py:7836: UserWarning: \nOnline softmax is disabled on the fly since Inductor decides to\nsplit the reduction. Cut an issue to PyTorch if this is an\nimportant use case and you want to speed it up with online\nsoftmax.\n\n  warnings.warn(\n"
+        },
+        {
+          "type": "stream",
+          "text": "Allons en d\u00e9guster un peu de vin, car c'est ainsi que nous brillons\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_type": "code",
+      "source_snippet": "\n\nmodel_name = \"rvv-karma/English2Hinglish-Flan-T5-Base\"\ntokenizer = AutoTokenizer.from_pretrained(model_name)\nmodel = AutoModelForSeq2SeqLM.from_pretrained(model_name)\n\ninput_text = \"life is crazy. N",
+      "outputs": []
+    },
+    {
+      "cell_index": 5,
+      "cell_type": "markdown",
+      "source_snippet": "# Decoder Only\nIn this block we'll generate more text from a given context. This is in the most basic and mundane sense just a next token prediction which is happening.",
+      "outputs": []
+    },
+    {
+      "cell_index": 6,
+      "cell_type": "code",
+      "source_snippet": "from transformers import pipeline\n\n# Load the text generation pipeline with a decoder-only GPT-2 model\ngenerator = pipeline(task=\"text-generation\", model=\"gpt2\")\n\n# Generate text from a prompt\noutput ",
+      "outputs": [
+        {
+          "type": "display_data",
+          "text": "config.json:   0%|          | 0.00/665 [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "model.safetensors: reconstructing file:   0%|          |  0.00B /  548MB            "
+        },
+        {
+          "type": "display_data",
+          "text": "model.safetensors: downloading bytes:           |  0.00B            "
+        },
+        {
+          "type": "display_data",
+          "text": "Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "generation_config.json:   0%|          | 0.00/124 [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "tokenizer_config.json:   0%|          | 0.00/26.0 [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "vocab.json:   0%|          | 0.00/1.04M [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "merges.txt:   0%|          | 0.00/456k [00:00<?, ?B/s]"
+        },
+        {
+          "type": "display_data",
+          "text": "tokenizer.json:   0%|          | 0.00/1.36M [00:00<?, ?B/s]"
+        },
+        {
+          "type": "stream",
+          "text": "[transformers] Passing `generation_config` together with generation-related arguments=({'num_return_sequences', 'max_length'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.\n[transformers] Both `max_new_tokens` (=256) and `max_length`(=30) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)\n[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer GPT2Tokenizer. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.\n"
+        },
+        {
+          "type": "stream",
+          "text": "The future of AI is not yet clear, but it is likely to be worth exploring the potential benefits of artificial intelligence and how it might shape the world.\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 7,
+      "cell_type": "markdown",
+      "source_snippet": "# Encoder Only",
+      "outputs": []
+    },
+    {
+      "cell_index": 8,
+      "cell_type": "code",
+      "source_snippet": "\n# Initialize a text classification pipeline with a pre-trained BERT model\nclassifier = pipeline('sentiment-analysis')\n\n# Classify the sentiment of the sentence\nresult = classifier(\"I'd want to kick y",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "[transformers] No model was supplied, defaulted to distilbert/distilbert-base-uncased-finetuned-sst-2-english and revision 714eb0f.\nUsing a pipeline without specifying a model name and revision in production is not recommended.\n"
+        },
+        {
+          "type": "display_data",
+          "text": "Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]"
+        },
+        {
+          "type": "stream",
+          "text": "[{'label': 'NEGATIVE', 'score': 0.9742122888565063}]\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 9,
+      "cell_type": "code",
+      "source_snippet": "\n",
+      "outputs": [
+        {
+          "type": "display_data",
+          "text": "Loading weights:   0%|          | 0/282 [00:00<?, ?it/s]"
+        },
+        {
+          "type": "stream",
+          "text": "[transformers] The tied weights mapping and config for this model specifies to tie shared.weight to lm_head.weight, but both are present in the checkpoints with different values, so we will NOT tie them. You should update the config with `tie_word_embeddings=False` to silence this warning.\n"
+        },
+        {
+          "type": "stream",
+          "text": "Life crazy haiNot me\n"
+        }
+      ]
+    }
+  ],
+  "Run_Ollama": [
+    {
+      "cell_index": 0,
+      "cell_type": "code",
+      "source_snippet": "!pip install colab-xterm\n%load_ext colabxterm",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Collecting colab-xterm\n  Downloading colab_xterm-0.2.0-py3-none-any.whl.metadata (1.2 kB)\nRequirement already satisfied: ptyprocess~=0.7.0 in /usr/local/lib/python3.13/dist-packages (from colab-xterm) (0.7.0)\nRequirement already satisfied: tornado>5.1 in /usr/local/lib/python3.13/dist-packages (from colab-xterm) (6.5.7)\nDownloading colab_xterm-0.2.0-py3-none-any.whl (115 kB)\n\u001b[?25l   \u001b[90m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[32m0.0/115.6 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u001b[0m \u001b[32m115.6/115.6 kB\u001b[0m \u001b[31m3.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n\u001b[?25hInstalling collected packages: colab-xterm\nSuccessfully installed colab-xterm-0.2.0\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 1,
+      "cell_type": "code",
+      "source_snippet": "%xterm\n",
+      "outputs": [
+        {
+          "type": "display_data",
+          "text": "Launching Xterm..."
+        },
+        {
+          "type": "display_data",
+          "text": "<IPython.core.display.Javascript object>"
+        }
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_type": "code",
+      "source_snippet": "!ollama list",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "/bin/bash: line 1: ollama: command not found\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 3,
+      "cell_type": "code",
+      "source_snippet": "%pip install -U langchain-ollama",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Collecting langchain-ollama\n  Downloading langchain_ollama-1.1.0-py3-none-any.whl.metadata (3.0 kB)\nRequirement already satisfied: langchain-core<2.0.0,>=1.2.21 in /usr/local/lib/python3.13/dist-packages (from langchain-ollama) (1.6.1)\nCollecting ollama<1.0.0,>=0.6.1 (from langchain-ollama)\n  Downloading ollama-0.6.2-py3-none-any.whl.metadata (5.8 kB)\nRequirement already satisfied: httpx<1.0.0,>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.28.1)\nRequirement already satisfied: jsonpatch<2.0.0,>=1.33.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (1.33)\nRequirement already satisfied: langchain-protocol>=0.0.17 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.0.19)\nRequirement already satisfied: langsmith<1.0.0,>=0.3.45 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.12.1)\nRequirement already satisfied: packaging>=23.2.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (26.3)\nRequirement already satisfied: pydantic<3.0.0,>=2.7.4 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2.13.5)\nRequirement already satisfied: pyyaml<7.0.0,>=5.3.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (6.0.3)\nRequirement already satisfied: tenacity!=8.4.0,<10.0.0,>=8.1.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (9.1.4)\nRequirement already satisfied: typing-extensions<5.0.0,>=4.7.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (4.16.0)\nRequirement already satisfied: uuid-utils<1.0,>=0.12.0 in /usr/local/lib/python3.13/dist-packages (from langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.17.0)\nRequirement already satisfied: anyio in /usr/local/lib/python3.13/dist-packages (from httpx<1.0.0,>=0.23.0->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (4.14.2)\nRequirement already satisfied: certifi in /usr/local/lib/python3.13/dist-packages (from httpx<1.0.0,>=0.23.0->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2026.7.22)\nRequirement already satisfied: httpcore==1.* in /usr/local/lib/python3.13/dist-packages (from httpx<1.0.0,>=0.23.0->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (1.0.9)\nRequirement already satisfied: idna in /usr/local/lib/python3.13/dist-packages (from httpx<1.0.0,>=0.23.0->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (3.19)\nRequirement already satisfied: h11>=0.16 in /usr/local/lib/python3.13/dist-packages (from httpcore==1.*->httpx<1.0.0,>=0.23.0->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.16.0)\nRequirement already satisfied: jsonpointer>=1.9 in /usr/local/lib/python3.13/dist-packages (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (3.1.1)\nRequirement already satisfied: distro>=1.7.0 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (1.9.0)\nRequirement already satisfied: httpx2<3,>=2 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2.12.0)\nRequirement already satisfied: orjson>=3.9.14 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (3.12.0)\nRequirement already satisfied: requests-toolbelt>=1.0.0 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (1.0.0)\nRequirement already satisfied: requests>=2.0.0 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2.32.4)\nRequirement already satisfied: sniffio>=1.1 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (1.3.1)\nRequirement already satisfied: websockets>=15.0 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (15.0.1)\nRequirement already satisfied: xxhash>=3.0.0 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (4.0.1)\nRequirement already satisfied: zstandard>=0.23.0 in /usr/local/lib/python3.13/dist-packages (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.25.0)\nRequirement already satisfied: annotated-types>=0.6.0 in /usr/local/lib/python3.13/dist-packages (from pydantic<3.0.0,>=2.7.4->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.8.0)\nRequirement already satisfied: pydantic-core==2.46.5 in /usr/local/lib/python3.13/dist-packages (from pydantic<3.0.0,>=2.7.4->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2.46.5)\nRequirement already satisfied: typing-inspection>=0.4.2 in /usr/local/lib/python3.13/dist-packages (from pydantic<3.0.0,>=2.7.4->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.4.4)\nRequirement already satisfied: httpcore2==2.12.0 in /usr/local/lib/python3.13/dist-packages (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2.12.0)\nRequirement already satisfied: truststore>=0.10 in /usr/local/lib/python3.13/dist-packages (from httpx2<3,>=2->langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (0.10.4)\nRequirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.13/dist-packages (from requests>=2.0.0->langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (3.4.9)\nRequirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.13/dist-packages (from requests>=2.0.0->langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.21->langchain-ollama) (2.5.0)\nDownloading langchain_ollama-1.1.0-py3-none-any.whl (31 kB)\nDownloading ollama-0.6.2-py3-none-any.whl (15 kB)\nInstalling collected packages: ollama, langchain-ollama\nSuccessfully installed langchain-ollama-1.1.0 ollama-0.6.2\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_type": "code",
+      "source_snippet": "from langchain_core.prompts import ChatPromptTemplate\nfrom langchain_ollama.llms import OllamaLLM\n\ntemplate = \"\"\"Question: {question}\n\nAnswer: Let's think step by step.\"\"\"\n\nprompt = ChatPromptTemplate",
+      "outputs": []
+    }
+  ],
+  "rag": [
+    {
+      "cell_index": 0,
+      "cell_type": "markdown",
+      "source_snippet": "### LLM + RAG demonstration: Neurosymbolic AI and their application in Science\n\nFebruary 2026\n\nThis notebook demonstrates Retrieval-Augmented Generation (RAG) over a corpus of neurosymbolic AI and dru",
+      "outputs": []
+    },
+    {
+      "cell_index": 1,
+      "cell_type": "code",
+      "source_snippet": "import os\nfrom pathlib import Path\n\nPAPERS_DIR   = Path(\"Dash_NeuroSym_Paps\")   # folder with our papers' PDFs\nINDEX_FILE   = Path(\"neurosym.index\")       # FAISS index (saved after first build)\nCORPU",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Papers directory : labs/Lab3/Dash_NeuroSym_Paps\nPDFs found       : 0\nEmbed model      : BAAI/bge-small-en-v1.5\nGenerator model  : Qwen/Qwen2.5-3B-Instruct\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 2,
+      "cell_type": "markdown",
+      "source_snippet": "**We need to first ingest PDFs and build FAISS index.**\n\nEach PDF is split into overlapping word-level chunks. Each chunk is embedded by\n`BAAI/bge-small-en-v1.5` and stored in a FAISS inner-product in",
+      "outputs": []
+    },
+    {
+      "cell_index": 3,
+      "cell_type": "code",
+      "source_snippet": "import pymupdf as fitz                                  # PyMuPDF\nimport pickle\nimport numpy as np\nimport faiss\nfrom sentence_transformers import SentenceTransformer\nfrom tqdm.auto import tqdm\n\n\ndef e",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Loading existing index ...\nIndex loaded: 1094 vectors, dim=384\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 4,
+      "cell_type": "markdown",
+      "source_snippet": "**Retrieval function**\n\nGiven a query string $q$, compute $\\mathbf{e}_q = f_\\phi(q)$ and return the\ntop-$k$ chunks by cosine similarity.",
+      "outputs": []
+    },
+    {
+      "cell_index": 5,
+      "cell_type": "code",
+      "source_snippet": "def retrieve(query: str, k: int = TOP_K):\n    \"\"\"\n    Embed query and return top-k chunks with scores and source filenames.\n    Returns a list of dicts: {chunk, source, score}\n    \"\"\"\n    q_emb = enco",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Retrieved 4 chunks for sanity check:\n  [0.809] 2510.23379v1.pdf\n  [0.790] 27751-Article Text-31805-1-2-20240324.pdf\n  [0.787] 2510.23379v1.pdf\n  [0.784] 2510.23379v1.pdf\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 6,
+      "cell_type": "code",
+      "source_snippet": "# Generator LLM\nimport torch\nfrom transformers import AutoTokenizer, AutoModelForCausalLM, pipeline\n\ndevice = \"cuda\" if torch.cuda.is_available() else \"cpu\"\nprint(f\"Device: {device}\")\n\ntokenizer = Aut",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Device: cuda\n"
+        },
+        {
+          "type": "display_data",
+          "text": "Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]"
+        },
+        {
+          "type": "stream",
+          "text": "Device set to use cuda:0\nThe following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "Generator loaded: Qwen/Qwen2.5-3B-Instruct\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 7,
+      "cell_type": "markdown",
+      "source_snippet": "**RAG inference**\n\nTwo functions:\n- `llm_only(query)`: parametric generation, no retrieval\n- `rag_answer(query)`: retrieve then generate",
+      "outputs": []
+    },
+    {
+      "cell_index": 8,
+      "cell_type": "code",
+      "source_snippet": "SYSTEM_PLAIN = (\n    \"You are a knowledgeable AI research assistant. \"\n    \"Answer the question as accurately as you can.\"\n)\n\nSYSTEM_RAG = (\n    \"You are a precise research assistant. \"\n    \"Answer th",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Functions defined: llm_only(), rag_answer()\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 9,
+      "cell_type": "markdown",
+      "source_snippet": "**Test: LLM-only vs RAG-augmented**\n\nFor each query we show:\n1. The LLM-only answer (parametric; may hallucinate)\n2. The retrieved chunks (with source filenames and similarity scores)\n3. The RAG-augme",
+      "outputs": []
+    },
+    {
+      "cell_index": 10,
+      "cell_type": "code",
+      "source_snippet": "DEMO_QUERIES = [\n    \"What symbolic representation is used for molecules in Dash et al.'s neurosymbolic framework?\",\n    \"How is background knowledge encoded in the ILP-based drug discovery approach?\"",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "================================================================================\nQUERY: What symbolic representation is used for molecules in Dash et al.'s neurosymbolic framework?\n================================================================================\n\n[LLM-only answer]\n----------------------------------------\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "I apologize, but there seems to be an error in your question as no specific paper titled \"Dash et al.\" with a neurosymbolic framework specifically about molecular representations has been widely recognized in the literature up to my last update in October 2023.\n\nHowever, if you're referring to a neurosymbolic framework that deals with molecular representations, one common approach is to use chemical formulas or molecular structures as symbols. In computational models, these might be represented using SMILES (Simplified Molecular Input Line Entry System) or InChI (International Chemical Identifier) strings, which are standardized ways of encoding molecular structures.\n\nIf you have more context or details about the specific framework you're referring to, I'd be happy to provide a more accurate answer based on that information.\n\n[Retrieved chunks]\n----------------------------------------\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "\n--- Chunk 1 | source: 2510.23379v1.pdf | score: 0.834 ---\nrepresented as a Grothendieck construction over an indexed family of partially-ordered sets. The construction yields a unified space linking symbolic and neural generation. \u2022 We implement and test SNGs on the real-world problem of generating potential in- hibitors for protein-targets. This constitutes the problem of \u2018lead-discovery\u2019, and re- alistic settings have the following charactestics. Given ...\n\n--- Chunk 2 | source: 2510.23379v1.pdf | score: 0.832 ---\nthe implementation \u2013 instances generated \u2013 is also true of the specification (satisfies the constraints of the symbolic model). Unlike with classic formal methods, in SNG ML techniques play a role in obtaining both the specification and the implementation. We have proposed using the mathematical structure of fibered-posets by way of specifying the codomain of an SNG system. The paired elements com ...\n\n--- Chunk 3 | source: 2510.23379v1.pdf | score: 0.825 ---\ndistribution. The set X is the set of instances generated that are in S. We see the paper contributing in the following ways to research into neurosymbolic systems: \u2022 We identify a class of hybrid neurosymbolic systems \u2013 called Symbolic Neural Gener- ators, or SNGs \u2013 which draws on the strengths of symbolic learning and neural-based generative models. Potential symbolic descriptions are examined,  ...\n\n--- Chunk 4 | source: 2510.23379v1.pdf | score: 0.809 ---\nrests on the observation that \u201cthe activity of any neu- ron can be represented as a proposition\u201d. Thus arises an entire class of systems comprising a purely connectionist approach that approximate the patterns of categoric inference arising when using (often propositional, but not always) logical representations, as well as the pat- terns of plausible inference that arise when using probabilistic  ...\n\n[RAG answer]\n----------------------------------------\nNot found in the provided documents.\n\n================================================================================\nQUERY: How is background knowledge encoded in the ILP-based drug discovery approach?\n================================================================================\n\n[LLM-only answer]\n----------------------------------------\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "In an Inductive Logic Programming (ILP)-based drug discovery approach, background knowledge is typically encoded through logical rules or constraints that guide the learning process. Here's how it is usually implemented:\n\n1. **Rule Encoding**: Background knowledge is first formalized into logical rules or constraints. These rules often represent biological knowledge, chemical properties, and disease mechanisms relevant to the drug discovery problem. For example, a rule might state that \"a compound X interacts with protein Y if it has a certain binding affinity.\"\n\n2. **Knowledge Base Construction**: The encoded rules are compiled into a knowledge base. This knowledge base serves as the training data for the ILP system, providing context and prior information about what constitutes a valid solution.\n\n3. **Learning Algorithm**: An ILP algorithm then processes this knowledge base to learn patterns and relationships that generalize from the provided examples to new instances. The algorithm searches for hypotheses that best fit both the given examples and the background knowledge.\n\n4. **Constraint Satisfaction**: During the learning process, the ILP system must satisfy not only the positive examples but also the constraints imposed by the background knowledge. This ensures that the learned hypotheses are consistent with existing biological and chemical understanding.\n\n5. **Hypothesis Generation**: The system generates candidate hypotheses based on the available background knowledge. These hypotheses are evaluated against the training data to ensure they are both accurate and consistent with the provided knowledge.\n\n6. **Refinement and Iteration**: The learned hypotheses are refined through iterative refinement processes, where the system may modify or add to the hypotheses to better align with the background knowledge and the data.\n\nBy encoding background knowledge in this manner, the ILP-based drug discovery approach aims to leverage existing scientific knowledge to guide the search for novel drug candidates, potentially\n\n[Retrieved chunks]\n----------------------------------------\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "\n--- Chunk 1 | source: PhD_Thesis_Final.pdf | score: 0.812 ---\nnovel molecules for early-stage drug design. We show how a graph-based neural network with domain-knowledge is one component in a modular system design. Specifically, our conclusions from this chapter are as follows: (1) We have constructed a complete end- to-end neural-symbolic system that is capable of generating active molecules that may not be in any existing database; (2) We have demonstrated ...\n\n--- Chunk 2 | source: 2021.07.09.451519v2.full.pdf | score: 0.810 ---\nUsing Domain-Knowledge to Assist Lead Discovery in Early-Stage Drug Design Tirtharaj Dash1, Ashwin Srinivasan1, Lovekesh Vig2, and Arijit Roy3 1 Dept. of CSIS & APPCAIR, BITS Pilani, Goa Campus, India 2 TCS Research, New Delhi, India 3 TCS Innovation Labs (Life Sciences Division), Hyderabad, India Abstract. We are interested in generating new small molecules which could act as inhibitors of a biol ...\n\n--- Chunk 3 | source: 27751-Article Text-31805-1-2-20240324.pdf | score: 0.800 ---\nearly-stage drug design (see Fig. 1(a) showing the use of a Robot Scientist) as virtual screening, identifying qualita- tive and quantitative structure-activity relations (SARs) and so on. The broader picture is of a semi-automated scientific discovery pipeline involving feedback from from computa- tional chemists, synthetic chemists, and biologists and man- ufacturers, using results from simulati ...\n\n--- Chunk 4 | source: PhD_Thesis_Final.pdf | score: 0.797 ---\n2018. [SKTW17] Marwin H.S. Segler, Thierry Kogej, Christian Tyrchan, and Mark P. Waller. Generating focused molecule libraries for drug discovery with re- current neural networks. ACS Central Science, 4(1):120\u2013131, 2017. [SLM20] Mattia Silvestri, Michele Lombardi, and Michela Milano. Injecting domain knowledge in neural networks: a controlled experiment on a constrained problem. arXiv preprint arX ...\n\n[RAG answer]\n----------------------------------------\nAccording to the provided context from \"PhD_Thesis_Final.pdf\" (relevance: 0.812), background knowledge is encoded in the ILP-based drug discovery approach by utilizing Inductive Logic Programming (ILP) techniques. Specifically, it mentions that the problem involves drawing instances from the conditional distribution of molecules given both domain-specific knowledge (B) and activity data (Y), DX|Y,B. The design consists of generators to approximate these distributions, incorporating symbolic domain-knowledge to assist in exploring the vast space of possible molecules.\n\n================================================================================\nQUERY: What deep learning models Dash has worked on?\n================================================================================\n\n[LLM-only answer]\n----------------------------------------\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "I'm sorry, but there seems to be some confusion. There is no widely known entity called \"Dash\" that has been involved in deep learning model development. It's possible you might be thinking of Dash (company), which is a financial technology company, or Dash (software), which is a decentralized cryptocurrency. However, neither of these entities is typically associated with deep learning model development.\n\nIf you meant to ask about a specific individual named Dash who works on deep learning models, I would need more context to provide accurate information. If you could clarify the name or provide additional details, I'd be happy to assist further.\n\n[Retrieved chunks]\n----------------------------------------\n\n--- Chunk 1 | source: PhD_Thesis_Final.pdf | score: 0.742 ---\nmachines\u201d, International Con- ference on Artificial Neural Networks, 2019. URL: https://doi.org/10.1007/978-3-030-30484-3_3 6. T. Dash, A. Srinivasan, L. Vig, O.I. Orhobor, R.D. King, \u201cLarge-scale assessment of deep relational machines\u201d, International Conference on Inductive Logic Program- ming, 2018. URL: https://doi.org/10.1007/978-3-319-99960-9_2 (\u22c6Winner of the Best Student Paper Award) 187 Th ...\n\n--- Chunk 2 | source: s41598-021-04590-0.pdf | score: 0.717 ---\nnetworks on a wide variety of tasks makes a substantial case for their use in model construction, it is not immediately obvious how either (1) or (2) should be done with deep neural networks. In this paper, we examine ways of achieving (1), that is, the techniques for constructing deep neural networks from data and domain-knowledge concerning the problem. Understanding models constructed by deep n ...\n\n--- Chunk 3 | source: s10994-023-06399-6.pdf | score: 0.715 ---\n(1989). Approximation by superpositions of a sigmoidal function. Mathematics of Control, Signals and Systems, 2(4), 303\u2013314. https://\u200bdoi.\u200borg/\u200b10.\u200b1007/\u200bBF025\u200b51274 Dash, T., Srinivasan, A., Vig, L., Orhobor, O. I., & King, R. D. (2018). Large-scale assessment of deep relational machines. In International conference on inductive logic programming (pp 22\u201337). Springer. Dash, T., Srinivasan, A., Jo ...\n\n--- Chunk 4 | source: s10994-021-06090-8.pdf | score: 0.715 ---\nas the first of 3 Grand Challenges for ML and AI: \u201cML and AI are generally domain-agnostic ...Off-the-shelf practice treats [each of these] datasets in the same way and ignores domain knowledge that extends far beyond the raw data itself\u2014such as physical laws, available forward simulations, and established invariances and symmetries\u2014that is readily available ...Improving our ability to systematica ...\n\n[RAG answer]\n----------------------------------------\nBased on the information provided in the context, Thomas Dash has worked on the following deep learning models:\n\n1. Deep Relational Machines\n2. Graph Neural Networks (GNNs)\n3. Mode-Directed Inverse Entailment for GNNs\n\nThese models are referenced through various publications listed in the context.\n\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 11,
+      "cell_type": "code",
+      "source_snippet": "query = input(\"Enter your question: \").strip()\nif query:\n    print(SEP)\n    print(\"[LLM-only]\")\n    print(llm_only(query))\n\n    print(\"\\n[Retrieved chunks]\")\n    ans, hits = rag_answer(query)\n    show",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Enter your question:  Who are the co-authors of Dash in his papers?\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "================================================================================\n[LLM-only]\n"
+        },
+        {
+          "type": "stream",
+          "text": "The following generation flags are not valid and may be ignored: ['top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.\n"
+        },
+        {
+          "type": "stream",
+          "text": "I'm sorry, but there isn't enough information provided in your question to determine who the co-authors of Dash are in specific papers. The name \"Dash\" is quite generic and could refer to many different individuals across various fields of study. Could you please provide more context or specify which field or particular paper you're referring to?\n\n[Retrieved chunks]\n\n--- Chunk 1 | source: PhD_Thesis_Final.pdf | score: 0.636 ---\nmachines\u201d, International Con- ference on Artificial Neural Networks, 2019. URL: https://doi.org/10.1007/978-3-030-30484-3_3 6. T. Dash, A. Srinivasan, L. Vig, O.I. Orhobor, R.D. King, \u201cLarge-scale assessment of deep relational machines\u201d, International Conference on Inductive Logic Program- ming, 2018. URL: https://doi.org/10.1007/978-3-319-99960-9_2 (\u22c6Winner of the Best Student Paper Award) 187 Th ...\n\n--- Chunk 2 | source: PhD_Thesis_Final.pdf | score: 0.589 ---\nMONDAL Designation : Associate Professor Department of Biological Sciences BITS Pilani, K.K. Birla Goa Campus Place : Goa Date : BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE PILANI \u2013 330 031 (INDIA) DECLARATION I, Tirtharaj Dash, declare that this thesis entitled \u201cInclusion of Symbolic Domain- Knowledge into Deep Neural Networks\u201d, submitted by me under the supervision of Ashwin Srinivasan and co-supe ...\n\n--- Chunk 3 | source: PhD_Thesis_Final.pdf | score: 0.585 ---\nMICCAI Workshop on Thoracic Image Analysis, 2020. URL: https://doi.org/10.1007/978-3-030-62469-9_6 188 8. S. Yalburgi, T. Dash, R. Hebbalaguppe, S. Hegde, A. Srinivasan, \u201cAn Empirical Study of Iterative Knowledge Distillation for Neural Network Compression\u201d, Eu- ropean Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, 2020. URL: https://www.esann.org/.../pro ...\n\n--- Chunk 4 | source: s10994-023-06399-6.pdf | score: 0.580 ---\n(1989). Approximation by superpositions of a sigmoidal function. Mathematics of Control, Signals and Systems, 2(4), 303\u2013314. https://\u200bdoi.\u200borg/\u200b10.\u200b1007/\u200bBF025\u200b51274 Dash, T., Srinivasan, A., Vig, L., Orhobor, O. I., & King, R. D. (2018). Large-scale assessment of deep relational machines. In International conference on inductive logic programming (pp 22\u201337). Springer. Dash, T., Srinivasan, A., Jo ...\n\n[RAG answer]\nBased on the information provided in the context, Tirtharaj Dash's co-authors include:\n\n1. Ashwin Srinivasan\n2. L. Vig\n3. O.I. Orhobor\n4. R.D. King\n5. Ashwin Srinivasan, R.S. Joshi, A. Baskar\n6. Ashwin Srinivasan, L. Vig\n7. Ashwin Srinivasan, A. Baskar\n8. Ashwin Srinivasan, L. Vig, A. Srinivasan, T. Dash\n9. Ashwin Srinivasan, A. Sonwane, G. Shroff, L. Vig, A. Srinivasan, T. Dash\n10. Ashwin Srinivasan, I. Olier, O.I. Orhobor, T. Dash, A.M. Davis, L.N. Soldatova, J. Vanschoren, R.D. King\n11. Ashwin Srinivasan, S. Chitlangia, A. Sonwane, T. Dash\n\nThe context does not provide co-authorship details for all papers mentioned, but it clearly indicates that Ashwin Srinivasan is a frequent collaborator of Tirtharaj Dash.\n"
+        }
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_type": "code",
+      "source_snippet": "# a sanity checker\nimport pandas as pd\nfrom collections import Counter\n\nsource_counts = Counter(m[\"source\"] for m in metadata)\ndf = pd.DataFrame(source_counts.items(), columns=[\"paper\", \"chunks\"])\ndf ",
+      "outputs": [
+        {
+          "type": "stream",
+          "text": "Total papers  : 9\nTotal chunks  : 1094\nAvg chunks    : 121.6\n\n                                    paper  chunks\n                     PhD_Thesis_Final.pdf     456\n                   s10994-021-06090-8.pdf     135\n                   s10994-023-06399-6.pdf     117\n                         2510.23379v1.pdf     103\n                   s41598-021-04590-0.pdf      73\n                   s10994-021-05966-z.pdf      70\n             2021.07.09.451519v2.full.pdf      50\n                  978-3-030-30484-3_3.pdf      47\n27751-Article Text-31805-1-2-20240324.pdf      43\n"
+        }
+      ]
+    }
+  ]
+}
