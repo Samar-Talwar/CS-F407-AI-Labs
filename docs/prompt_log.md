@@ -86,3 +86,18 @@ Run the generated program on the warehouse problem.
 - Wrote `README.md` and `REPORT.md` referencing exact numbers from `results/` artifacts with student reflection stubs.
 - Verified `ruff check .`, `pytest`, and the Windows fresh-clone gate.
 
+---
+
+# CS F407 Lab, Week 6 | Author: Samar Talwar | Not licensed for reuse or submission by others.
+**Date**: 2026-10-01
+**Week**: 06
+**Prompt**: Audit `llm_bn.ipynb` from course repository against Week 6 implementation: dump notebook cells to temporary scratch file outside the repository, list every part, task, exercise, and question from Parts 1 through 10, update `CHECKLIST.md` with complete requirement-to-test mapping, complete `REPORT.md` with full coverage of all parts (including missing Part 5 MLE generation and Part 7 Bayesian estimation), include failure modes, AST validation, evaluation rubric, exact numeric citations from `results/*.json`, and grounded reflection stubs. Run ruff, pytest across the entire repository, perform the fresh-clone gate, and push.
+
+**What was changed after review**:
+- Dumped `original/llm_bn.ipynb` to `$env:TEMP\week06_dump\nb_dump_week06.txt` and verified all 74 cells against codebase.
+- Corrected item numbering in `CHECKLIST.md` (item 7.2 under Part 7).
+- Completely expanded `REPORT.md` to cover Parts 1 through 10 with exact citations to `results/*.json`, detailed discussion of structural vs. semantic error detection, AST safety check rules, and DRAFT reflection stubs grounded in measured data.
+- Verified all 100 pytest tests pass cleanly.
+- Executed Windows fresh-clone gate and verified full reproducibility.
+
+

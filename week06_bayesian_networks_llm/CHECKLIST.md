@@ -83,7 +83,7 @@
 | # | Notebook Task / Output | Requirement | Satisfied By (File / Key / Test) |
 |---|------------------------|-------------|-----------------------------------|
 | 7.1 | LLM prompt for BayesianEstimator with BDeu, ess=10 | `src/llm_interface.py:LLMInterface.generate_bayesian_code()` | `tests/test_llm_interface.py::test_bayesian_prompt_contains_requirements` |
-| 5.2 | Extract code, basic check | `src/llm_interface.py:extract_python_code()`, `basic_generated_code_check()` | `tests/test_llm_interface.py::test_extract_python_code_bayesian` |
+| 7.2 | Extract code, basic check | `src/llm_interface.py:extract_python_code()`, `basic_generated_code_check()` | `tests/test_llm_interface.py::test_extract_python_code_bayesian` |
 | 7.3 | LLM-generated Bayesian estimation result (stubbed) | `results/llm_generated_bayesian.json` with `backend: "stub"` | `tests/test_llm_interface.py::test_stub_bayesian_deterministic` |
 
 ---
