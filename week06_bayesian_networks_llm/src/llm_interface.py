@@ -11,7 +11,9 @@ from __future__ import annotations
 
 import ast
 import re
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -22,6 +24,11 @@ from .bn import (
     compare_models,
 )
 from .inference import query_posterior
+
+# Ensure repo root on path for dynamic stub imports (exec namespace uses full module names)
+_repo = str(Path(__file__).resolve().parents[2])
+if _repo not in sys.path:
+    sys.path.insert(0, _repo)
 
 INFERENCE_PROMPT = """You are an expert in probabilistic graphical models and Python.
 Generate self-contained Python code to define the Sprinkler Bayesian
