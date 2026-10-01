@@ -4,7 +4,6 @@
 [![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000?style=flat-square&logo=ruff&logoColor=white)](https://github.com/astral-sh/ruff)
 [![Tests: 230+ passing](https://img.shields.io/badge/tests-230%2B%20passing-brightgreen?style=flat-square&logo=pytest&logoColor=white)](#)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![CI](https://github.com/Samar-Talwar/CS-F407-AI-Labs/actions/workflows/ci.yml/badge.svg)](https://github.com/Samar-Talwar/CS-F407-AI-Labs/actions/workflows/ci.yml)
 [![Institution: BITS Pilani Goa](https://img.shields.io/badge/BITS%20Pilani-Goa%20Campus-B31B1B?style=flat-square)](https://www.bits-pilani.ac.in/goa/)
 
 > **Institution:** BITS Pilani, Goa Campus  ·  **Course:** CS F407 — Artificial Intelligence  ·  **Semester:** AY 2026-27, Sem 1  
