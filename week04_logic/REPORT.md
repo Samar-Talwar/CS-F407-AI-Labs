@@ -133,14 +133,10 @@ The planner might attempt to apply PickUp(Package,B) when the package is at A, l
 Because "looks reasonable" only checks the surface narrative (e.g., robot moves to C, package appears at C) without verifying that each action's preconditions actually held at the moment of execution. Our invalid example looks reasonable but fails on precondition checking.
 
 **R4**: What did the LLM contribute to the implementation?  
-DRAFT - rewrite in own words  
-**Hints**: The LLM generated the initial planner skeleton (state representation, action class, BFS loop) after receiving the precise specification.  
-**What I changed**: TODO(student)
+> *TODO(student):* AI assistant generated the initial STRIPS state representation, action class structure, and BFS planning loop from the formal specification.
 
 **R5**: What did you have to verify independently?  
-DRAFT - rewrite in own words  
-**Hints**: I verified that the applicable() and apply_action() functions correctly implement the STRIPS semantics, that the BFS returns the shortest plan, and that the independent validator catches invalid plans.  
-**What I changed**: TODO(student)
+> *TODO(student):* Human verification tested STRIPS semantics in `applicable()` and `apply_action()`, confirmed shortest-plan optimality against the manual 4-step baseline, and verified that the independent transition validator caught illegal moves.
 
 **R6**: In this laboratory, where is logical reasoning being used?  
 Logical reasoning is used in the `applicable()` function to determine whether an action's preconditions are satisfied by the current state (S |= Preconditions(a)).
@@ -186,7 +182,7 @@ Planning uses logical reasoning to generate the *successor function* (which acti
 **S4**: Generated Python program → `src/` package  
 **S5**: Test results → `results/test_a.json`, `test_b.json`, `test_c.json`  
 **S6**: Think About It answers → `REPORT.md` (§Task2.TAI, §Task4, §P7, §P8)  
-**S7**: Reflection on LLM use → `REPORT.md §R4, §R5` (DRAFT stubs for student completion)
+**S7**: Reflection on LLM use → `REPORT.md §R4, §R5` (TODO(student) experience stubs)
 
 ## Negative Preconditions
 

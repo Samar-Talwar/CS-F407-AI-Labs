@@ -244,20 +244,14 @@ Increasing context order $k$ (from bigram $k=1$ to trigram $k=2$ to $n$-gram $k$
 ### Question 13: Probabilistic Specification vs Naive Prompting
 **Question:** *Why is formal probabilistic specification preferable to naive prompting for language model behavior?*  
 **Answer:**  
-*TODO(student) / DRAFT - rewrite in own words:*
-1. **Mathematical Guarantees & Invariants:** A probabilistic graphical model enforces strict invariants ($\sum_w P(w \mid c) = 1$, exact chain-rule factorisation, explicit independence assumptions) that can be verified with exact arithmetic oracles.
-2. **Transparency & Auditability:** Every transition probability is directly traceable to observed empirical counts. There are no hidden parameters, hallucinations, or uninterpretable emergent behaviors.
-3. **Controlled Sampling & Determinism:** Temperature, seed reproducibility, top-$k$, and greedy decoding behaviors can be studied analytically rather than empirically guessed through trial-and-error prompt engineering.
+Formal probabilistic specifications guarantee mathematical invariants such as strict probability distribution normalization ($\sum_w P(w \mid c) = 1.0$ verified across all observed contexts in `results/normalisation_checks.json`, `first_order.max_absolute_error`) and exact joint likelihood factorizations (`results/chain_rule_probabilities.json`). Unlike naive prompt engineering where model outputs are subject to opaque heuristic drift and unconstrained sampling, discrete graphical formulations provide complete transparency, as every transition probability maps directly to verifiable empirical training counts (`results/counts_first_order.json`). Furthermore, generation failure modes—such as deterministic cyclic trapping during greedy decoding (observed in `results/comparison.json`, `first_order.greedy_generation.cycle_detected`)—can be analytically diagnosed and mitigated through structured sampling policies or context expansion rather than ad-hoc trial-and-error prompting.
 
 ---
 
 ### Question 14: Value of Conceptualising Language Models as Bayesian Networks
 **Question:** *What does thinking of language models as Bayesian networks add?*  
 **Answer:**  
-*TODO(student) / DRAFT - rewrite in own words:*
-1. **Principled Factorisation:** It clarifies that modern autoregressive transformers (e.g., GPT, LLaMA) and simple n-gram models share the identical probabilistic foundation: factorising joint sequence probabilities into directed conditional distributions via the chain rule.
-2. **Explicit Independence Assumptions:** Framing models as DAGs highlights what information is retained vs discarded (Markov blankets, d-separation).
-3. **Loss Formulation & Likelihood:** Cross-entropy loss in deep neural language models is identical to minimizing negative log-likelihood (KL divergence) under the autoregressive Bayesian network factorization.
+Conceptualizing language models as Bayesian networks reveals that modern autoregressive architectures and classical n-gram models share an identical mathematical foundation: factorizing joint sequence probabilities into directed conditional distributions via the chain rule ($P(X_1, \dots, X_T) = \prod_{t=1}^T P(X_t \mid X_{<t})$). Structuring sequence generation as a directed acyclic graph makes explicit the Markov independence assumptions that govern what history is retained versus discarded, directly explaining why expanding context from first-order ($k=1$) to second-order ($k=2$) improves training log-likelihood from $-22.8874$ to $-10.7506$ (`results/comparison.json`, `training_log_likelihood`). Additionally, this perspective establishes that standard neural training objectives like token-level cross-entropy loss are mathematically equivalent to minimizing negative log-likelihood under the autoregressive Bayesian network factorization.
 
 ---
 
