@@ -19,7 +19,7 @@ from .train import (
     train_symmetry_experiment,
 )
 
-RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
+RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
 
 def _dump(name: str, obj: object) -> None:

@@ -29,7 +29,7 @@ from week05_transformers_ar.src.metrics import (
 from week05_transformers_ar.src.model import TinyGPT
 from week05_transformers_ar.src.train import train_tiny_gpt
 
-RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
+RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
 
 def run_all(seed: int = 1337) -> None:

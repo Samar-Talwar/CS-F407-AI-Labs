@@ -11,7 +11,7 @@ from week02_agents.src.diagram import generate_agent_diagram
 from week02_agents.src.environment import SHEET_MAP_STRING, Environment, parse_map
 from week02_agents.src.scaling import run_scaling_experiment
 
-RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
+RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
 NO_PATH_MAP_STRING = """\
 #######

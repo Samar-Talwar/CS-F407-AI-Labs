@@ -20,7 +20,7 @@ from week04_logic.src.planner import (
     missing_preconditions,
 )
 
-RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
+RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
 
 def _ensure_dir(p: Path) -> None:

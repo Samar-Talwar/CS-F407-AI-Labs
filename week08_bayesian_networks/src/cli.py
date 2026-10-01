@@ -17,7 +17,7 @@ from week08_bayesian_networks.src.metrics import compare_models
 
 def get_results_dir() -> Path:
     """Return the absolute path to the results directory."""
-    results_dir = Path(__file__).resolve().parent.parent / "results"
+    results_dir = Path(__file__).resolve().parents[1] / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     return results_dir
 

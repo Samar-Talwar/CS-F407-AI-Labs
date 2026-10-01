@@ -320,3 +320,15 @@ class TestMutation:
             preds = (torch.sigmoid(model(X_XOR)) > 0.5).int().squeeze().tolist()
 
         assert preds != [0, 1, 1, 0], f"Linearized model should not solve XOR, got {preds}"
+
+
+def test_cli_results_dir_module_relative(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: pytest.TempPathFactory
+) -> None:
+    """Verify that results directory is resolved relative to module, not cwd."""
+    from pathlib import Path
+    import week01_neural_models.src.cli as cli_mod
+
+    monkeypatch.chdir(tmp_path)
+    assert cli_mod.RESULTS_DIR.resolve() == (Path(cli_mod.__file__).resolve().parents[1] / "results").resolve()
+

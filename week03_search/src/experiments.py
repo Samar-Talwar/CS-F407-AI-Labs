@@ -28,7 +28,7 @@ from week03_search.src.search import (
     bfs_search,
 )
 
-RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
+RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 
 
 def ensure_results_dir() -> Path:

@@ -45,7 +45,7 @@ from .llm_interface import (
 
 def ensure_results_dir() -> Path:
     """Ensure results directory exists."""
-    results_dir = Path(__file__).parent.parent / "results"
+    results_dir = Path(__file__).resolve().parents[1] / "results"
     results_dir.mkdir(exist_ok=True)
     return results_dir
 
