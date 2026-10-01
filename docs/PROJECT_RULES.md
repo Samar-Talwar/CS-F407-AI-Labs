@@ -74,3 +74,21 @@ weekNN_name/  src/  tests/  results/  README.md  REPORT.md  CHECKLIST.md
 8. Finish by pasting real command output (pytest summary line, ruff result), the pushed commit hash,
    and confirming `git status` is clean and HEAD equals origin/main.
 9. One audit pass only. Do not rewrite code that already passes.
+## Notebook weeks (5, 6, 7)
+- Never print a notebook whole. Extract it with a short Python script (json module) into a scratch file outside the repo
+  (%TEMP%\nb_dump_weekNN.txt): for each cell print the index, type and source; for outputs keep only text/plain truncated to
+  400 characters; never print image or base64 data. Read the dump in chunks of about 150 lines.
+- CHECKLIST.md lists every task, exercise, question, TODO cell and printed result in the sources, each mapped to the file,
+  results key or test that satisfies it. Do not spend time on cleaned-up notebooks: the deliverable is src, tests, results, report.
+- Dependencies: use only packages already in the venv (numpy, torch, matplotlib) plus the standard library. Do not download
+  models, call paid APIs or add heavy dependencies. Anything else is import-guarded and optional.
+- Every LLM or embedding call goes behind a small interface with a deterministic offline stub (used by all tests and the default CLI)
+  and an optional real backend (for example local Ollama) enabled only by a flag and detected at runtime.
+- NEVER fabricate LLM outputs. Stub outputs are labelled "stub" in every results file and in the report. Saved outputs from the
+  professor's notebook go to results/original_notebook_outputs.json, labelled as such and kept separate from our reproductions.
+- Tests needing a real backend are skipped with a visible reason when it is absent.
+- Never edit anything in original/. README states provenance and the Apache-2.0 course repo attribution.
+- Testing standard: independent oracle written in the test file (brute-force or NumPy reference), normalisation checks, at least
+  five hand-checkable values, error-handling cases, and three real mutation tests that monkeypatch the actual src functions.
+- Fresh-clone gate on Windows: git clone . $env:TEMP\fresh_wNN, then ruff check ., pytest -q -rs and the week's CLI using
+  C:\Users\Samar\documents\CS-F407-AI-Labs\.venv\Scripts\python.exe, without pip install -e.
