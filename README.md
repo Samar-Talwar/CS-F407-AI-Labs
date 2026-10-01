@@ -1,7 +1,7 @@
 # CS F407 — Artificial Intelligence: Lab Solutions
 
 > **Institution:** BITS Pilani, Goa Campus  ·  **Course:** CS F407 — Artificial Intelligence  ·  **Semester:** AY 2026-27, Sem 1  
-> **Author:** Samar Talwar  ·  **License:** Not licensed for reuse or submission by others  ·  **Repository:** https://github.com/tirtharajdash/CS-F407-AI-AY2026-27-S1  
+> **Author:** Samar Talwar (2024A1PS0264G) ·  **License:** Not licensed for reuse or submission by others  ·  **Repository:** https://github.com/tirtharajdash/CS-F407-AI-AY2026-27-S1  
 > **Quality Gate:** `ruff check .` and `pytest -q` must pass; every value is written unrounded to `results/`; no fabricated outputs.
 
 ---
